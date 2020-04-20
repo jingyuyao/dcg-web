@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import { Card } from './card/card';
+import { Card, fromCardEntity } from './card/card';
+import { Player, fromPlayerEntity } from './player/player';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ import { Card } from './card/card';
 export class AppComponent implements OnInit {
   title = 'dcg-web';
   world: any = {};
-  players: any[] = [];
+  players: Player[] = [];
   forgeRow: Card[] = [];
   units: any[] = [];
   playedSpells: any[] = [];
@@ -42,9 +43,9 @@ export class AppComponent implements OnInit {
       const archetype = entity.archetype;
       const components = world.archetypes[archetype];
       if (components.includes('Player')) {
-        this.players.push(entity);
+        this.players.push(fromPlayerEntity(id, entity));
       } else if (components.includes('Card') && components.includes('ForgeRow')) {
-        this.forgeRow.push(convertToCard(id, entity));
+        this.forgeRow.push(fromCardEntity(id, entity));
       } else if (components.includes('Unit')) {
         this.units.push(entity);
       } else if (components.includes('Spell')) {
@@ -63,12 +64,4 @@ export class AppComponent implements OnInit {
   private sendMessage(command: string, args: number[] = []) {
     this.socket.next({command, arguments: args});
   }
-}
-
-function convertToCard(id: string, entity: any): Card {
-  return {
-    id,
-    name: entity.components.Common.name,
-    cost: entity.components.Card.cost || 0,
-  };
 }
