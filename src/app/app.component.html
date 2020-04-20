@@ -1,2 +1,33 @@
-<pre>{{ world | json}}</pre>
+<div>
+  <p>Players</p>
+  <div *ngFor="let player of players">
+    <span>Name: {{ player.components.Common.name }}  HP: {{ player.components.Player?.hp || 25 }}</span>
+  </div>
+</div>
+<div>
+  <p>Forge Row</p>
+  <div *ngFor="let card of forgeRow">
+    <span>Name: {{ card.components.Common.name }}  Cost: {{ card.components.Card?.cost || 0 }}</span>
+  </div>
+</div>
+<div>
+  <p>Units</p>
+  <div *ngFor="let unit of units">
+    <span>Name: {{ unit.components.Common.name }}</span>
+    <span>  Str: {{ unit.components.Unit.strength }}</span>
+    <span *ngIf="unit.components.Unit.defense">  Str: {{ unit.components.Unit.defense }}</span>
+    <span *ngIf="unit.components.Unit.flying">  Flying</span>
+    <span *ngIf="unit.components.Unit.berserk">  Berserk</span>
+    <span *ngIf="unit.components.Unit.lifeSteal">  Life Steal</span>
+    <span *ngIf="unit.components.Unit.endurance">  Endurance</span>
+    <span *ngIf="unit.components.Unit.unblockable">  Unblockable</span>
+  </div>
+</div>
+<div>
+  <p>Played Spells</p>
+  <div *ngFor="let card of playedSpells">
+    <span>Name: {{ card.components.Common.name }}</span>
+  </div>
+</div>
+
 <router-outlet></router-outlet>
