@@ -24,8 +24,9 @@ export class AppComponent {
     gameClient.requestWorld();
   }
 
-  selectEntity(id: number) {
-    this.executor.addArg(id);
+  selectEntity(thing: Player|Card|Unit) {
+    this.executor.addArg(thing.id);
+    console.dir(JSON.stringify(thing, null, 2));
   }
 
   private handleUpdate(world: any) {
