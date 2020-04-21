@@ -1,30 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
+import { Component } from '@angular/core';
 import { Card, fromCardEntity } from './card/card';
 import { Player, fromPlayerEntity } from './player/player';
 import { Unit, fromUnitEntity } from './unit/unit';
 import { fromActionEntity } from './action/action';
+import { GameClientService } from './game-client.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass']
 })
-export class AppComponent implements OnInit {
-  private socket: WebSocketSubject<any> = webSocket('ws://localhost:8887');
+export class AppComponent {
   world: any = {};
   players: Player[] = [];
   forgeRow: Card[] = [];
   units: Unit[] = [];
   spells: Card[] = [];
 
-  ngOnInit() {
-    this.socket.subscribe(
-      (msg) => this.handleUpdate(msg),
-      (err) => console.error(err),
-      () => console.log('closed'));
-    console.log(this.socket);
-    this.sendMessage('world');
+  constructor(private gameClient: GameClientService) {
+    gameClient.subscribe((world) => this.handleUpdate(world));
+    gameClient.requestWorld();
   }
 
   selectEntity(id: string) {
@@ -65,9 +60,5 @@ export class AppComponent implements OnInit {
         }
       }
     }
-  }
-
-  private sendMessage(command: string, args: number[] = []) {
-    this.socket.next({command, arguments: args});
   }
 }
