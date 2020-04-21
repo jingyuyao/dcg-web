@@ -1,10 +1,12 @@
 <div class="header">
   <span class="name">{{ unit.name }}</span>
+</div>
+<div class="stats">
   <span class="strength">🗡️ {{ unit.strength }}</span>
   <span class="defense">🛡️ {{ unit.defense }}</span>
-</div>
-<div class="attributes">
-  <span *ngFor="let attribute of unit.attributes" class="attribute">{{ attribute }}</span>
+  <div>
+    <span *ngFor="let attribute of unit.attributes" class="attribute">{{ attribute }}</span>
+  </div>
 </div>
 <div class="actions">
   <app-action *ngFor="let action of unit.actions" [action]="action"></app-action>
