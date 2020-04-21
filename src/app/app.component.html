@@ -3,9 +3,13 @@
   <app-player *ngFor="let player of players" [player]="player" (click)="selectEntity(player.id)"></app-player>
 </div>
 <div class="center">
-  <h3>Units</h3>
+  <h3>Attacking Units</h3>
   <div class="units">
-    <app-unit  *ngFor="let unit of units" [unit]="unit" (click)="selectEntity(unit.id)"></app-unit>
+    <app-unit  *ngFor="let unit of attackingUnits" [unit]="unit" (click)="selectEntity(unit.id)"></app-unit>
+  </div>
+  <h3>Defending Units</h3>
+  <div class="units">
+    <app-unit  *ngFor="let unit of defendingUnits" [unit]="unit" (click)="selectEntity(unit.id)"></app-unit>
   </div>
   <h3>Spells</h3>
   <div class="spells">

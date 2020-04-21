@@ -15,7 +15,8 @@ export class AppComponent {
   world: any = {};
   players: Player[] = [];
   forgeRow: Card[] = [];
-  units: Unit[] = [];
+  attackingUnits: Unit[] = [];
+  defendingUnits: Unit[] = [];
   spells: Card[] = [];
 
   constructor(private gameClient: GameClientService, private executor: ExecutorService) {
@@ -32,7 +33,8 @@ export class AppComponent {
     this.world = world;
     this.players = [];
     this.forgeRow = [];
-    this.units = [];
+    this.attackingUnits = [];
+    this.defendingUnits = [];
     this.spells = [];
     for (const [idString, entity] of Object.entries<any>(world.entities)) {
       const id = Number(idString);
@@ -43,12 +45,16 @@ export class AppComponent {
       } else if (tags.includes('Card') && tags.includes('ForgeRow')) {
         this.forgeRow.push(fromCardEntity(id, entity));
       } else if (tags.includes('Unit')) {
-        this.units.push(fromUnitEntity(id, entity));
+        if (tags.includes('Attacking')) {
+          this.attackingUnits.push(fromUnitEntity(id, entity));
+        } else {
+          this.defendingUnits.push(fromUnitEntity(id, entity));
+        }
       } else if (tags.includes('Spell')) {
         this.spells.push(fromCardEntity(id, entity));
       }
     }
-    const displayed = [...this.players, ...this.forgeRow, ...this.units, ...this.spells];
+    const displayed = [...this.players, ...this.forgeRow, ...this.attackingUnits, ...this.defendingUnits, ...this.spells];
     for (const [idString, entity] of Object.entries<any>(world.entities)) {
       const id = Number(idString);
       const archetype = entity.archetype;
