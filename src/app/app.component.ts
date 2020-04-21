@@ -15,8 +15,7 @@ export class AppComponent implements OnInit {
   players: Player[] = [];
   forgeRow: Card[] = [];
   units: Unit[] = [];
-  playedSpells: any[] = [];
-  actionMap: Map<string, any> = new Map();
+  spells: Card[] = [];
   private socket: WebSocketSubject<any> = webSocket('ws://localhost:8887');
 
   ngOnInit() {
@@ -38,8 +37,7 @@ export class AppComponent implements OnInit {
     this.players = [];
     this.forgeRow = [];
     this.units = [];
-    this.playedSpells = [];
-    this.actionMap = new Map();
+    this.spells = [];
     for (const [id, entity] of Object.entries<any>(world.entities)) {
       const archetype = entity.archetype;
       const components = world.archetypes[archetype];
@@ -50,12 +48,9 @@ export class AppComponent implements OnInit {
       } else if (components.includes('Unit')) {
         this.units.push(fromUnitEntity(id, entity));
       } else if (components.includes('Spell')) {
-        this.playedSpells.push(entity);
+        this.spells.push(fromCardEntity(id, entity));
       } else if (components.includes('Action')) {
-        const ownerId = entity.components.Owned.owner;
-        const actions = this.actionMap.has(ownerId) ? this.actionMap.get(ownerId) : [];
-        actions.push(entity);
-        this.actionMap.set(ownerId, actions);
+        // Skipped
       } else {
         console.log(`Unknown entity ${entity}`);
       }

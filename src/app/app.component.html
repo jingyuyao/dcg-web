@@ -7,9 +7,9 @@
   <div class="units">
     <app-unit  *ngFor="let unit of units" [unit]="unit" (click)="selectEntity(unit.id)"></app-unit>
   </div>
-  <p>Played Spells</p>
-  <div *ngFor="let card of playedSpells">
-    <span>Name: {{ card.components.Common.name }}</span>
+  <h3>Spells</h3>
+  <div class="spells">
+    <app-card *ngFor="let card of spells" [card]="card" (click)="selectEntity(card.id)"></app-card>
   </div>
 </div>
 <div class="right">
