@@ -1,6 +1,7 @@
 <div class="header">
   <span class="name">{{ player.name }}</span>
-  <span class="hp">{{ player.hp }}</span>
+  <span class="hp">❤️ {{ player.hp }}</span>
+  <span *ngIf="player.powerPool > 0" class="powerPool">${{ player.powerPool }}</span>
 </div>
 <div class="actions">
   <app-action *ngFor="let action of player.actions" [action]="action"></app-action>

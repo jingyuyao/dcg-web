@@ -1,6 +1,6 @@
 <div class="header">
   <span class="name">{{ card.name }}</span>
-  <span class="cost">{{ card.cost }}</span>
+  <span class="cost">${{ card.cost }}</span>
 </div>
 <div class="actions">
   <app-action *ngFor="let action of card.actions" [action]="action"></app-action>
