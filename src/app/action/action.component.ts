@@ -15,7 +15,8 @@ export class ActionComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  beginAction() {
+  beginAction(event: Event) {
+    event.stopPropagation();
     this.executor.beginAction(this.action.id);
   }
 }
