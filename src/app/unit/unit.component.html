@@ -6,3 +6,6 @@
 <div class="attributes">
   <span *ngFor="let attribute of unit.attributes" class="attribute">{{ attribute }}</span>
 </div>
+<div class="actions">
+  <app-action *ngFor="let action of unit.actions" [action]="action"></app-action>
+</div>

@@ -1,13 +1,17 @@
+import { Action } from '../action/action';
+
 export interface Player {
-  id: string;
+  id: number;
   name: string;
   hp: number;
+  actions: Action[];
 }
 
-export function fromPlayerEntity(id: string, entity: any): Player {
+export function fromPlayerEntity(id: number, entity: any): Player {
   return {
     id,
     name: entity.components.Common.name,
     hp: entity.components.Player?.hp || 25,
+    actions: [],
   };
 }

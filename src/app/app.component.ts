@@ -3,6 +3,7 @@ import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { Card, fromCardEntity } from './card/card';
 import { Player, fromPlayerEntity } from './player/player';
 import { Unit, fromUnitEntity } from './unit/unit';
+import { fromActionEntity } from './action/action';
 
 @Component({
   selector: 'app-root',
@@ -10,13 +11,12 @@ import { Unit, fromUnitEntity } from './unit/unit';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent implements OnInit {
-  title = 'dcg-web';
+  private socket: WebSocketSubject<any> = webSocket('ws://localhost:8887');
   world: any = {};
   players: Player[] = [];
   forgeRow: Card[] = [];
   units: Unit[] = [];
   spells: Card[] = [];
-  private socket: WebSocketSubject<any> = webSocket('ws://localhost:8887');
 
   ngOnInit() {
     this.socket.subscribe(
@@ -38,21 +38,31 @@ export class AppComponent implements OnInit {
     this.forgeRow = [];
     this.units = [];
     this.spells = [];
-    for (const [id, entity] of Object.entries<any>(world.entities)) {
+    for (const [idString, entity] of Object.entries<any>(world.entities)) {
+      const id = Number(idString);
       const archetype = entity.archetype;
-      const components = world.archetypes[archetype];
-      if (components.includes('Player')) {
+      const tags = world.archetypes[archetype];
+      if (tags.includes('Player')) {
         this.players.push(fromPlayerEntity(id, entity));
-      } else if (components.includes('Card') && components.includes('ForgeRow')) {
+      } else if (tags.includes('Card') && tags.includes('ForgeRow')) {
         this.forgeRow.push(fromCardEntity(id, entity));
-      } else if (components.includes('Unit')) {
+      } else if (tags.includes('Unit')) {
         this.units.push(fromUnitEntity(id, entity));
-      } else if (components.includes('Spell')) {
+      } else if (tags.includes('Spell')) {
         this.spells.push(fromCardEntity(id, entity));
-      } else if (components.includes('Action')) {
-        // Skipped
-      } else {
-        console.log(`Unknown entity ${entity}`);
+      }
+    }
+    const displayed = [...this.players, ...this.forgeRow, ...this.units, ...this.spells];
+    for (const [idString, entity] of Object.entries<any>(world.entities)) {
+      const id = Number(idString);
+      const archetype = entity.archetype;
+      const tags = world.archetypes[archetype];
+      if (tags.includes('Action')) {
+        const ownerId = entity.components.Owned.owner;
+        const owner = displayed.find((e) => e.id === ownerId);
+        if (owner) {
+          owner.actions.push(fromActionEntity(id, entity));
+        }
       }
     }
   }
