@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Action } from './action';
+import { ExecutorService } from '../executor.service';
 
 @Component({
   selector: 'app-action',
@@ -9,9 +10,12 @@ import { Action } from './action';
 export class ActionComponent implements OnInit {
   @Input() action: Action;
 
-  constructor() { }
+  constructor(private executor: ExecutorService) { }
 
   ngOnInit(): void {
   }
 
+  beginAction() {
+    this.executor.beginAction(this.action.id);
+  }
 }

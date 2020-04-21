@@ -4,6 +4,7 @@ import { Player, fromPlayerEntity } from './player/player';
 import { Unit, fromUnitEntity } from './unit/unit';
 import { fromActionEntity } from './action/action';
 import { GameClientService } from './game-client.service';
+import { ExecutorService } from './executor.service';
 
 @Component({
   selector: 'app-root',
@@ -17,13 +18,13 @@ export class AppComponent {
   units: Unit[] = [];
   spells: Card[] = [];
 
-  constructor(private gameClient: GameClientService) {
+  constructor(private gameClient: GameClientService, private executor: ExecutorService) {
     gameClient.subscribe((world) => this.handleUpdate(world));
     gameClient.requestWorld();
   }
 
-  selectEntity(id: string) {
-    console.log(id);
+  selectEntity(id: number) {
+    this.executor.addArg(id);
   }
 
   private handleUpdate(world: any) {
