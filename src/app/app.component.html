@@ -4,15 +4,8 @@
 </div>
 <div class="center">
   <h3>Units</h3>
-  <div *ngFor="let unit of units">
-    <span>Name: {{ unit.components.Common.name }}</span>
-    <span>  Str: {{ unit.components.Unit.strength }}</span>
-    <span *ngIf="unit.components.Unit.defense">  Str: {{ unit.components.Unit.defense }}</span>
-    <span *ngIf="unit.components.Unit.flying">  Flying</span>
-    <span *ngIf="unit.components.Unit.berserk">  Berserk</span>
-    <span *ngIf="unit.components.Unit.lifeSteal">  Life Steal</span>
-    <span *ngIf="unit.components.Unit.endurance">  Endurance</span>
-    <span *ngIf="unit.components.Unit.unblockable">  Unblockable</span>
+  <div class="units">
+    <app-unit  *ngFor="let unit of units" [unit]="unit" (click)="selectEntity(unit.id)"></app-unit>
   </div>
   <p>Played Spells</p>
   <div *ngFor="let card of playedSpells">

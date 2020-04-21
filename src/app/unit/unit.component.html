@@ -1,0 +1,8 @@
+<div class="header">
+  <span class="name">{{ unit.name }}</span>
+  <span class="strength">🗡️ {{ unit.strength }}</span>
+  <span class="defense">🛡️ {{ unit.defense }}</span>
+</div>
+<div class="attributes">
+  <span *ngFor="let attribute of unit.attributes" class="attribute">{{ attribute }}</span>
+</div>

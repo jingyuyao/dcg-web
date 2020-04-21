@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { Card, fromCardEntity } from './card/card';
 import { Player, fromPlayerEntity } from './player/player';
+import { Unit, fromUnitEntity } from './unit/unit';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ export class AppComponent implements OnInit {
   world: any = {};
   players: Player[] = [];
   forgeRow: Card[] = [];
-  units: any[] = [];
+  units: Unit[] = [];
   playedSpells: any[] = [];
   actionMap: Map<string, any> = new Map();
   private socket: WebSocketSubject<any> = webSocket('ws://localhost:8887');
@@ -47,7 +48,7 @@ export class AppComponent implements OnInit {
       } else if (components.includes('Card') && components.includes('ForgeRow')) {
         this.forgeRow.push(fromCardEntity(id, entity));
       } else if (components.includes('Unit')) {
-        this.units.push(entity);
+        this.units.push(fromUnitEntity(id, entity));
       } else if (components.includes('Spell')) {
         this.playedSpells.push(entity);
       } else if (components.includes('Action')) {
