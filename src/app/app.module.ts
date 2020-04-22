@@ -7,6 +7,7 @@ import { CardComponent } from './card/card.component';
 import { PlayerComponent } from './player/player.component';
 import { UnitComponent } from './unit/unit.component';
 import { ActionComponent } from './action/action.component';
+import { TargetableDirective } from './targetable.directive';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { ActionComponent } from './action/action.component';
     CardComponent,
     PlayerComponent,
     UnitComponent,
-    ActionComponent
+    ActionComponent,
+    TargetableDirective
   ],
   imports: [
     BrowserModule,

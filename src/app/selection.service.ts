@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Action } from './action/action';
-import { Card } from './card/card';
-import { Unit } from './unit/unit';
-import { Player } from './player/player';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +8,7 @@ import { Player } from './player/player';
 export class SelectionService {
   private actionSource = new Subject<Action>();
   action$ = this.actionSource.asObservable();
-  private targetSource = new Subject<Player|Unit|Card>();
+  private targetSource = new Subject<number>();
   target$ = this.targetSource.asObservable();
 
   constructor() { }
@@ -25,8 +22,7 @@ export class SelectionService {
     this.actionSource.next();
   }
 
-  selectTarget(target: Player|Unit|Card) {
-    this.targetSource.next(target);
-    console.dir(JSON.stringify(target, null, 2));
+  selectTarget(entityId: number) {
+    this.targetSource.next(entityId);
   }
 }

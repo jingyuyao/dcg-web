@@ -34,17 +34,17 @@ export class ActionComponent implements OnDestroy {
       this.gameClient.execute(this.action.id, this.targets);
     } else {
       this.selection.selectAction(this.action);
-      this.selection.target$.pipe(takeUntil(this.clearTargetsSource)).subscribe((target) => {
-        if (this.action.allowedInputs.includes(target.id)) {
-          console.log(`adding ${target.name} for ${this.action.name}`);
-          this.targets.push(target.id);
+      this.selection.target$.pipe(takeUntil(this.clearTargetsSource)).subscribe((entityId) => {
+        if (this.action.allowedInputs.includes(entityId)) {
+          console.log(`adding ${entityId} for ${this.action.name}`);
+          this.targets.push(entityId);
           if (this.targets.length === this.action.maxInputCount) {
             this.gameClient.execute(this.action.id, this.targets);
             this.clearTargetsSource.next();
             this.selection.clearAction();
           }
         } else {
-          console.log(`${target.name} is not a valid input for ${this.action.name}`);
+          console.log(`${entityId} is not a valid input for ${this.action.name}`);
         }
       });
     }
