@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GameClientService {
+export class GameClientService implements OnDestroy {
   private socket: WebSocketSubject<any> = webSocket('ws://localhost:8887');
 
   constructor() {
@@ -12,6 +12,10 @@ export class GameClientService {
       (msg) => console.log(msg),
       (err) => console.error(err),
       () => console.log('closed'));
+  }
+
+  ngOnDestroy(): void {
+    this.socket.complete();
   }
 
   subscribe(next: (value: any) => void) {
