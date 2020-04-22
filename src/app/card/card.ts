@@ -5,15 +5,21 @@ export interface Card {
   name: string;
   description: string;
   cost: number;
+  strength: number;
+  kind: string;
   actions: Action[];
 }
 
-export function fromCardEntity(id: number, entity: any): Card {
+export function fromCardEntity(id: number, entity: any, tags: string[]): Card {
+  const components = entity.components;
+  const kind = tags.includes('HasUnit') ? 'Unit' : tags.includes('Spell') ? 'Spell' : 'Basic';
   return {
     id,
-    name: entity.components.Common.name,
-    description: entity.components.Common.description,
-    cost: entity.components.Card?.cost || 0,
+    name: components.Common.name,
+    description: components.Common.description,
+    cost: components.Card?.cost || 0,
+    strength: components.HasUnit?.strength || 0,
+    kind,
     actions: [],
   };
 }

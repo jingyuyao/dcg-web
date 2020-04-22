@@ -37,9 +37,9 @@ export class AppComponent {
       if (tags.includes('Player')) {
         this.players.push(fromPlayerEntity(id, entity));
       } else if (tags.includes('Card') && tags.includes('ForgeRow')) {
-        this.forgeRow.push(fromCardEntity(id, entity));
+        this.forgeRow.push(fromCardEntity(id, entity, tags));
       } else if (tags.includes('Card') && tags.includes('PlayArea') && (tags.includes('Basic') || tags.includes('Spell'))) {
-        this.playArea.push(fromCardEntity(id, entity));
+        this.playArea.push(fromCardEntity(id, entity, tags));
       } else if (tags.includes('Unit')) {
         if (tags.includes('Attacking')) {
           this.attackingUnits.push(fromUnitEntity(id, entity));
