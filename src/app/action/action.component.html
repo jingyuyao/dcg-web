@@ -1,2 +1,4 @@
 <button (click)="beginAction($event)">{{action.name}}</button>
-<span *ngFor="let target of targets"> {{ target }}</span>
+<div *ngIf="action.maxInputCount > 1">
+  Max targets: {{ action.maxInputCount }}
+</div>
