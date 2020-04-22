@@ -1,24 +1,26 @@
 <div class="left">
   <h4>Players</h4>
-  <app-player appTargetable *ngFor="let player of players" [entityId]="player.id" [player]="player"></app-player>
-</div>
-<div class="center">
-  <h4>Attacking Units</h4>
-  <div class="units">
-    <app-unit appTargetable *ngFor="let unit of attackingUnits" [entityId]="unit.id" [unit]="unit"></app-unit>
+  <div class="entity-container">
+    <app-player appTargetable *ngFor="let player of players" [entityId]="player.id" [player]="player"></app-player>
   </div>
-  <h4>Defending Units</h4>
-  <div class="units">
-    <app-unit appTargetable *ngFor="let unit of defendingUnits" [entityId]="unit.id" [unit]="unit"></app-unit>
-  </div>
-  <h4>Play Area</h4>
-  <div class="play-area">
-    <app-card appTargetable *ngFor="let card of playArea" [entityId]="card.id" [card]="card"></app-card>
+  <h4>Forge Row</h4>
+  <div class="entity-container">
+    <app-card appTargetable *ngFor="let card of forgeRow" [entityId]="card.id" [card]="card"></app-card>
   </div>
 </div>
 <div class="right">
-  <h4>Forge Row</h4>
-  <app-card appTargetable *ngFor="let card of forgeRow" [entityId]="card.id" [card]="card"></app-card>
+  <h4>Attacking Units</h4>
+  <div class="entity-container">
+    <app-unit appTargetable *ngFor="let unit of attackingUnits" [entityId]="unit.id" [unit]="unit"></app-unit>
+  </div>
+  <h4>Defending Units</h4>
+  <div class="entity-container">
+    <app-unit appTargetable *ngFor="let unit of defendingUnits" [entityId]="unit.id" [unit]="unit"></app-unit>
+  </div>
+  <h4>Play Area</h4>
+  <div class="entity-container">
+    <app-card appTargetable *ngFor="let card of playArea" [entityId]="card.id" [card]="card"></app-card>
+  </div>
 </div>
 
 <router-outlet></router-outlet>
