@@ -15,7 +15,6 @@ export class SelectionService {
 
   selectAction(action: Action) {
     this.actionSource.next(action);
-    console.dir(JSON.stringify(action, null, 2));
   }
 
   clearAction() {

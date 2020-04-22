@@ -24,7 +24,6 @@ export class AppComponent {
   }
 
   private handleUpdate(world: any) {
-    console.dir(world);
     this.world = world;
     this.players = [];
     this.forgeRow = [];

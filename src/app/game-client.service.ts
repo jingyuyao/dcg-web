@@ -7,12 +7,7 @@ import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
 export class GameClientService implements OnDestroy {
   private socket: WebSocketSubject<any> = webSocket('ws://localhost:8887');
 
-  constructor() {
-    this.socket.subscribe(
-      (msg) => console.log(msg),
-      (err) => console.error(err),
-      () => console.log('closed'));
-  }
+  constructor() {}
 
   ngOnDestroy(): void {
     this.socket.complete();

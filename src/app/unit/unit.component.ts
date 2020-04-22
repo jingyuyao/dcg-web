@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, HostListener } from '@angular/core';
 import { Unit } from './unit';
 
 @Component({
@@ -8,4 +8,8 @@ import { Unit } from './unit';
 })
 export class UnitComponent {
   @Input() unit: Unit;
+
+  @HostListener('click') onClick() {
+    console.dir(this.unit);
+  }
 }

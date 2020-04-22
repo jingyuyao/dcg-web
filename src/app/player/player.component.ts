@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, HostListener } from '@angular/core';
 import { Player } from './player';
 
 @Component({
@@ -8,4 +8,8 @@ import { Player } from './player';
 })
 export class PlayerComponent {
   @Input() player: Player;
+
+  @HostListener('click') onClick() {
+    console.dir(this.player);
+  }
 }
