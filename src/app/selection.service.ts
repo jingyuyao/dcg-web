@@ -6,9 +6,9 @@ import { Action } from './action/action';
   providedIn: 'root'
 })
 export class SelectionService {
-  private actionSource = new Subject<Action>();
-  action$ = this.actionSource.asObservable();
+  private actionSource = new Subject<Action|undefined>();
   private targetSource = new Subject<number>();
+  action$ = this.actionSource.asObservable();
   target$ = this.targetSource.asObservable();
 
   constructor() { }
