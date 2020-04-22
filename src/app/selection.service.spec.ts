@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ExecutorService } from './executor.service';
+import { SelectionService } from './selection.service';
 
-describe('ExecutorService', () => {
-  let service: ExecutorService;
+describe('SelectionService', () => {
+  let service: SelectionService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ExecutorService);
+    service = TestBed.inject(SelectionService);
   });
 
   it('should be created', () => {

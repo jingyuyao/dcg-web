@@ -5,7 +5,7 @@ import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
   providedIn: 'root'
 })
 export class GameClientService {
-  private socket: WebSocketSubject<any> = webSocket('ws://localhost:8888');
+  private socket: WebSocketSubject<any> = webSocket('ws://localhost:8887');
 
   constructor() {
     this.socket.subscribe(
@@ -28,5 +28,6 @@ export class GameClientService {
 
   private sendMessage(command: string, args: number[] = []) {
     this.socket.next({command, args});
+    console.log(`sent ${command}: ${args}`);
   }
 }

@@ -4,7 +4,7 @@ import { Player, fromPlayerEntity } from './player/player';
 import { Unit, fromUnitEntity } from './unit/unit';
 import { fromActionEntity } from './action/action';
 import { GameClientService } from './game-client.service';
-import { ExecutorService } from './executor.service';
+import { SelectionService } from './selection.service';
 
 @Component({
   selector: 'app-root',
@@ -19,14 +19,13 @@ export class AppComponent {
   defendingUnits: Unit[] = [];
   playArea: Card[] = [];
 
-  constructor(private gameClient: GameClientService, private executor: ExecutorService) {
+  constructor(private gameClient: GameClientService, private selection: SelectionService) {
     gameClient.subscribe((world) => this.handleUpdate(world));
     gameClient.requestWorld();
   }
 
-  selectEntity(thing: Player|Card|Unit) {
-    this.executor.addArg(thing.id);
-    console.dir(JSON.stringify(thing, null, 2));
+  selectTarget(target: Player|Card|Unit) {
+    this.selection.selectTarget(target);
   }
 
   private handleUpdate(world: any) {

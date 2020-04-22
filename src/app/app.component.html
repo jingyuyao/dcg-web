@@ -1,24 +1,24 @@
 <div class="left">
   <h4>Players</h4>
-  <app-player *ngFor="let player of players" [player]="player" (click)="selectEntity(player)"></app-player>
+  <app-player *ngFor="let player of players" [player]="player" (click)="selectTarget(player)"></app-player>
 </div>
 <div class="center">
   <h4>Attacking Units</h4>
   <div class="units">
-    <app-unit *ngFor="let unit of attackingUnits" [unit]="unit" (click)="selectEntity(unit)"></app-unit>
+    <app-unit *ngFor="let unit of attackingUnits" [unit]="unit" (click)="selectTarget(unit)"></app-unit>
   </div>
   <h4>Defending Units</h4>
   <div class="units">
-    <app-unit *ngFor="let unit of defendingUnits" [unit]="unit" (click)="selectEntity(unit)"></app-unit>
+    <app-unit *ngFor="let unit of defendingUnits" [unit]="unit" (click)="selectTarget(unit)"></app-unit>
   </div>
   <h4>Play Area</h4>
   <div class="play-area">
-    <app-card *ngFor="let card of playArea" [card]="card" (click)="selectEntity(card)"></app-card>
+    <app-card *ngFor="let card of playArea" [card]="card" (click)="selectTarget(card)"></app-card>
   </div>
 </div>
 <div class="right">
   <h4>Forge Row</h4>
-  <app-card *ngFor="let card of forgeRow" [card]="card" (click)="selectEntity(card)"></app-card>
+  <app-card *ngFor="let card of forgeRow" [card]="card" (click)="selectTarget(card)"></app-card>
 </div>
 
 <router-outlet></router-outlet>
