@@ -19,7 +19,6 @@ export class TargetableDirective implements OnDestroy {
     });
     this.targetSubscription = selection.target$.subscribe((entityId) => {
       if (this.entityId === entityId) {
-        this.targetable = false;
         this.targetted = true;
       }
     });
