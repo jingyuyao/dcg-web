@@ -32,13 +32,13 @@ export class AppComponent {
     this.playArea = [];
     for (const [idString, entity] of Object.entries<any>(world.entities)) {
       const id = Number(idString);
-      const archetype = entity.archetype;
-      const tags = world.archetypes[archetype];
+      const archetype: number = entity.archetype;
+      const tags: string[] = world.archetypes[archetype];
       if (tags.includes('Player')) {
         this.players.push(fromPlayerEntity(id, entity));
       } else if (tags.includes('Card') && tags.includes('ForgeRow')) {
         this.forgeRow.push(fromCardEntity(id, entity));
-      } else if (tags.includes('Card') && tags.includes('PlayArea')) {
+      } else if (tags.includes('Card') && tags.includes('PlayArea') && (tags.includes('Basic') || tags.includes('Spell'))) {
         this.playArea.push(fromCardEntity(id, entity));
       } else if (tags.includes('Unit')) {
         if (tags.includes('Attacking')) {
