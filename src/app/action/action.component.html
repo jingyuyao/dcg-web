@@ -1,4 +1,4 @@
-<button (click)="beginAction($event)">{{action.name}}</button>
+<button (click)="beginAction($event)" [disabled]="!action.canTrigger">{{action.name}}</button>
 <div *ngIf="action.maxInputCount > 1">
   Max targets: {{ action.maxInputCount }}
 </div>

@@ -5,7 +5,7 @@ import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
   providedIn: 'root'
 })
 export class GameClientService implements OnDestroy {
-  private socket: WebSocketSubject<any> = webSocket('ws://localhost:8887');
+  private socket: WebSocketSubject<any> = webSocket('ws://localhost:8888');
 
   constructor() {}
 
