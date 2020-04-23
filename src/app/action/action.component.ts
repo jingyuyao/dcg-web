@@ -12,36 +12,41 @@ import { GameClientService } from '../game-client.service';
 })
 export class ActionComponent implements OnDestroy {
   private clearTargetsSource = new Subject<void>();
-  private clearTargetsSubscription: Subscription;
   private selectionSubscription: Subscription;
   @Input() action: Action;
   targets: number[] = [];
+  targeting = false;
+  get canExecute() {
+    return this.targets.length >= this.action.minInputCount;
+  }
+  get canCancel() {
+    return this.canExecute && this.targets.length < this.action.maxInputCount;
+  }
 
   constructor(private selection: SelectionService, private gameClient: GameClientService) {
     this.selectionSubscription = this.selection.action$.subscribe((action) => {
-      if (action !== this.action) {
+      this.targets = [];
+      if (action === this.action) {
+        this.targeting = true;
+      } else {
+        this.targeting = false;
         this.clearTargetsSource.next();
       }
     });
-    this.clearTargetsSubscription = this.clearTargetsSource.subscribe(() => {
-      this.targets = [];
-    });
   }
 
-  // TODO: how to allow for partial inputs less than the target maximum?
   beginAction(event: Event) {
     event.stopPropagation();
-    if (this.action.minInputCount === 0 || this.targets.length === this.action.maxInputCount) {
-      this.gameClient.execute(this.action.id, this.targets);
+    this.selection.selectAction(this.action);
+    if (this.action.minInputCount === 0) {
+      this.gameClient.execute(this.action.id);
     } else {
-      this.selection.selectAction(this.action);
       this.selection.target$.pipe(takeUntil(this.clearTargetsSource)).subscribe((entityId) => {
         if (this.action.allowedTargets.includes(entityId)) {
           console.log(`adding ${entityId} for ${this.action.name}`);
           this.targets.push(entityId);
           if (this.targets.length === this.action.maxInputCount) {
             this.gameClient.execute(this.action.id, this.targets);
-            this.clearTargetsSource.next();
             this.selection.clearAction();
           }
         } else {
@@ -51,8 +56,19 @@ export class ActionComponent implements OnDestroy {
     }
   }
 
+  executeAction(event: Event) {
+    event.stopPropagation();
+    this.gameClient.execute(this.action.id, this.targets);
+    this.selection.clearAction();
+  }
+
+  cancelAction(event: Event) {
+    event.stopPropagation();
+    this.selection.clearAction();
+  }
+
   ngOnDestroy(): void {
+    this.clearTargetsSource.complete();
     this.selectionSubscription.unsubscribe();
-    this.clearTargetsSubscription.unsubscribe();
   }
 }

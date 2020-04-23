@@ -1,4 +1,16 @@
-<button (click)="beginAction($event)" [disabled]="!action.canTrigger">{{action.name}}</button>
-<div *ngIf="action.maxInputCount > 1">
-  Max targets: {{ action.maxInputCount }}
-</div>
+
+<ng-container *ngIf="!targeting; else renderTargeting">
+  <button (click)="beginAction($event)" [disabled]="!action.canTrigger">{{ action.name }}</button>
+</ng-container>
+<ng-template #renderTargeting>
+  <button (click)="executeAction($event)" [disabled]="!canExecute">Execute</button>
+  <button *ngIf="canCancel" (click)="cancelAction($event)">Cancel</button>
+</ng-template>
+<ng-container *ngIf="action.minInputCount > 1">
+  <div *ngIf="action.minInputCount == action.maxInputCount; else renderMinMax">
+    Required: {{ action.minInputCount }}
+  </div>
+  <ng-template #renderMinMax>
+    Min: {{ action.minInputCount }} Max: {{ action.maxInputCount }}
+  </ng-template>
+</ng-container>
