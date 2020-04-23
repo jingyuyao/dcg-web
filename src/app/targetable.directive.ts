@@ -15,7 +15,7 @@ export class TargetableDirective implements OnDestroy {
   constructor(private selection: SelectionService) {
     this.actionSubsciption = selection.action$.subscribe((action) => {
       this.targetted = false;
-      this.targetable = action && action.allowedInputs.includes(this.entityId);
+      this.targetable = action && action.allowedTargets.includes(this.entityId);
     });
     this.targetSubscription = selection.target$.subscribe((entityId) => {
       if (this.entityId === entityId) {

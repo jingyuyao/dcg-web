@@ -30,15 +30,15 @@ export class ActionComponent implements OnDestroy {
 
   beginAction(event: Event) {
     event.stopPropagation();
-    if (this.targets.length === this.action.maxInputCount) {
+    if (this.targets.length === this.action.maxTargetCount) {
       this.gameClient.execute(this.action.id, this.targets);
     } else {
       this.selection.selectAction(this.action);
       this.selection.target$.pipe(takeUntil(this.clearTargetsSource)).subscribe((entityId) => {
-        if (this.action.allowedInputs.includes(entityId)) {
+        if (this.action.allowedTargets.includes(entityId)) {
           console.log(`adding ${entityId} for ${this.action.name}`);
           this.targets.push(entityId);
-          if (this.targets.length === this.action.maxInputCount) {
+          if (this.targets.length === this.action.maxTargetCount) {
             this.gameClient.execute(this.action.id, this.targets);
             this.clearTargetsSource.next();
             this.selection.clearAction();
