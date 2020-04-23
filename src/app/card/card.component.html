@@ -1,8 +1,8 @@
 <div class="header">
   <span class="name">{{ card.name }}</span>
   <span class="kind">{{ card.kind }}</span>
-  <span *ngIf="card.strength > 0" class="strength">🗡️ {{ card.strength }}</span>
-  <span class="cost">${{ card.cost }}</span>
+  <span *ngIf="card.strength > 0" class="strength">🗡️{{ card.strength }}</span>
+  <span class="cost">⚡{{ card.cost }}</span>
 </div>
 <div class="description">
   {{ card.description }}

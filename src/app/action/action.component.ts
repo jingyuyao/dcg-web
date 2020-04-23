@@ -19,9 +19,6 @@ export class ActionComponent implements OnDestroy {
   get canExecute() {
     return this.targets.length >= this.action.minInputCount;
   }
-  get canCancel() {
-    return this.canExecute && this.targets.length < this.action.maxInputCount;
-  }
 
   constructor(private selection: SelectionService, private gameClient: GameClientService) {
     this.selectionSubscription = this.selection.action$.subscribe((action) => {

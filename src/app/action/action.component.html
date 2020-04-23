@@ -4,7 +4,7 @@
 </ng-container>
 <ng-template #renderTargeting>
   <button (click)="executeAction($event)" [disabled]="!canExecute">Execute</button>
-  <button *ngIf="canCancel" (click)="cancelAction($event)">Cancel</button>
+  <button (click)="cancelAction($event)">Cancel</button>
 </ng-template>
 <ng-container *ngIf="action.minInputCount > 1">
   <div *ngIf="action.minInputCount == action.maxInputCount; else renderMinMax">
