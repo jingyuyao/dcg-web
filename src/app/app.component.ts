@@ -16,6 +16,7 @@ export class AppComponent {
   forgeRow: Card[] = [];
   attackingUnits: Unit[] = [];
   defendingUnits: Unit[] = [];
+  // TODO: need to show played units as voidbindable
   playArea: Card[] = [];
 
   constructor(private gameClient: GameClientService) {

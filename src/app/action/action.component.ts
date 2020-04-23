@@ -28,9 +28,10 @@ export class ActionComponent implements OnDestroy {
     });
   }
 
+  // TODO: how to allow for partial inputs less than the target maximum?
   beginAction(event: Event) {
     event.stopPropagation();
-    if (this.targets.length === this.action.maxTargetCount) {
+    if (this.action.minTargetCount === 0 || this.targets.length === this.action.maxTargetCount) {
       this.gameClient.execute(this.action.id, this.targets);
     } else {
       this.selection.selectAction(this.action);
