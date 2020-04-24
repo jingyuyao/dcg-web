@@ -5,7 +5,7 @@
   </div>
   <h4>Forge</h4>
   <div class="entity-container">
-    <app-card appTargetable *ngIf="seekPowers.length > 0" [entityId]="seekPowers[0].id" [card]="seekPowers[0]"></app-card>
+    <app-card appTargetable *ngIf="throneDeck.length > 0" [entityId]="throneDeck[0].id" [card]="throneDeck[0]"></app-card>
   </div>
   <div class="entity-container">
     <app-card appTargetable *ngFor="let card of forgeRow" [entityId]="card.id" [card]="card"></app-card>

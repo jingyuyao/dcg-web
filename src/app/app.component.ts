@@ -13,7 +13,7 @@ import { GameClientService } from './game-client.service';
 export class AppComponent {
   world: any = {};
   players: Player[] = [];
-  seekPowers: Card[] = [];
+  throneDeck: Card[] = [];
   forgeRow: Card[] = [];
   attackingUnits: Unit[] = [];
   defendingUnits: Unit[] = [];
@@ -28,7 +28,7 @@ export class AppComponent {
   private handleUpdate(world: any) {
     this.world = world;
     this.players = [];
-    this.seekPowers = [];
+    this.throneDeck = [];
     this.forgeRow = [];
     this.attackingUnits = [];
     this.defendingUnits = [];
@@ -37,9 +37,8 @@ export class AppComponent {
       const id = Number(idString);
       const archetype: number = entity.archetype;
       const tags: string[] = world.archetypes[archetype];
-      // TODO: this seems awfully bad, perhaps use a ThroneDeck marker?
-      if (tags.includes('SeekPower') && !tags.includes('Owned')) {
-        this.seekPowers.push(fromCardEntity(id, entity, tags));
+      if (tags.includes('ThroneDeck')) {
+        this.throneDeck.push(fromCardEntity(id, entity, tags));
       } else if (tags.includes('Player')) {
         this.players.push(fromPlayerEntity(id, entity));
       } else if (tags.includes('Card') && tags.includes('ForgeRow')) {
@@ -60,7 +59,7 @@ export class AppComponent {
     }
     const displayed = [
       ...this.players,
-      ...this.seekPowers,
+      ...this.throneDeck,
       ...this.forgeRow,
       ...this.attackingUnits,
       ...this.defendingUnits,
