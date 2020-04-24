@@ -8,11 +8,12 @@ import { GameClientService } from './game-client.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.sass']
+  styleUrls: ['./app.component.sass'],
 })
 export class AppComponent {
   world: any = {};
   players: Player[] = [];
+  seekPowers: Card[] = [];
   forgeRow: Card[] = [];
   attackingUnits: Unit[] = [];
   defendingUnits: Unit[] = [];
@@ -27,6 +28,7 @@ export class AppComponent {
   private handleUpdate(world: any) {
     this.world = world;
     this.players = [];
+    this.seekPowers = [];
     this.forgeRow = [];
     this.attackingUnits = [];
     this.defendingUnits = [];
@@ -35,11 +37,17 @@ export class AppComponent {
       const id = Number(idString);
       const archetype: number = entity.archetype;
       const tags: string[] = world.archetypes[archetype];
-      if (tags.includes('Player')) {
+      if (tags.includes('SeekPower')) {
+        this.seekPowers.push(fromCardEntity(id, entity, tags));
+      } else if (tags.includes('Player')) {
         this.players.push(fromPlayerEntity(id, entity));
       } else if (tags.includes('Card') && tags.includes('ForgeRow')) {
         this.forgeRow.push(fromCardEntity(id, entity, tags));
-      } else if (tags.includes('Card') && tags.includes('PlayArea') && (tags.includes('Basic') || tags.includes('Spell'))) {
+      } else if (
+        tags.includes('Card') &&
+        tags.includes('PlayArea') &&
+        (tags.includes('Basic') || tags.includes('Spell'))
+      ) {
         this.playArea.push(fromCardEntity(id, entity, tags));
       } else if (tags.includes('Unit')) {
         if (tags.includes('Attacking')) {
@@ -49,7 +57,14 @@ export class AppComponent {
         }
       }
     }
-    const displayed = [...this.players, ...this.forgeRow, ...this.attackingUnits, ...this.defendingUnits, ...this.playArea];
+    const displayed = [
+      ...this.players,
+      ...this.seekPowers,
+      ...this.forgeRow,
+      ...this.attackingUnits,
+      ...this.defendingUnits,
+      ...this.playArea,
+    ];
     for (const [idString, entity] of Object.entries<any>(world.entities)) {
       const id = Number(idString);
       const archetype = entity.archetype;

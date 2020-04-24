@@ -3,7 +3,10 @@
   <div class="entity-container">
     <app-player appTargetable *ngFor="let player of players" [entityId]="player.id" [player]="player"></app-player>
   </div>
-  <h4>Forge Row</h4>
+  <h4>Forge</h4>
+  <div class="entity-container">
+    <app-card appTargetable *ngIf="seekPowers.length > 0" [entityId]="seekPowers[0].id" [card]="seekPowers[0]"></app-card>
+  </div>
   <div class="entity-container">
     <app-card appTargetable *ngFor="let card of forgeRow" [entityId]="card.id" [card]="card"></app-card>
   </div>
