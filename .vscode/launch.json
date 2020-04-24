@@ -5,12 +5,12 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "chrome",
+      "type": "firefox",
       "request": "launch",
-      "name": "Launch Chromium against Angular",
+      "reAttach": true,
+      "name": "Launch localhost",
       "url": "http://localhost:4200",
-      "webRoot": "${workspaceFolder}",
-      "runtimeExecutable": "/usr/bin/chromium-browser"
+      "webRoot": "${workspaceFolder}"
     }
   ]
 }
