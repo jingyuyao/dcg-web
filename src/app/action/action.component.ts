@@ -34,10 +34,10 @@ export class ActionComponent implements OnDestroy {
 
   beginAction(event: Event) {
     event.stopPropagation();
-    this.selection.selectAction(this.action);
     if (this.action.minInputCount === 0) {
       this.gameClient.execute(this.action.id);
     } else {
+      this.selection.selectAction(this.action);
       this.selection.target$.pipe(takeUntil(this.clearTargetsSource)).subscribe((entityId) => {
         if (this.action.allowedTargets.includes(entityId)) {
           console.log(`adding ${entityId} for ${this.action.name}`);

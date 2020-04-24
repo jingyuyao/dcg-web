@@ -37,7 +37,8 @@ export class AppComponent {
       const id = Number(idString);
       const archetype: number = entity.archetype;
       const tags: string[] = world.archetypes[archetype];
-      if (tags.includes('SeekPower')) {
+      // TODO: this seems awfully bad, perhaps use a ThroneDeck marker?
+      if (tags.includes('SeekPower') && !tags.includes('Owned')) {
         this.seekPowers.push(fromCardEntity(id, entity, tags));
       } else if (tags.includes('Player')) {
         this.players.push(fromPlayerEntity(id, entity));
