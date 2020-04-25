@@ -4,7 +4,8 @@
     <app-player appTargetable *ngFor="let player of players" [entityId]="player.id" [player]="player"></app-player>
   </div>
   <h4>Forge</h4>
-  <div class="entity-container">
+  <div class="throne-deck">
+    <div>Seek Power remaining: {{throneDeck.length}}</div>
     <app-card appTargetable *ngIf="throneDeck.length > 0" [entityId]="throneDeck[0].id" [card]="throneDeck[0]"></app-card>
   </div>
   <div class="entity-container">
