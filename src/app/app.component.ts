@@ -43,11 +43,7 @@ export class AppComponent {
         this.players.push(fromPlayerEntity(id, entity));
       } else if (tags.includes('Card') && tags.includes('ForgeRow')) {
         this.forgeRow.push(fromCardEntity(id, entity, tags));
-      } else if (
-        tags.includes('Card') &&
-        tags.includes('PlayArea') &&
-        (tags.includes('Basic') || tags.includes('Spell'))
-      ) {
+      } else if (tags.includes('Card') && tags.includes('PlayArea')) {
         this.playArea.push(fromCardEntity(id, entity, tags));
       } else if (tags.includes('Unit')) {
         if (tags.includes('Attacking')) {
