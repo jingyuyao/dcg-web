@@ -5,7 +5,16 @@
   </div>
   <h4>Forge</h4>
   <div class="throne-deck">
-    <div>Seek Power remaining: {{throneDeck.length}}</div>
+    <ng-container *ngIf="throneDeck.length > 0; else ThroneActive">
+      <div>
+        Seek Power remaining: {{throneDeck.length}}
+      </div>
+    </ng-container>
+    <ng-template #ThroneActive>
+      <div class="throne-active">
+        Throne active
+      </div>
+    </ng-template>
     <app-card appTargetable *ngIf="throneDeck.length > 0" [entityId]="throneDeck[0].id" [card]="throneDeck[0]"></app-card>
   </div>
   <div class="entity-container">
