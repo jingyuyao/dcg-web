@@ -1,4 +1,11 @@
 <div class="header">
+  <div class="colors" *ngFor="let color of card.colors" [ngSwitch]="color">
+    <span *ngSwitchCase="'Red'">🔴</span>
+    <span *ngSwitchCase="'Green'">🟢</span>
+    <span *ngSwitchCase="'Blue'">🔵</span>
+    <span *ngSwitchCase="'Yellow'">🟡</span>
+    <span *ngSwitchCase="'Black'">⚫</span>
+  </div>
   <span class="name">{{ card.name }}</span>
   <span class="kind">{{ card.kind }}</span>
   <span *ngIf="card.strength > 0" class="strength">🗡️{{ card.strength }}</span>
