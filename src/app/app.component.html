@@ -4,18 +4,26 @@
     <app-player appTargetable *ngFor="let player of players" [entityId]="player.id" [player]="player"></app-player>
   </div>
   <h4>Forge</h4>
-  <div class="throne-deck">
-    <ng-container *ngIf="throneDeck.length > 0; else ThroneActive">
+  <div class="entity-container">
+    <div class="throne-deck">
+      <ng-container *ngIf="throneDeck.length > 0; else ThroneActive">
+        <div>
+          Seek Power remaining: {{throneDeck.length}}
+        </div>
+      </ng-container>
+      <ng-template #ThroneActive>
+        <div class="throne-active">
+          Throne active
+        </div>
+      </ng-template>
+      <app-card appTargetable *ngIf="throneDeck.length > 0" [entityId]="throneDeck[0].id" [card]="throneDeck[0]"></app-card>
+    </div>
+    <div class="mercenary-deck" *ngIf="mercenaryDeck.length > 0">
       <div>
-        Seek Power remaining: {{throneDeck.length}}
+        Veteran Mercenary remaining: {{mercenaryDeck.length}}
       </div>
-    </ng-container>
-    <ng-template #ThroneActive>
-      <div class="throne-active">
-        Throne active
-      </div>
-    </ng-template>
-    <app-card appTargetable *ngIf="throneDeck.length > 0" [entityId]="throneDeck[0].id" [card]="throneDeck[0]"></app-card>
+      <app-card appTargetable [entityId]="mercenaryDeck[0].id" [card]="mercenaryDeck[0]"></app-card>
+    </div>
   </div>
   <div class="entity-container">
     <app-card appTargetable *ngFor="let card of forgeRow" [entityId]="card.id" [card]="card"></app-card>

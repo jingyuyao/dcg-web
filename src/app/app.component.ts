@@ -14,6 +14,7 @@ export class AppComponent {
   world: any = {};
   players: Player[] = [];
   throneDeck: Card[] = [];
+  mercenaryDeck: Card[] = [];
   forgeRow: Card[] = [];
   attackingUnits: Unit[] = [];
   defendingUnits: Unit[] = [];
@@ -29,6 +30,7 @@ export class AppComponent {
     this.world = world;
     this.players = [];
     this.throneDeck = [];
+    this.mercenaryDeck = [];
     this.forgeRow = [];
     this.attackingUnits = [];
     this.defendingUnits = [];
@@ -39,6 +41,8 @@ export class AppComponent {
       const tags: string[] = world.archetypes[archetype];
       if (tags.includes('ThroneDeck')) {
         this.throneDeck.push(fromCardEntity(id, entity, tags));
+      } else if (tags.includes('MercenaryDeck')) {
+        this.mercenaryDeck.push(fromCardEntity(id, entity, tags));
       } else if (tags.includes('Player')) {
         this.players.push(fromPlayerEntity(id, entity));
       } else if (tags.includes('Card') && tags.includes('ForgeRow')) {
@@ -56,6 +60,7 @@ export class AppComponent {
     const displayed = [
       ...this.players,
       ...this.throneDeck,
+      ...this.mercenaryDeck,
       ...this.forgeRow,
       ...this.attackingUnits,
       ...this.defendingUnits,
