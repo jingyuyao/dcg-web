@@ -8,7 +8,6 @@ import { PlayerComponent } from './player/player.component';
 import { UnitComponent } from './unit/unit.component';
 import { ActionComponent } from './action/action.component';
 import { TargetableDirective } from './targetable.directive';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -21,8 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
