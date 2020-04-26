@@ -4,6 +4,7 @@ import { SelectionService } from '../selection.service';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { GameClientService } from '../game-client.service';
+import { ActionView } from '../api/action-view';
 
 @Component({
   selector: 'app-action',
@@ -13,7 +14,7 @@ import { GameClientService } from '../game-client.service';
 export class ActionComponent implements OnDestroy {
   private clearTargetsSource = new Subject<void>();
   private selectionSubscription: Subscription;
-  @Input() action: Action;
+  @Input() action: Action|ActionView;
   targets: number[] = [];
   targeting = false;
   get canExecute() {

@@ -1,11 +1,19 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
+import { filter, map } from 'rxjs/operators';
+import { ServerMessage } from './api/server-message';
+import { WorldView } from './api/world-view';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GameClientService implements OnDestroy {
   private socket: WebSocketSubject<any> = webSocket('ws://localhost:8888');
+  worldView$: Observable<WorldView> = this.socket.pipe(
+    filter((msg: ServerMessage) => msg.kind === 'worldview'),
+    map((msg: ServerMessage) => msg.data as WorldView),
+  );
 
   constructor() {}
 
@@ -26,7 +34,7 @@ export class GameClientService implements OnDestroy {
   }
 
   private sendMessage(command: string, args: number[] = []) {
-    this.socket.next({command, args});
+    this.socket.next({ command, args });
     console.log(`sent ${command}: ${args}`);
   }
 }

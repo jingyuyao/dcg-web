@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Card, fromCardEntity } from './card/card';
-import { Player, fromPlayerEntity } from './player/player';
 import { Unit, fromUnitEntity } from './unit/unit';
 import { fromActionEntity } from './action/action';
 import { GameClientService } from './game-client.service';
+import { WorldView } from './api/world-view';
 
 @Component({
   selector: 'app-root',
@@ -11,8 +11,8 @@ import { GameClientService } from './game-client.service';
   styleUrls: ['./app.component.sass'],
 })
 export class AppComponent {
+  worldView?: WorldView;
   world: any = {};
-  players: Player[] = [];
   throneDeck: Card[] = [];
   mercenaryDeck: Card[] = [];
   forgeRow: Card[] = [];
@@ -22,13 +22,16 @@ export class AppComponent {
   playArea: Card[] = [];
 
   constructor(private gameClient: GameClientService) {
+    gameClient.worldView$.subscribe((worldView) => this.worldView = worldView);
     gameClient.subscribe((world) => this.handleUpdate(world));
     gameClient.requestWorld();
   }
 
   private handleUpdate(world: any) {
+    if (!world.entities) {
+      return;
+    }
     this.world = world;
-    this.players = [];
     this.throneDeck = [];
     this.mercenaryDeck = [];
     this.forgeRow = [];
@@ -43,8 +46,6 @@ export class AppComponent {
         this.throneDeck.push(fromCardEntity(id, entity, tags));
       } else if (tags.includes('MercenaryDeck')) {
         this.mercenaryDeck.push(fromCardEntity(id, entity, tags));
-      } else if (tags.includes('Player')) {
-        this.players.push(fromPlayerEntity(id, entity));
       } else if (tags.includes('Card') && tags.includes('ForgeRow')) {
         this.forgeRow.push(fromCardEntity(id, entity, tags));
       } else if (tags.includes('Card') && tags.includes('PlayArea')) {
@@ -58,7 +59,6 @@ export class AppComponent {
       }
     }
     const displayed = [
-      ...this.players,
       ...this.throneDeck,
       ...this.mercenaryDeck,
       ...this.forgeRow,

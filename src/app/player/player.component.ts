@@ -1,5 +1,5 @@
 import { Component, Input, HostListener } from '@angular/core';
-import { Player } from './player';
+import { PlayerView } from '../api/player-view';
 
 @Component({
   selector: 'app-player',
@@ -7,7 +7,7 @@ import { Player } from './player';
   styleUrls: ['./player.component.sass']
 })
 export class PlayerComponent {
-  @Input() player: Player;
+  @Input() player: PlayerView;
 
   @HostListener('click') onClick() {
     console.dir(this.player);
