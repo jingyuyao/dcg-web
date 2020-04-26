@@ -3,7 +3,7 @@
   <span class="hp">❤️ {{ player.hp }}</span>
   <span *ngIf="player.powerPool > 0" class="powerPool">⚡{{ player.powerPool }}</span>
 </div>
-<div class="flash-tokens">
+<div class="wrap-tokens">
   Warp tokens: {{ player.warpTokens }}
 </div>
 <app-actions [actions]="player.actions"></app-actions>
