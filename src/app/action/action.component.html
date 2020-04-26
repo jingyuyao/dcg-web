@@ -1,6 +1,6 @@
 
 <ng-container *ngIf="!targeting; else renderTargeting">
-  <button mat-stroked-button (click)="beginAction($event)" [disabled]="!action.canTrigger">{{ action.name }}</button>
+  <button mat-stroked-button (click)="beginAction($event)" [disabled]="!action.canTrigger">{{ action.description || action.name }}</button>
 </ng-container>
 <ng-template #renderTargeting>
   <button mat-stroked-button color="primary" (click)="executeAction($event)" [disabled]="!canExecute">Execute</button>

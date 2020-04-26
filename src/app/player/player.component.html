@@ -6,6 +6,4 @@
 <div class="flash-tokens">
   Warp tokens: {{ player.warpTokens }}
 </div>
-<div class="actions">
-  <app-action *ngFor="let action of player.actions" [action]="action"></app-action>
-</div>
+<app-actions [actions]="player.actions"></app-actions>

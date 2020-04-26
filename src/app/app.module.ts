@@ -10,6 +10,7 @@ import { ActionComponent } from './action/action.component';
 import { TargetableDirective } from './targetable.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
+import { ActionsComponent } from './actions/actions.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
     UnitComponent,
     ActionComponent,
     TargetableDirective,
+    ActionsComponent,
   ],
   imports: [
     BrowserModule,

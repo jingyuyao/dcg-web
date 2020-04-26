@@ -8,6 +8,4 @@
     <span *ngFor="let attribute of unit.attributes" class="attribute mat-caption">{{ attribute }}</span>
   </div>
 </div>
-<div class="actions">
-  <app-action *ngFor="let action of unit.actions" [action]="action"></app-action>
-</div>
+<app-actions [actions]="unit.actions"></app-actions>
