@@ -1,5 +1,5 @@
 import { Component, Input, HostListener } from '@angular/core';
-import { Card } from './card';
+import { CardView } from '../api/card-view';
 
 @Component({
   selector: 'app-card',
@@ -7,7 +7,7 @@ import { Card } from './card';
   styleUrls: ['./card.component.sass']
 })
 export class CardComponent {
-  @Input() card: Card;
+  @Input() card: CardView;
 
   @HostListener('click') onClick() {
     console.dir(this.card);

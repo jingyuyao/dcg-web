@@ -1,48 +1,82 @@
-<div class="left">
-  <h4>Players</h4>
-  <div class="entity-container" *ngIf="worldView">
-    <app-player appTargetable *ngFor="let player of worldView.players" [entityId]="player.id" [player]="player"></app-player>
-  </div>
-  <h4>Forge</h4>
-  <div class="entity-container">
-    <div class="throne-deck">
-      <ng-container *ngIf="throneDeck.length > 0; else ThroneActive">
-        <div>
-          Seek Power remaining: {{throneDeck.length}}
-        </div>
-      </ng-container>
-      <ng-template #ThroneActive>
-        <div class="throne-active">
-          Throne active
-        </div>
-      </ng-template>
-      <app-card appTargetable *ngIf="throneDeck.length > 0" [entityId]="throneDeck[0].id" [card]="throneDeck[0]"></app-card>
+<ng-container *ngIf="worldView">
+  <div class="left">
+    <h4>Players</h4>
+    <div class="entity-container">
+      <app-player
+        appTargetable
+        *ngFor="let player of worldView.players"
+        [entityId]="player.id"
+        [player]="player"
+      ></app-player>
     </div>
-    <div class="mercenary-deck" *ngIf="mercenaryDeck.length > 0">
-      <div>
-        Veteran Mercenary remaining: {{mercenaryDeck.length}}
+    <h4>Forge</h4>
+    <div class="entity-container">
+      <div class="throne-deck">
+        <ng-container
+          *ngIf="worldView.throneDeck.length > 0; else ThroneActive"
+        >
+          <div>Seek Power remaining: {{ worldView.throneDeck.length }}</div>
+        </ng-container>
+        <ng-template #ThroneActive>
+          <div class="throne-active">
+            Throne active
+          </div>
+        </ng-template>
+        <app-card
+          appTargetable
+          *ngIf="worldView.throneDeck.length > 0"
+          [entityId]="worldView.throneDeck[0].id"
+          [card]="worldView.throneDeck[0]"
+        ></app-card>
       </div>
-      <app-card appTargetable [entityId]="mercenaryDeck[0].id" [card]="mercenaryDeck[0]"></app-card>
+      <div class="mercenary-deck" *ngIf="worldView.mercenaryDeck.length > 0">
+        <div>Veteran Mercenary remaining: {{ worldView.mercenaryDeck.length }}</div>
+        <app-card
+          appTargetable
+          [entityId]="worldView.mercenaryDeck[0].id"
+          [card]="worldView.mercenaryDeck[0]"
+        ></app-card>
+      </div>
+    </div>
+    <h5>Forge row</h5>
+    <div class="entity-container">
+      <app-card
+        appTargetable
+        *ngFor="let card of worldView.forgeRow"
+        [entityId]="card.id"
+        [card]="card"
+      ></app-card>
     </div>
   </div>
-  <h5>Forge row</h5>
-  <div class="entity-container">
-    <app-card appTargetable *ngFor="let card of forgeRow" [entityId]="card.id" [card]="card"></app-card>
+  <div class="right">
+    <h4>Attacking Units</h4>
+    <div class="entity-container">
+      <app-unit
+        appTargetable
+        *ngFor="let unit of attackingUnits"
+        [entityId]="unit.id"
+        [unit]="unit"
+      ></app-unit>
+    </div>
+    <h4>Defending Units</h4>
+    <div class="entity-container">
+      <app-unit
+        appTargetable
+        *ngFor="let unit of defendingUnits"
+        [entityId]="unit.id"
+        [unit]="unit"
+      ></app-unit>
+    </div>
+    <h4>Play Area</h4>
+    <div class="entity-container">
+      <app-card
+        appTargetable
+        *ngFor="let card of worldView.playArea"
+        [entityId]="card.id"
+        [card]="card"
+      ></app-card>
+    </div>
   </div>
-</div>
-<div class="right">
-  <h4>Attacking Units</h4>
-  <div class="entity-container">
-    <app-unit appTargetable *ngFor="let unit of attackingUnits" [entityId]="unit.id" [unit]="unit"></app-unit>
-  </div>
-  <h4>Defending Units</h4>
-  <div class="entity-container">
-    <app-unit appTargetable *ngFor="let unit of defendingUnits" [entityId]="unit.id" [unit]="unit"></app-unit>
-  </div>
-  <h4>Play Area</h4>
-  <div class="entity-container">
-    <app-card appTargetable *ngFor="let card of playArea" [entityId]="card.id" [card]="card"></app-card>
-  </div>
-</div>
+</ng-container>
 
 <router-outlet></router-outlet>
