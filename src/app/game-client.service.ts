@@ -26,11 +26,11 @@ export class GameClientService implements OnDestroy {
   }
 
   requestWorld() {
-    this.sendMessage('world');
+    this.sendMessage('get-world-view');
   }
 
-  private sendMessage(command: string, args: number[] = []) {
-    this.socket.next({ command, args });
-    console.log(`sent ${command}: ${args}`);
+  private sendMessage(kind: string, args: number[] = []) {
+    this.socket.next({ kind, args });
+    console.log(`sent ${kind}: ${args}`);
   }
 }
