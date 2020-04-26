@@ -53,7 +53,7 @@
     <div class="entity-container">
       <app-unit
         appTargetable
-        *ngFor="let unit of attackingUnits"
+        *ngFor="let unit of worldView.attackingUnits"
         [entityId]="unit.id"
         [unit]="unit"
       ></app-unit>
@@ -62,7 +62,7 @@
     <div class="entity-container">
       <app-unit
         appTargetable
-        *ngFor="let unit of defendingUnits"
+        *ngFor="let unit of worldView.defendingUnits"
         [entityId]="unit.id"
         [unit]="unit"
       ></app-unit>

@@ -1,5 +1,4 @@
 import { Component, OnDestroy, Input } from '@angular/core';
-import { Action } from './action';
 import { SelectionService } from '../selection.service';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -14,7 +13,7 @@ import { ActionView } from '../api/action-view';
 export class ActionComponent implements OnDestroy {
   private clearTargetsSource = new Subject<void>();
   private selectionSubscription: Subscription;
-  @Input() action: Action|ActionView;
+  @Input() action: ActionView;
   targets: number[] = [];
   targeting = false;
   get canExecute() {

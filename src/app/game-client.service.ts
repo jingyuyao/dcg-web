@@ -21,10 +21,6 @@ export class GameClientService implements OnDestroy {
     this.socket.complete();
   }
 
-  subscribe(next: (value: any) => void) {
-    this.socket.subscribe(next);
-  }
-
   execute(actionId: number, args: number[] = []) {
     this.sendMessage('execute', [actionId, ...args]);
   }
