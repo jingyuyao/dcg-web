@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Action } from './action/action';
+import { ActionView } from './api/action-view';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SelectionService {
-  private actionSource = new Subject<Action|undefined>();
+  private actionSource = new Subject<ActionView|undefined>();
   private targetSource = new Subject<number>();
   action$ = this.actionSource.asObservable();
   target$ = this.targetSource.asObservable();
 
   constructor() { }
 
-  selectAction(action: Action) {
+  selectAction(action: ActionView) {
     this.actionSource.next(action);
   }
 
