@@ -36,6 +36,7 @@ export class ActionComponent implements OnDestroy {
     event.stopPropagation();
     if (this.action.minInputCount === 0) {
       this.gameClient.execute(this.action.id);
+      this.selection.clearAction();
     } else {
       this.selection.selectAction(this.action);
       this.selection.target$.pipe(takeUntil(this.clearTargetsSource)).subscribe((entityId) => {
