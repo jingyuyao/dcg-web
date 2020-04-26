@@ -1,15 +1,17 @@
 <div class="header">
-  <div class="colors" *ngFor="let color of card.colors" [ngSwitch]="color">
+  <span class="name mat-body-2">{{ card.name }}</span>
+  <span class="kind mat-body-1">{{ card.kind }}</span>
+</div>
+<div class="stats">
+  <span *ngIf="card.strength > 0" class="strength">🗡️{{ card.strength }}</span>
+  <span class="cost">⚡{{ card.cost }}</span>
+  <ng-container class="color" *ngFor="let color of card.colors" [ngSwitch]="color">
     <span *ngSwitchCase="'Red'">🔴</span>
     <span *ngSwitchCase="'Green'">🟢</span>
     <span *ngSwitchCase="'Blue'">🔵</span>
     <span *ngSwitchCase="'Yellow'">🟡</span>
     <span *ngSwitchCase="'Black'">⚫</span>
-  </div>
-  <span class="name mat-body-2">{{ card.name }}</span>
-  <span class="kind mat-caption">{{ card.kind }}</span>
-  <span *ngIf="card.strength > 0" class="strength">🗡️{{ card.strength }}</span>
-  <span class="cost">⚡{{ card.cost }}</span>
+  </ng-container>
 </div>
 <div class="description mat-body-1">
   {{ card.description }}
