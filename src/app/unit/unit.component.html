@@ -1,11 +1,11 @@
 <div class="header">
-  <span class="name">{{ unit.name }}</span>
+  <span class="name mat-body-2">{{ unit.name }}</span>
 </div>
 <div class="stats">
   <span class="strength">🗡️{{ unit.strength }}</span>
   <span class="defense">🛡️{{ unit.defense }}</span>
   <div>
-    <span *ngFor="let attribute of unit.attributes" class="attribute">{{ attribute }}</span>
+    <span *ngFor="let attribute of unit.attributes" class="attribute mat-caption">{{ attribute }}</span>
   </div>
 </div>
 <div class="actions">

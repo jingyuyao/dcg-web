@@ -1,6 +1,6 @@
 <ng-container *ngIf="worldView">
   <div class="left">
-    <h4>Players</h4>
+    <div class="mat-title">Players</div>
     <div class="entity-container">
       <app-player
         appTargetable
@@ -9,7 +9,7 @@
         [player]="player"
       ></app-player>
     </div>
-    <h4>Forge</h4>
+    <div class="mat-title">Forge</div>
     <div class="entity-container">
       <div class="throne-deck">
         <ng-container
@@ -38,7 +38,7 @@
         ></app-card>
       </div>
     </div>
-    <h5>Forge row</h5>
+    <div class="mat-subheading-2">Forge row</div>
     <div class="entity-container">
       <app-card
         appTargetable
@@ -49,7 +49,7 @@
     </div>
   </div>
   <div class="right">
-    <h4>Attacking Units</h4>
+    <div class="mat-title">Attacking Units</div>
     <div class="entity-container">
       <app-unit
         appTargetable
@@ -58,7 +58,7 @@
         [unit]="unit"
       ></app-unit>
     </div>
-    <h4>Defending Units</h4>
+    <div class="mat-title">Defending Units</div>
     <div class="entity-container">
       <app-unit
         appTargetable
@@ -67,7 +67,7 @@
         [unit]="unit"
       ></app-unit>
     </div>
-    <h4>Play Area</h4>
+    <div class="mat-title">Play Area</div>
     <div class="entity-container">
       <app-card
         appTargetable

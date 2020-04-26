@@ -6,12 +6,12 @@
     <span *ngSwitchCase="'Yellow'">🟡</span>
     <span *ngSwitchCase="'Black'">⚫</span>
   </div>
-  <span class="name">{{ card.name }}</span>
-  <span class="kind">{{ card.kind }}</span>
+  <span class="name mat-body-2">{{ card.name }}</span>
+  <span class="kind mat-caption">{{ card.kind }}</span>
   <span *ngIf="card.strength > 0" class="strength">🗡️{{ card.strength }}</span>
   <span class="cost">⚡{{ card.cost }}</span>
 </div>
-<div class="description">
+<div class="description mat-body-1">
   {{ card.description }}
 </div>
 <div class="actions">
