@@ -1,10 +1,13 @@
+@import '~@angular/material/theming'
+
 :host
-  border: solid black 1px
+  @include mat-elevation(4)
 
 :host(.targetable)
-  border: solid blue 2px
-  box-shadow: 5px 5px 10px gray
+  @include mat-elevation(12)
+  border: solid 2px #FFEB3B
   cursor: pointer
 
 :host(.targetted)
-  border: solid green 3px
+  @include mat-elevation(12)
+  border: solid 2px #F44336
