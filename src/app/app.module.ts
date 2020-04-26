@@ -9,6 +9,7 @@ import { UnitComponent } from './unit/unit.component';
 import { ActionComponent } from './action/action.component';
 import { TargetableDirective } from './targetable.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -17,14 +18,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PlayerComponent,
     UnitComponent,
     ActionComponent,
-    TargetableDirective
+    TargetableDirective,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatButtonModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
