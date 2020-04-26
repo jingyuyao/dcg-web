@@ -8,7 +8,6 @@ import { PlayerComponent } from './player/player.component';
 import { UnitComponent } from './unit/unit.component';
 import { ActionComponent } from './action/action.component';
 import { TargetableDirective } from './targetable.directive';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -21,8 +20,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    NgbModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
