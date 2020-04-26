@@ -1,5 +1,5 @@
 import { Component, Input, HostListener } from '@angular/core';
-import { Unit } from './unit';
+import { UnitView } from '../api/unit-view';
 
 @Component({
   selector: 'app-unit',
@@ -7,7 +7,7 @@ import { Unit } from './unit';
   styleUrls: ['./unit.component.sass']
 })
 export class UnitComponent {
-  @Input() unit: Unit;
+  @Input() unit: UnitView;
 
   @HostListener('click') onClick() {
     console.dir(this.unit);
