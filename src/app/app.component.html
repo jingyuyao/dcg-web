@@ -22,20 +22,32 @@
             Throne active
           </div>
         </ng-template>
-        <app-card
-          appTargetable
-          *ngIf="worldView.throneDeck.length > 0"
-          [entityId]="worldView.throneDeck[0].id"
-          [card]="worldView.throneDeck[0]"
-        ></app-card>
+        <!-- Loop hack so angular knows to always update this. -->
+        <ng-container
+          *ngFor="let seekPower of worldView.throneDeck; first as isFirst"
+        >
+          <app-card
+            appTargetable
+            *ngIf="isFirst"
+            [entityId]="seekPower.id"
+            [card]="seekPower"
+          ></app-card>
+        </ng-container>
       </div>
       <div class="mercenary-deck" *ngIf="worldView.mercenaryDeck.length > 0">
-        <div>Veteran Mercenary remaining: {{ worldView.mercenaryDeck.length }}</div>
-        <app-card
-          appTargetable
-          [entityId]="worldView.mercenaryDeck[0].id"
-          [card]="worldView.mercenaryDeck[0]"
-        ></app-card>
+        <div>
+          Veteran Mercenary remaining: {{ worldView.mercenaryDeck.length }}
+        </div>
+        <ng-container
+          *ngFor="let mercenary of worldView.mercenaryDeck; first as isFirst"
+        >
+          <app-card
+            appTargetable
+            *ngIf="isFirst"
+            [entityId]="mercenary.id"
+            [card]="mercenary"
+          ></app-card>
+        </ng-container>
       </div>
     </div>
     <div class="mat-subheading-2">Forge row</div>
