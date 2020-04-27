@@ -9,19 +9,18 @@
         [player]="player"
       ></app-player>
     </div>
-    <div class="mat-title">Forge</div>
+    <div class="mat-title">
+      Forge
+      <span
+        *ngIf="worldView.throneDeck.length == 0"
+        class="throne-active mat-subheading-2"
+      >
+        Throne active
+      </span>
+    </div>
     <div class="entity-container">
-      <div class="throne-deck">
-        <ng-container
-          *ngIf="worldView.throneDeck.length > 0; else ThroneActive"
-        >
-          <div>Seek Power remaining: {{ worldView.throneDeck.length }}</div>
-        </ng-container>
-        <ng-template #ThroneActive>
-          <div class="throne-active">
-            Throne active
-          </div>
-        </ng-template>
+      <div class="throne-deck" *ngIf="worldView.throneDeck.length > 0">
+        <div>Seek Power remaining: {{ worldView.throneDeck.length }}</div>
         <!-- Loop hack so angular knows to always update this. -->
         <ng-container
           *ngFor="let seekPower of worldView.throneDeck; first as isFirst"
