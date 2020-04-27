@@ -64,6 +64,7 @@
     <div class="mat-title">Attacking Units</div>
     <div class="entity-container">
       <app-unit
+        class="attacking"
         appTargetable
         *ngFor="let unit of worldView.attackingUnits"
         [entityId]="unit.id"
@@ -73,6 +74,7 @@
     <div class="mat-title">Defending Units</div>
     <div class="entity-container">
       <app-unit
+        class="defending"
         appTargetable
         *ngFor="let unit of worldView.defendingUnits"
         [entityId]="unit.id"
