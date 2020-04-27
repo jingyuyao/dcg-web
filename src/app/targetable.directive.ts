@@ -25,7 +25,7 @@ export class TargetableDirective implements OnDestroy {
   }
 
   @HostListener('click') onClick() {
-    if (this.targetable) {
+    if (this.targetable && !this.targetted) {
       this.selection.selectTarget(this.entityId);
     }
   }
