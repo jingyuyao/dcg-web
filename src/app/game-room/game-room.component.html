@@ -1,0 +1,12 @@
+<app-game-world *ngIf="worldView; else roomSection" [worldView]="worldView"></app-game-world>
+<ng-template #roomSection>
+  <div class="mat-h1">Joined players</div>
+  <div *ngFor="let name of roomView?.playerNames || []">{{ name }}</div>
+  <ng-container *ngIf="isJoined; else joinSection">
+    <div>Joined as {{ name.value }}</div>
+  </ng-container>
+  <ng-template #joinSection>
+    <label> Name: <input type="text" [formControl]="name" /> </label>
+    <button (click)="join()">Join</button>
+  </ng-template>
+</ng-template>
