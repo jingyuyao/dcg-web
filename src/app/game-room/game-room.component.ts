@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { GameClientService } from '../game-client.service';
 import { RoomView } from '../api/room-view';
 import { FormControl } from '@angular/forms';
-import { first } from 'rxjs/operators';
 import { WorldView } from '../api/world-view';
 
 @Component({
@@ -19,9 +18,9 @@ export class GameRoomComponent implements OnInit {
   constructor(private readonly gameClient: GameClientService) {}
 
   ngOnInit(): void {
-    this.gameClient.worldView$
-      .pipe(first())
-      .subscribe((worldView) => (this.worldView = worldView));
+    this.gameClient.worldView$.subscribe(
+      (worldView) => (this.worldView = worldView)
+    );
     this.gameClient.roomView$.subscribe(
       (roomView) => (this.roomView = roomView)
     );
