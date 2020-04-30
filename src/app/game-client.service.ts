@@ -28,7 +28,7 @@ export class GameClientService implements OnDestroy {
     this.socket.subscribe(
       (message) => {
         console.log('Received:');
-        console.log(JSON.stringify(message, undefined, 2));
+        console.log(message);
       },
       (error) => {
         console.error(error);
@@ -124,7 +124,7 @@ export class GameClientService implements OnDestroy {
 
   private sendMessage(message: ClientMessage) {
     console.log('Sending:');
-    console.log(JSON.stringify(message, undefined, 2));
+    console.log(message);
     this.socket.next(message);
   }
 }
