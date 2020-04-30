@@ -1,6 +1,6 @@
 <ng-container *ngIf="roomView$ | async as roomView">
   <ng-container *ngIf="roomView.isGameInProgress; else prep">
-    <app-game-world></app-game-world>
+    <app-game></app-game>
   </ng-container>
   <ng-template #prep>
     <div class="mat-h1">Joined players</div>

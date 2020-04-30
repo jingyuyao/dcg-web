@@ -12,7 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { ActionsComponent } from './actions/actions.component';
 import { GameRoomComponent } from './game-room/game-room.component';
-import { GameWorldComponent } from './game-world/game-world.component';
+import { GameComponent } from './game/game.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 
@@ -21,7 +21,7 @@ import { HomeComponent } from './home/home.component';
     AppComponent,
     HomeComponent,
     GameRoomComponent,
-    GameWorldComponent,
+    GameComponent,
     CardComponent,
     PlayerComponent,
     UnitComponent,

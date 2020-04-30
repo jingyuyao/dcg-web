@@ -4,11 +4,11 @@ import { Observable } from 'rxjs';
 import { GameClientService } from '../game-client.service';
 
 @Component({
-  selector: 'app-game-world',
-  templateUrl: './game-world.component.html',
-  styleUrls: ['./game-world.component.sass'],
+  selector: 'app-game',
+  templateUrl: './game.component.html',
+  styleUrls: ['./game.component.sass'],
 })
-export class GameWorldComponent implements OnInit {
+export class GameComponent implements OnInit {
   // TODO: need to show played units as voidbindable
   gameview$: Observable<GameView>;
 
