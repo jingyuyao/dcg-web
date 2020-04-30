@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { WorldView } from '../api/world-view';
+import { Observable } from 'rxjs';
+import { GameClientService } from '../game-client.service';
 
 @Component({
   selector: 'app-game-world',
@@ -8,9 +10,11 @@ import { WorldView } from '../api/world-view';
 })
 export class GameWorldComponent implements OnInit {
   // TODO: need to show played units as voidbindable
-  @Input() worldView: WorldView;
+  worldView$: Observable<WorldView>;
 
-  constructor() {}
+  constructor(private readonly gameClient: GameClientService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.worldView$ = this.gameClient.worldView$;
+  }
 }

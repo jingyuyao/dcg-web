@@ -1,19 +1,13 @@
-<ng-container *ngIf="roomView">
-  <app-game-world
-    *ngIf="roomView.isGameInProgress && worldView; else gameRoom"
-    [worldView]="worldView"
-  ></app-game-world>
-  <ng-template #gameRoom>
+<ng-container *ngIf="roomView$ | async as roomView">
+  <ng-container *ngIf="roomView.isGameInProgress; else prep">
+    <app-game-world></app-game-world>
+  </ng-container>
+  <ng-template #prep>
     <div class="mat-h1">Joined players</div>
     <ul>
       <li *ngFor="let name of roomView.playerNames">{{ name }}</li>
     </ul>
-    <ng-container *ngIf="isJoined; else joinSection">
-      <div>Joined as {{ name.value }}</div>
-    </ng-container>
-    <ng-template #joinSection>
-      <label>Name: <input type="text" [formControl]="name" /></label>
-      <button (click)="join()">Join</button>
-    </ng-template>
+    <div>Joined as {{ (attachmentView$ | async).name }}</div>
+    <button (click)="start()">Start game</button>
   </ng-template>
 </ng-container>

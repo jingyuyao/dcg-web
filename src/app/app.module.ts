@@ -14,18 +14,20 @@ import { ActionsComponent } from './actions/actions.component';
 import { GameRoomComponent } from './game-room/game-room.component';
 import { GameWorldComponent } from './game-world/game-world.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
+    GameRoomComponent,
+    GameWorldComponent,
     CardComponent,
     PlayerComponent,
     UnitComponent,
     ActionComponent,
-    TargetableDirective,
     ActionsComponent,
-    GameRoomComponent,
-    GameWorldComponent,
+    TargetableDirective,
   ],
   imports: [
     BrowserModule,

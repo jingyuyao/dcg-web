@@ -1,51 +1,130 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
-import { filter, map } from 'rxjs/operators';
-import { ServerMessage } from './api/server-message';
+import { filter, map, first, shareReplay } from 'rxjs/operators';
+import { ServerMessage, ServerMessageKind } from './api/server-message';
 import { WorldView } from './api/world-view';
 import { Observable } from 'rxjs';
 import { RoomView } from './api/room-view';
+import { AttachmentView } from './api/attachment-view';
+import { ClientMessage, ClientMessageKind } from './api/client-message';
+import { RoomList } from './api/room-list';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameClientService implements OnDestroy {
-  private socket: WebSocketSubject<any> = webSocket('ws://localhost:8888');
-  private name?: string;
-  roomView$: Observable<RoomView> = this.socket.pipe(
-    filter((msg: ServerMessage) => msg.kind === 'room-view'),
-    map((msg: ServerMessage) => msg.data as RoomView),
+  private readonly socket: WebSocketSubject<any> = webSocket(
+    'ws://localhost:8888'
   );
-  worldView$: Observable<WorldView> = this.socket.pipe(
-    filter((msg: ServerMessage) => msg.kind === 'world-view'),
-    map((msg: ServerMessage) => msg.data as WorldView),
+  attachmentView$: Observable<AttachmentView> = this.listen(
+    ServerMessageKind.ATTACHMENT_VIEW
   );
+  roomView$: Observable<RoomView> = this.listen(ServerMessageKind.ROOM_VIEW);
+  worldView$: Observable<WorldView> = this.listen(ServerMessageKind.WORLD_VIEW);
 
-  constructor() {}
+  constructor() {
+    // NOTE: We need at least one active subscription to keep the connection
+    // alive. So this is more than just loggign logging debug statements.
+    this.socket.subscribe(
+      (message) => {
+        console.log('Received:');
+        console.log(JSON.stringify(message, undefined, 2));
+      },
+      (error) => {
+        console.error(error);
+      },
+      () => {
+        console.log('Connection ended');
+      }
+    );
+  }
 
   ngOnDestroy(): void {
     this.socket.complete();
   }
 
-  join(name: string) {
-    this.name = name;
-    this.sendMessage('join');
+  initAttachment(name: string): Observable<AttachmentView> {
+    return this.request(
+      {
+        kind: ClientMessageKind.INIT_ATTACHMENT,
+        strArgs: [name],
+      },
+      ServerMessageKind.ATTACHMENT_VIEW
+    );
   }
 
-  execute(actionId: number, args: number[] = []) {
-    this.sendMessage('execute', [actionId, ...args]);
+  getRoomList(): Observable<RoomList> {
+    return this.request(
+      { kind: ClientMessageKind.GET_ROOM_LIST },
+      ServerMessageKind.ROOM_LIST
+    );
   }
 
-  requestRoomView() {
-    this.sendMessage('get-room-view');
+  joinRoom(roomName: string): Observable<RoomView> {
+    return this.request(
+      {
+        kind: ClientMessageKind.JOIN_ROOM,
+        strArgs: [roomName],
+      },
+      ServerMessageKind.ROOM_VIEW
+    );
   }
 
-  requestWorld() {
-    this.sendMessage('get-world-view');
+  leaveRoom(): Observable<AttachmentView> {
+    return this.request(
+      { kind: ClientMessageKind.LEAVE_ROOM },
+      ServerMessageKind.ATTACHMENT_VIEW
+    );
   }
 
-  private sendMessage(kind: string, args: number[] = []) {
-    this.socket.next({ name: this.name, kind, args });
-    console.log(`sent ${kind}: ${args}`);
+  startGame(): Observable<WorldView> {
+    return this.request(
+      { kind: ClientMessageKind.START_GAME },
+      ServerMessageKind.WORLD_VIEW
+    );
+  }
+
+  execute(actionId: number, args: number[] = []): Observable<WorldView> {
+    return this.request(
+      {
+        kind: ClientMessageKind.EXECUTE_ACTION,
+        intArgs: [actionId, ...args],
+      },
+      ServerMessageKind.WORLD_VIEW
+    );
+  }
+
+  /**
+   * Listens for server response of the specified kind and replays the last
+   * value received.
+   */
+  private listen<T>(resultKind: ServerMessageKind): Observable<T> {
+    return this.socket.pipe(
+      filter((msg: ServerMessage) => msg.kind === resultKind),
+      map((msg: ServerMessage) => msg.data as T),
+      shareReplay(1)
+    );
+  }
+
+  /**
+   * Sends the message and returns the first server response of the specified
+   * kind.
+   */
+  private request<T>(
+    message: ClientMessage,
+    resultKind: ServerMessageKind
+  ): Observable<T> {
+    this.sendMessage(message);
+    return this.socket.pipe(
+      filter((msg: ServerMessage) => msg.kind === resultKind),
+      map((msg: ServerMessage) => msg.data as T),
+      first()
+    );
+  }
+
+  private sendMessage(message: ClientMessage) {
+    console.log('Sending:');
+    console.log(JSON.stringify(message, undefined, 2));
+    this.socket.next(message);
   }
 }

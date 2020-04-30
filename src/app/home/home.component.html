@@ -1,0 +1,11 @@
+<ng-container *ngIf="roomList$ | async as roomList">
+  <label>Name: <input type="text" [formControl]="name" /></label>
+  <div>Rooms</div>
+  <ul>
+    <li *ngFor="let room of roomList.rooms">
+      {{ room.roomName }} ({{ room.playerNames.length }})
+      {{ room.isGameInProgress ? "Playing" : "Prep" }}
+      <button [disabled]="!name.value" (click)="join(room.roomName)">Join</button>
+    </li>
+  </ul>
+</ng-container>

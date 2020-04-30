@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { GameClientService } from '../game-client.service';
 import { RoomView } from '../api/room-view';
-import { FormControl } from '@angular/forms';
 import { WorldView } from '../api/world-view';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AttachmentView } from '../api/attachment-view';
 
 @Component({
   selector: 'app-game-room',
@@ -10,27 +12,23 @@ import { WorldView } from '../api/world-view';
   styleUrls: ['./game-room.component.sass'],
 })
 export class GameRoomComponent implements OnInit {
-  name = new FormControl('');
-  roomView?: RoomView;
-  isJoined = false;
-  worldView?: WorldView;
+  attachmentView$: Observable<AttachmentView>;
+  roomView$: Observable<RoomView>;
 
-  constructor(private readonly gameClient: GameClientService) {}
+  constructor(
+    private readonly route: ActivatedRoute,
+    private readonly gameClient: GameClientService) {}
 
   ngOnInit(): void {
-    this.gameClient.worldView$.subscribe(
-      (worldView) => (this.worldView = worldView)
-    );
-    this.gameClient.roomView$.subscribe(
-      (roomView) => (this.roomView = roomView)
-    );
-    this.gameClient.requestRoomView();
+    this.attachmentView$ = this.gameClient.attachmentView$;
+    this.roomView$ = this.gameClient.roomView$;
+    this.route.paramMap.subscribe((params) => {
+      const roomName = params.get('roomName');
+      this.gameClient.joinRoom(roomName);
+    });
   }
 
-  join() {
-    if (this.name.value) {
-      this.gameClient.join(this.name.value);
-      this.isJoined = true;
-    }
+  start() {
+    this.gameClient.startGame();
   }
 }
