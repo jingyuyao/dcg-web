@@ -4,7 +4,7 @@ import { filter, map, first, shareReplay } from 'rxjs/operators';
 import { ServerMessage, ServerMessageKind } from './api/server-message';
 import { GameView } from './api/game-view';
 import { Observable } from 'rxjs';
-import { RoomView } from './api/room-view';
+import { GameRoomView } from './api/game-room-view';
 import { AttachmentView } from './api/attachment-view';
 import { ClientMessage, ClientMessageKind } from './api/client-message';
 import { RoomList } from './api/room-list';
@@ -19,7 +19,7 @@ export class GameClientService implements OnDestroy {
   attachmentView$: Observable<AttachmentView> = this.listen(
     ServerMessageKind.ATTACHMENT_VIEW
   );
-  roomView$: Observable<RoomView> = this.listen(ServerMessageKind.ROOM_VIEW);
+  roomView$: Observable<GameRoomView> = this.listen(ServerMessageKind.GAME_ROOM_VIEW);
   gameview$: Observable<GameView> = this.listen(ServerMessageKind.GAME_VIEW);
 
   constructor() {
@@ -60,13 +60,13 @@ export class GameClientService implements OnDestroy {
     );
   }
 
-  joinRoom(roomName: string): Observable<RoomView> {
+  joinRoom(roomName: string): Observable<GameRoomView> {
     return this.request(
       {
         kind: ClientMessageKind.JOIN_ROOM,
         strArgs: [roomName],
       },
-      ServerMessageKind.ROOM_VIEW
+      ServerMessageKind.GAME_ROOM_VIEW
     );
   }
 

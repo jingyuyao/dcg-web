@@ -1,5 +1,5 @@
-import { RoomView } from './room-view';
+import { GameRoomView } from './game-room-view';
 
 export interface RoomList {
-  rooms: RoomView[];
+  rooms: GameRoomView[];
 }

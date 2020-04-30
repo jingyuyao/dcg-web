@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GameClientService } from '../game-client.service';
-import { RoomView } from '../api/room-view';
+import { GameRoomView } from '../api/game-room-view';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AttachmentView } from '../api/attachment-view';
@@ -12,7 +12,7 @@ import { AttachmentView } from '../api/attachment-view';
 })
 export class GameRoomComponent implements OnInit {
   attachmentView$: Observable<AttachmentView>;
-  roomView$: Observable<RoomView>;
+  roomView$: Observable<GameRoomView>;
 
   constructor(
     private readonly route: ActivatedRoute,
