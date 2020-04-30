@@ -1,10 +1,10 @@
-<ng-container *ngIf="worldView$ | async as worldView">
+<ng-container *ngIf="gameview$ | async as gameview">
   <div class="left">
     <div class="mat-title">Players</div>
     <div class="entity-container">
       <app-player
         appTargetable
-        *ngFor="let player of worldView.players"
+        *ngFor="let player of gameview.players"
         [entityId]="player.id"
         [player]="player"
       ></app-player>
@@ -12,18 +12,18 @@
     <div class="mat-title">
       Forge
       <span
-        *ngIf="worldView.throneDeck.length == 0"
+        *ngIf="gameview.throneDeck.length == 0"
         class="throne-active mat-subheading-2"
       >
         Throne active
       </span>
     </div>
     <div class="entity-container">
-      <div class="throne-deck" *ngIf="worldView.throneDeck.length > 0">
-        <div>Seek Power remaining: {{ worldView.throneDeck.length }}</div>
+      <div class="throne-deck" *ngIf="gameview.throneDeck.length > 0">
+        <div>Seek Power remaining: {{ gameview.throneDeck.length }}</div>
         <!-- Loop hack so angular knows to always update this. -->
         <ng-container
-          *ngFor="let seekPower of worldView.throneDeck; first as isFirst"
+          *ngFor="let seekPower of gameview.throneDeck; first as isFirst"
         >
           <app-card
             appTargetable
@@ -33,12 +33,12 @@
           ></app-card>
         </ng-container>
       </div>
-      <div class="mercenary-deck" *ngIf="worldView.mercenaryDeck.length > 0">
+      <div class="mercenary-deck" *ngIf="gameview.mercenaryDeck.length > 0">
         <div>
-          Veteran Mercenary remaining: {{ worldView.mercenaryDeck.length }}
+          Veteran Mercenary remaining: {{ gameview.mercenaryDeck.length }}
         </div>
         <ng-container
-          *ngFor="let mercenary of worldView.mercenaryDeck; first as isFirst"
+          *ngFor="let mercenary of gameview.mercenaryDeck; first as isFirst"
         >
           <app-card
             appTargetable
@@ -53,7 +53,7 @@
     <div class="entity-container">
       <app-card
         appTargetable
-        *ngFor="let card of worldView.forgeRow"
+        *ngFor="let card of gameview.forgeRow"
         [entityId]="card.id"
         [card]="card"
       ></app-card>
@@ -65,7 +65,7 @@
       <app-unit
         class="attacking"
         appTargetable
-        *ngFor="let unit of worldView.attackingUnits"
+        *ngFor="let unit of gameview.attackingUnits"
         [entityId]="unit.id"
         [unit]="unit"
       ></app-unit>
@@ -75,7 +75,7 @@
       <app-unit
         class="defending"
         appTargetable
-        *ngFor="let unit of worldView.defendingUnits"
+        *ngFor="let unit of gameview.defendingUnits"
         [entityId]="unit.id"
         [unit]="unit"
       ></app-unit>
@@ -84,7 +84,7 @@
     <div class="entity-container">
       <app-card
         appTargetable
-        *ngFor="let card of worldView.playArea"
+        *ngFor="let card of gameview.playArea"
         [entityId]="card.id"
         [card]="card"
       ></app-card>

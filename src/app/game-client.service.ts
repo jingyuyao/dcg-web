@@ -2,7 +2,7 @@ import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
 import { filter, map, first, shareReplay } from 'rxjs/operators';
 import { ServerMessage, ServerMessageKind } from './api/server-message';
-import { WorldView } from './api/world-view';
+import { GameView } from './api/game-view';
 import { Observable } from 'rxjs';
 import { RoomView } from './api/room-view';
 import { AttachmentView } from './api/attachment-view';
@@ -20,7 +20,7 @@ export class GameClientService implements OnDestroy {
     ServerMessageKind.ATTACHMENT_VIEW
   );
   roomView$: Observable<RoomView> = this.listen(ServerMessageKind.ROOM_VIEW);
-  worldView$: Observable<WorldView> = this.listen(ServerMessageKind.WORLD_VIEW);
+  gameview$: Observable<GameView> = this.listen(ServerMessageKind.GAME_VIEW);
 
   constructor() {
     // NOTE: We need at least one active subscription to keep the connection
@@ -77,20 +77,20 @@ export class GameClientService implements OnDestroy {
     );
   }
 
-  startGame(): Observable<WorldView> {
+  startGame(): Observable<GameView> {
     return this.request(
       { kind: ClientMessageKind.START_GAME },
-      ServerMessageKind.WORLD_VIEW
+      ServerMessageKind.GAME_VIEW
     );
   }
 
-  execute(actionId: number, args: number[] = []): Observable<WorldView> {
+  execute(actionId: number, args: number[] = []): Observable<GameView> {
     return this.request(
       {
         kind: ClientMessageKind.EXECUTE_ACTION,
         intArgs: [actionId, ...args],
       },
-      ServerMessageKind.WORLD_VIEW
+      ServerMessageKind.GAME_VIEW
     );
   }
 
