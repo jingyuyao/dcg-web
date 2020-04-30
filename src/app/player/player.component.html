@@ -1,5 +1,5 @@
-<div class="header mat-body-2">
-  <span class="name">{{ player.name }}</span>
+<div class="header mat-body-1">
+  <span class="name" [class.mat-body-2]="player.isCurrent">{{ player.name }}</span>
   <span class="hp">❤️ {{ player.hp }}</span>
 </div>
 <div class="stats">
