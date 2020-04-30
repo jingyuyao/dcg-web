@@ -1,6 +1,7 @@
 import { PlayerView } from './player-view';
 import { CardView } from './card-view';
 import { UnitView } from './unit-view';
+import { CommandView } from './command-view';
 
 export interface GameView {
   players: PlayerView[];
@@ -11,4 +12,5 @@ export interface GameView {
   hand: CardView[];
   attackingUnits: UnitView[];
   defendingUnits: UnitView[];
+  commandHistory: CommandView[];
 }

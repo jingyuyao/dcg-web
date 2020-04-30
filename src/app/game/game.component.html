@@ -59,7 +59,7 @@
       ></app-card>
     </div>
   </div>
-  <div class="right">
+  <div class="middle">
     <div class="mat-title">Attacking Units</div>
     <div class="entity-container">
       <app-unit
@@ -98,6 +98,11 @@
         [entityId]="card.id"
         [card]="card"
       ></app-card>
+    </div>
+  </div>
+  <div class="right">
+    <div *ngFor="let command of gameview.commandHistory">
+      {{ command.logText }}
     </div>
   </div>
 </ng-container>
