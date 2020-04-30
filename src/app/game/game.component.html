@@ -89,5 +89,14 @@
         [card]="card"
       ></app-card>
     </div>
+    <div class="mat-title">Hand</div>
+    <div class="entity-container">
+      <app-card
+        appTargetable
+        *ngFor="let card of gameview.hand"
+        [entityId]="card.id"
+        [card]="card"
+      ></app-card>
+    </div>
   </div>
 </ng-container>

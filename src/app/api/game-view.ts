@@ -8,6 +8,7 @@ export interface GameView {
   throneDeck: CardView[];
   mercenaryDeck: CardView[];
   playArea: CardView[];
+  hand: CardView[];
   attackingUnits: UnitView[];
   defendingUnits: UnitView[];
 }
