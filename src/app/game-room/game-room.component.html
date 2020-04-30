@@ -1,4 +1,10 @@
 <ng-container *ngIf="roomView$ | async as roomView">
+  <mat-toolbar color="primary">
+    <span>
+      Room: {{ roomView.roomName }}
+      Player: {{ (attachmentView$ | async).name }}
+    </span>
+  </mat-toolbar>
   <ng-container *ngIf="roomView.isGameInProgress; else prep">
     <app-game></app-game>
   </ng-container>
@@ -7,7 +13,6 @@
     <ul>
       <li *ngFor="let name of roomView.playerNames">{{ name }}</li>
     </ul>
-    <div>Joined as {{ (attachmentView$ | async).name }}</div>
     <button (click)="start()">Start game</button>
   </ng-template>
 </ng-container>
