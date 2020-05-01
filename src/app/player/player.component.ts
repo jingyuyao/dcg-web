@@ -1,4 +1,4 @@
-import { Component, Input, HostListener } from '@angular/core';
+import { Component, Input, HostListener, HostBinding } from '@angular/core';
 import { PlayerView } from '../api/player-view';
 
 @Component({
@@ -8,6 +8,9 @@ import { PlayerView } from '../api/player-view';
 })
 export class PlayerComponent {
   @Input() player: PlayerView;
+  @HostBinding('class.isCurrent') get isCurrent() {
+    return this.player.isCurrent;
+  }
 
   @HostListener('click') onClick() {
     console.dir(this.player);
