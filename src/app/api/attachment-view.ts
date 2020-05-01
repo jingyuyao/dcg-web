@@ -1,4 +1,4 @@
 export interface AttachmentView {
-  name?: string;
+  playerName?: string;
   roomName?: string;
 }
