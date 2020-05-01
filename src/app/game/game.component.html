@@ -20,7 +20,6 @@
       </div>
       <div class="entity-container">
         <div class="throne-deck" *ngIf="gameview.throneDeck.length > 0">
-          <div>Seek Power remaining: {{ gameview.throneDeck.length }}</div>
           <!-- Loop hack so angular knows to always update this. -->
           <ng-container
             *ngFor="let seekPower of gameview.throneDeck; first as isFirst"
@@ -32,11 +31,9 @@
               [card]="seekPower"
             ></app-card>
           </ng-container>
+          <div>Remaining: {{ gameview.throneDeck.length }}</div>
         </div>
         <div class="mercenary-deck" *ngIf="gameview.mercenaryDeck.length > 0">
-          <div>
-            Veteran Mercenary remaining: {{ gameview.mercenaryDeck.length }}
-          </div>
           <ng-container
             *ngFor="let mercenary of gameview.mercenaryDeck; first as isFirst"
           >
@@ -47,6 +44,7 @@
               [card]="mercenary"
             ></app-card>
           </ng-container>
+          <div>Remaining: {{ gameview.mercenaryDeck.length }}</div>
         </div>
       </div>
     </div>
