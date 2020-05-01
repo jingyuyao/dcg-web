@@ -1,16 +1,13 @@
 <ng-container *ngIf="attachmentView$ | async as attachmentView">
   <ng-container *ngIf="roomView$ | async as roomView; else notJoined">
     <mat-toolbar class="header" color="primary">
-      <span>
-        Room: {{ attachmentView.roomName }}
-      </span>
-      <span>
-        Joined As: {{ attachmentView.name }}
-      </span>
+      <span> Room: {{ attachmentView.roomName }} </span>
+      <span> Joined As: {{ attachmentView.name }} </span>
     </mat-toolbar>
-    <ng-container *ngIf="roomView.isGameInProgress; else prep">
-      <app-game [gameview$]="gameView$"></app-game>
-    </ng-container>
+    <app-game
+      *ngIf="roomView.isGameInProgress; else prep"
+      [gameview$]="gameView$"
+    ></app-game>
     <ng-template #prep>
       <div class="prep">
         <div class="mat-title">Joined players</div>
