@@ -1,11 +1,44 @@
-<ng-container *ngIf="roomList$ | async as roomList">
-  <label>Name: <input type="text" [formControl]="name" /></label>
-  <div>Rooms</div>
-  <ul>
-    <li *ngFor="let room of roomList.rooms">
-      {{ room.roomName }} ({{ room.joinedPlayerNames.length }})
-      {{ room.isGameInProgress ? "Playing" : "Prep" }}
-      <button [disabled]="!name.value" (click)="join(room.roomName)">Join</button>
-    </li>
-  </ul>
-</ng-container>
+<mat-toolbar color="primary">
+  <span>
+    Ephemeral: Gossips of the Chair
+  </span>
+</mat-toolbar>
+<div class="container" *ngIf="roomList$ | async as roomList">
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput [formControl]="name" />
+  </mat-form-field>
+  <div class="mat-title">Rooms</div>
+  <table class="roomList" mat-table [dataSource]="roomList.rooms">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Room Name</th>
+      <td mat-cell *matCellDef="let room">{{ room.roomName }}</td>
+    </ng-container>
+    <ng-container matColumnDef="state">
+      <th mat-header-cell *matHeaderCellDef>State</th>
+      <td mat-cell *matCellDef="let room">
+        {{ room.isGameInProgress ? "Playing" : "Prep" }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="playerCount">
+      <th mat-header-cell *matHeaderCellDef>Player Count</th>
+      <td mat-cell *matCellDef="let room">
+        {{ room.joinedPlayerNames.length }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="join">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let room">
+        <button
+          mat-raised-button
+          [disabled]="!name.value"
+          (click)="join(room.roomName)"
+        >
+          Join
+        </button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="roomListColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: roomListColumns"></tr>
+  </table>
+</div>

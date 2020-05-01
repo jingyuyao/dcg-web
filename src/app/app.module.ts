@@ -17,6 +17,9 @@ import { GameComponent } from './game/game.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { MatListModule } from '@angular/material/list';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -39,6 +42,9 @@ import { MatListModule } from '@angular/material/list';
     MatButtonModule,
     MatToolbarModule,
     MatListModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

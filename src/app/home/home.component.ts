@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   name = new FormControl('');
   roomList$: Observable<RoomList>;
+  roomListColumns = ['name', 'state', 'playerCount', 'join'];
 
   constructor(
     private readonly router: Router,
