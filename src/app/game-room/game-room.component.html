@@ -1,5 +1,5 @@
 <ng-container *ngIf="attachmentView$ | async as attachmentView">
-  <ng-container *ngIf="roomView$ | async as roomView">
+  <ng-container *ngIf="roomView$ | async as roomView; else notJoined">
     <mat-toolbar color="primary">
       <span>
         Room: {{ attachmentView.roomName }} Player: {{ attachmentView.name }}
@@ -9,13 +9,24 @@
       <app-game [gameview$]="gameView$"></app-game>
     </ng-container>
     <ng-template #prep>
-      <div>
-        <div class="mat-h1">Joined players</div>
-        <ul>
-          <li *ngFor="let name of roomView.joinedPlayerNames">{{ name }}</li>
-        </ul>
-        <button (click)="start()">Start game</button>
+      <div class="prep">
+        <div class="mat-title">Joined players</div>
+        <mat-list>
+          <mat-list-item *ngFor="let name of roomView.joinedPlayerNames">{{
+            name
+          }}</mat-list-item>
+        </mat-list>
+        <button
+          mat-raised-button
+          [disabled]="roomView.joinedPlayerNames.length < 2"
+          (click)="start()"
+        >
+          Start game
+        </button>
       </div>
     </ng-template>
   </ng-container>
+  <ng-template #notJoined>
+    Not joined.
+  </ng-template>
 </ng-container>

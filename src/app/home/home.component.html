@@ -4,6 +4,7 @@
   </span>
 </mat-toolbar>
 <div class="container" *ngIf="roomList$ | async as roomList">
+  <div class="mat-title">Enter Your Name</div>
   <mat-form-field>
     <mat-label>Name</mat-label>
     <input matInput [formControl]="name" />
