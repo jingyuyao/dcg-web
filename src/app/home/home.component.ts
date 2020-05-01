@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.sass']
+  styleUrls: ['./home.component.sass'],
 })
 export class HomeComponent implements OnInit {
   name = new FormControl('');
@@ -16,17 +16,16 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private readonly router: Router,
-    private readonly gameClient: GameClientService) { }
+    private readonly gameClient: GameClientService
+  ) {}
 
   ngOnInit(): void {
     this.roomList$ = this.gameClient.getRoomList();
   }
 
   join(roomName: string) {
-    this.gameClient.initAttachment(this.name.value).subscribe((attachment) => {
-      if (attachment.name) {
-        this.router.navigate(['/room', roomName]);
-      }
+    this.router.navigate(['/room', roomName], {
+      queryParams: { playerName: this.name.value },
     });
   }
 }

@@ -1,20 +1,21 @@
-<ng-container *ngIf="roomView$ | async as roomView">
-  <mat-toolbar color="primary">
-    <span>
-      Room: {{ roomView.roomName }}
-      Player: {{ (attachmentView$ | async).name }}
-    </span>
-  </mat-toolbar>
-  <ng-container *ngIf="roomView.isGameInProgress; else prep">
-    <app-game></app-game>
+<ng-container *ngIf="attachmentView$ | async as attachmentView">
+  <ng-container *ngIf="roomView$ | async as roomView">
+    <mat-toolbar color="primary">
+      <span>
+        Room: {{ attachmentView.roomName }} Player: {{ attachmentView.name }}
+      </span>
+    </mat-toolbar>
+    <ng-container *ngIf="roomView.isGameInProgress; else prep">
+      <app-game [gameview$]="gameView$"></app-game>
+    </ng-container>
+    <ng-template #prep>
+      <div>
+        <div class="mat-h1">Joined players</div>
+        <ul>
+          <li *ngFor="let name of roomView.playerNames">{{ name }}</li>
+        </ul>
+        <button (click)="start()">Start game</button>
+      </div>
+    </ng-template>
   </ng-container>
-  <ng-template #prep>
-    <div>
-      <div class="mat-h1">Joined players</div>
-      <ul>
-        <li *ngFor="let name of roomView.playerNames">{{ name }}</li>
-      </ul>
-      <button (click)="start()">Start game</button>
-    </div>
-  </ng-template>
 </ng-container>

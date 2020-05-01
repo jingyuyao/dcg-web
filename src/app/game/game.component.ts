@@ -1,20 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { GameView } from '../api/game-view';
 import { Observable } from 'rxjs';
-import { GameClientService } from '../game-client.service';
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.sass'],
 })
-export class GameComponent implements OnInit {
+export class GameComponent {
   // TODO: need to show played units as voidbindable
-  gameview$: Observable<GameView>;
-
-  constructor(private readonly gameClient: GameClientService) {}
-
-  ngOnInit(): void {
-    this.gameview$ = this.gameClient.gameview$;
-  }
+  @Input() gameview$: Observable<GameView>;
 }
