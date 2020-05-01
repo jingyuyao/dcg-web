@@ -70,6 +70,9 @@
         [unit]="unit"
       ></app-unit>
     </div>
+    <div *ngIf="gameview.attackingUnits.length == 0">
+      No attacking units
+    </div>
     <div class="mat-title">Defending Units</div>
     <div class="entity-container">
       <app-unit
@@ -79,6 +82,9 @@
         [entityId]="unit.id"
         [unit]="unit"
       ></app-unit>
+    </div>
+    <div *ngIf="gameview.defendingUnits.length == 0">
+      No defending units
     </div>
     <div class="mat-title">Play Area</div>
     <div class="entity-container">

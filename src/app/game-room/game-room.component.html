@@ -9,10 +9,12 @@
     <app-game></app-game>
   </ng-container>
   <ng-template #prep>
-    <div class="mat-h1">Joined players</div>
-    <ul>
-      <li *ngFor="let name of roomView.playerNames">{{ name }}</li>
-    </ul>
-    <button (click)="start()">Start game</button>
+    <div>
+      <div class="mat-h1">Joined players</div>
+      <ul>
+        <li *ngFor="let name of roomView.playerNames">{{ name }}</li>
+      </ul>
+      <button (click)="start()">Start game</button>
+    </div>
   </ng-template>
 </ng-container>
