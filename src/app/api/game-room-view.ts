@@ -1,5 +1,5 @@
 export interface GameRoomView {
   roomName: string;
-  playerNames: string[];
+  joinedPlayerNames: string[];
   isGameInProgress: boolean;
 }

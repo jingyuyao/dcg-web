@@ -3,7 +3,7 @@
   <div>Rooms</div>
   <ul>
     <li *ngFor="let room of roomList.rooms">
-      {{ room.roomName }} ({{ room.playerNames.length }})
+      {{ room.roomName }} ({{ room.joinedPlayerNames.length }})
       {{ room.isGameInProgress ? "Playing" : "Prep" }}
       <button [disabled]="!name.value" (click)="join(room.roomName)">Join</button>
     </li>
