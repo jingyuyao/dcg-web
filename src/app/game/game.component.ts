@@ -29,7 +29,7 @@ export class GameComponent implements OnInit {
         this.currentPlayerName =
           game.currentPlayerName === attachment.playerName
             ? 'Your'
-            : game.previousPlayerName + '\'s';
+            : game.currentPlayerName + '\'s';
       }
     );
     this.gameview$.subscribe((gameView) => {
