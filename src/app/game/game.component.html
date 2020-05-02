@@ -133,8 +133,10 @@
   </div>
   <div class="section right">
     <mat-list dense>
-      <mat-list-item *ngFor="let command of commandHistory">
-        {{ command.logText }}
+      <h3 matSubheader>Execution History</h3>
+      <mat-list-item *ngFor="let execution of executionHistory">
+        <h3 matLine>{{ execution.executorName }}</h3>
+        <p matLine>{{ execution.commandSnapshot }}</p>
       </mat-list-item>
     </mat-list>
   </div>

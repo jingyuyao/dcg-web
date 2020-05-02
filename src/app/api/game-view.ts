@@ -1,7 +1,7 @@
 import { PlayerView } from './player-view';
 import { CardView } from './card-view';
 import { UnitView } from './unit-view';
-import { CommandView } from './command-view';
+import { ExecutionView } from './execution-view';
 
 export interface GameView {
   players: PlayerView[];
@@ -13,5 +13,5 @@ export interface GameView {
   discardPile: CardView[];
   attackingUnits: UnitView[];
   defendingUnits: UnitView[];
-  recentCommandHistory: CommandView[];
+  recentExecutions: ExecutionView[];
 }
