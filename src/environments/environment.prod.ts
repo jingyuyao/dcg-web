@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  apiUrl: 'ws://dcg-api.jingyuyao.com',
 };

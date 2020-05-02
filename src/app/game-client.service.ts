@@ -5,13 +5,14 @@ import { ServerMessage, ServerMessageKind } from './api/server-message';
 import { Observable } from 'rxjs';
 import { ClientMessage, ClientMessageKind } from './api/client-message';
 import { RoomList } from './api/room-list';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameClientService implements OnDestroy {
   private readonly socket: WebSocketSubject<any> = webSocket(
-    'ws://localhost:8888'
+    environment.apiUrl
   );
 
   constructor() {
