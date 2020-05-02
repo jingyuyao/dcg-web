@@ -27,7 +27,9 @@ export class GameComponent implements OnInit {
       )
       .subscribe((canAct) => (this.canAct = canAct));
     this.gameview$.subscribe((gameView) => {
-      this.executionHistory.push(...gameView.recentExecutions);
+      for (const execution of gameView.recentExecutions) {
+        this.executionHistory.unshift(execution);
+      }
     });
   }
 }
