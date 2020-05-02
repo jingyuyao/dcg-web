@@ -103,7 +103,12 @@
       </div>
     </div>
     <div class="area">
-      <div class="mat-title">Hand</div>
+      <div class="mat-title">
+        Hand
+        <button mat-stroked-button color="accent" (click)="showDiscardPile()">
+          Discard Pile
+        </button>
+      </div>
       <div class="entity-container">
         <app-card
           class="hand"

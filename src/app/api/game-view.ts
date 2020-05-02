@@ -10,6 +10,7 @@ export interface GameView {
   mercenaryDeck: CardView[];
   playArea: CardView[];
   hand: CardView[];
+  discardPile: CardView[];
   attackingUnits: UnitView[];
   defendingUnits: UnitView[];
   recentCommandHistory: CommandView[];
