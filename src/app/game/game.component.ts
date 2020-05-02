@@ -30,8 +30,4 @@ export class GameComponent implements OnInit {
       this.commandHistory.push(...gameView.recentCommandHistory);
     });
   }
-
-  showDiscardPile() {
-    console.log('showDiscardPile');
-  }
 }

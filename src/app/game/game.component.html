@@ -102,23 +102,34 @@
         ></app-card>
       </div>
     </div>
-    <div class="area">
-      <div class="mat-title">
-        Hand
-        <button mat-stroked-button color="accent" (click)="showDiscardPile()">
-          Discard Pile
-        </button>
-      </div>
-      <div class="entity-container">
-        <app-card
-          class="hand"
-          appTargetable
-          *ngFor="let card of gameview.hand"
-          [entityId]="card.id"
-          [card]="card"
-        ></app-card>
-      </div>
-    </div>
+    <mat-tab-group mat-align-tabs="center">
+      <mat-tab label="Hand">
+        <div class="area">
+          <div class="entity-container">
+            <app-card
+              class="hand"
+              appTargetable
+              *ngFor="let card of gameview.hand"
+              [entityId]="card.id"
+              [card]="card"
+            ></app-card>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Discard Pile">
+        <div class="area">
+          <div class="entity-container">
+            <app-card
+              class="discard-pile"
+              appTargetable
+              *ngFor="let card of gameview.discardPile"
+              [entityId]="card.id"
+              [card]="card"
+            ></app-card>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
   </div>
   <div class="section right">
     <mat-list dense>
