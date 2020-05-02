@@ -12,5 +12,5 @@ export interface GameView {
   hand: CardView[];
   attackingUnits: UnitView[];
   defendingUnits: UnitView[];
-  commandHistory: CommandView[];
+  recentCommandHistory: CommandView[];
 }

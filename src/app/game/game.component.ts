@@ -3,6 +3,7 @@ import { GameView } from '../api/game-view';
 import { Observable, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AttachmentView } from '../api/attachment-view';
+import { CommandView } from '../api/command-view';
 
 @Component({
   selector: 'app-game',
@@ -14,6 +15,7 @@ export class GameComponent implements OnInit {
   // TODO: need to show played units as voidbindable
   @Input() gameview$: Observable<GameView>;
   @HostBinding('class.canAct') canAct: boolean;
+  commandHistory: CommandView[] = [];
 
   ngOnInit(): void {
     combineLatest([this.attachmentView$, this.gameview$])
@@ -24,5 +26,8 @@ export class GameComponent implements OnInit {
         })
       )
       .subscribe((canAct) => (this.canAct = canAct));
+    this.gameview$.subscribe((gameView) => {
+      this.commandHistory.push(...gameView.recentCommandHistory);
+    });
   }
 }
