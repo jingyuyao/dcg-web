@@ -13,9 +13,9 @@ import { GameView } from '../api/game-view';
   styleUrls: ['./game-room.component.sass'],
 })
 export class GameRoomComponent implements OnInit, OnDestroy {
-  attachmentView$ = new ReplaySubject<AttachmentView>();
-  roomView$ = new ReplaySubject<GameRoomView>();
-  gameView$ = new ReplaySubject<GameView>();
+  attachmentView$ = new ReplaySubject<AttachmentView>(1);
+  roomView$ = new ReplaySubject<GameRoomView>(1);
+  gameView$ = new ReplaySubject<GameView>(1);
 
   constructor(
     private readonly route: ActivatedRoute,
