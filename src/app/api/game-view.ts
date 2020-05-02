@@ -4,6 +4,8 @@ import { UnitView } from './unit-view';
 import { ExecutionView } from './execution-view';
 
 export interface GameView {
+  currentPlayerName: string;
+  previousPlayerName: string;
   players: PlayerView[];
   forgeRow: CardView[];
   throneDeck: CardView[];

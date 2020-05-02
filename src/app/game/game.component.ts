@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, HostBinding } from '@angular/core';
 import { GameView } from '../api/game-view';
 import { Observable, combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { AttachmentView } from '../api/attachment-view';
 import { ExecutionView } from '../api/execution-view';
 
@@ -15,17 +14,24 @@ export class GameComponent implements OnInit {
   // TODO: need to show played units as voidbindable
   @Input() gameview$: Observable<GameView>;
   @HostBinding('class.canAct') canAct: boolean;
+  previousPlayerName: string;
+  currentPlayerName: string;
   executionHistory: ExecutionView[] = [];
 
   ngOnInit(): void {
-    combineLatest([this.attachmentView$, this.gameview$])
-      .pipe(
-        map(([attachment, game]) => {
-          const currentPlayer = game.players.find((player) => player.isCurrent);
-          return attachment.playerName === currentPlayer?.name;
-        })
-      )
-      .subscribe((canAct) => (this.canAct = canAct));
+    combineLatest([this.attachmentView$, this.gameview$]).subscribe(
+      ([attachment, game]) => {
+        this.canAct = attachment.playerName === game.currentPlayerName;
+        this.previousPlayerName =
+          game.previousPlayerName === attachment.playerName
+            ? 'Your'
+            : game.previousPlayerName + '\'s';
+        this.currentPlayerName =
+          game.currentPlayerName === attachment.playerName
+            ? 'Your'
+            : game.previousPlayerName + '\'s';
+      }
+    );
     this.gameview$.subscribe((gameView) => {
       for (const execution of gameView.recentExecutions) {
         this.executionHistory.unshift(execution);
