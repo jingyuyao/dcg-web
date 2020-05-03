@@ -132,12 +132,14 @@
     </mat-tab-group>
   </div>
   <div class="section right">
+    <div class="mat-title">Execution History</div>
     <mat-list dense>
-      <h3 matSubheader>Execution History</h3>
-      <mat-list-item *ngFor="let execution of executionHistory">
-        <h3 matLine>{{ execution.executorName }}</h3>
-        <p matLine>{{ execution.commandSnapshot }}</p>
-      </mat-list-item>
+      <ng-container *ngFor="let secton of executionSections">
+        <h3 matSubheader>Player: {{ secton.playerName }}</h3>
+        <mat-list-item *ngFor="let execution of secton.history">
+          {{ execution.commandSnapshot }}
+        </mat-list-item>
+      </ng-container>
     </mat-list>
   </div>
 </ng-container>

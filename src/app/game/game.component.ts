@@ -4,6 +4,11 @@ import { Observable, combineLatest } from 'rxjs';
 import { AttachmentView } from '../api/attachment-view';
 import { ExecutionView } from '../api/execution-view';
 
+interface ExecutionSection {
+  playerName: string;
+  history: ExecutionView[];
+}
+
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
@@ -16,7 +21,7 @@ export class GameComponent implements OnInit {
   @HostBinding('class.canAct') canAct: boolean;
   previousPlayerName: string;
   currentPlayerName: string;
-  executionHistory: ExecutionView[] = [];
+  executionSections: ExecutionSection[] = [];
 
   ngOnInit(): void {
     combineLatest([this.attachmentView$, this.gameview$]).subscribe(
@@ -25,16 +30,25 @@ export class GameComponent implements OnInit {
         this.previousPlayerName =
           game.previousPlayerName === attachment.playerName
             ? 'Your'
-            : game.previousPlayerName + '\'s';
+            : game.previousPlayerName + `'s`;
         this.currentPlayerName =
           game.currentPlayerName === attachment.playerName
             ? 'Your'
-            : game.currentPlayerName + '\'s';
+            : game.currentPlayerName + `'s`;
       }
     );
     this.gameview$.subscribe((gameView) => {
+      let lastSection: ExecutionSection | undefined = this.executionSections[0];
       for (const execution of gameView.recentExecutions) {
-        this.executionHistory.unshift(execution);
+        if (execution.executorName === lastSection?.playerName) {
+          lastSection.history.unshift(execution);
+        } else {
+          lastSection = {
+            playerName: execution.executorName,
+            history: [execution],
+          };
+          this.executionSections.unshift(lastSection);
+        }
       }
     });
   }
