@@ -17,7 +17,7 @@ export class GameClientService implements OnDestroy {
 
   constructor() {
     // NOTE: We need at least one active subscription to keep the connection
-    // alive. So this is more than just loggign logging debug statements.
+    // alive. So this is more than just logging debug statements.
     this.socket.subscribe(
       (message) => {
         console.log('Received:');
