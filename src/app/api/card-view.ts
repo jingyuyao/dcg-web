@@ -2,6 +2,7 @@ import { EntityView } from './entity-view';
 import { ActionView } from './action-view';
 
 export interface CardView extends EntityView {
+  ownerEntity: number;
   cost: number;
   canWrap: boolean;
   kind: CardKind;
