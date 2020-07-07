@@ -60,7 +60,7 @@
       </div>
     </div>
   </div>
-  <div class="section middle">
+  <div class="section right">
     <div class="area" *ngIf="gameview.previousPlayerName">
       <div class="mat-title">{{ previousPlayerName }} Attacking Units</div>
       <div class="entity-container">
@@ -130,16 +130,5 @@
         </div>
       </mat-tab>
     </mat-tab-group>
-  </div>
-  <div class="section right">
-    <div class="mat-title">Execution History</div>
-    <mat-list dense>
-      <ng-container *ngFor="let secton of executionSections">
-        <h3 matSubheader>Player: {{ secton.playerName }}</h3>
-        <mat-list-item *ngFor="let execution of secton.history">
-          {{ execution.commandSnapshot }}
-        </mat-list-item>
-      </ng-container>
-    </mat-list>
   </div>
 </ng-container>
