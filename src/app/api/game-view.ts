@@ -7,6 +7,8 @@ export interface GameView {
   currentPlayerName: string;
   previousPlayerName: string;
   players: PlayerView[];
+  cards: CardView[];
+  units: UnitView[];
   forgeRow: CardView[];
   throneDeck: CardView[];
   mercenaryDeck: CardView[];
