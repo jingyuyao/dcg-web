@@ -1,63 +1,37 @@
 <ng-container *ngIf="gameview$ | async as gameview">
-  <div class="section left">
-    <div class="area">
-      <div class="mat-title">Players</div>
-      <div class="entity-container">
-        <app-player
-          appTargetable
-          *ngFor="let player of gameview.players"
-          [entityId]="player.id"
-          [player]="player"
-        ></app-player>
-      </div>
+  <div class="section players">
+    <div class="mat-title">Players</div>
+    <div class="entity-container">
+      <app-player
+        appTargetable
+        *ngFor="let player of gameview.players"
+        [entityId]="player.id"
+        [player]="player"
+      ></app-player>
     </div>
-    <div class="area">
-      <div class="mat-title">
-        Forge
-        <span *ngIf="gameview.throneDeck.length == 0" class="throne-active">
-          Throne active
-        </span>
-      </div>
-      <div class="entity-container">
-        <div class="throne-deck" *ngIf="gameview.throneDeck.length > 0">
-          <!-- Loop hack so angular knows to always update this. -->
-          <ng-container
-            *ngFor="let seekPower of gameview.throneDeck; first as isFirst"
-          >
-            <app-card
-              appTargetable
-              *ngIf="isFirst"
-              [entityId]="seekPower.id"
-              [card]="seekPower"
-            ></app-card>
-          </ng-container>
-          <div>Remaining: {{ gameview.throneDeck.length }}</div>
-        </div>
-        <div class="mercenary-deck" *ngIf="gameview.mercenaryDeck.length > 0">
-          <ng-container
-            *ngFor="let mercenary of gameview.mercenaryDeck; first as isFirst"
-          >
-            <app-card
-              appTargetable
-              *ngIf="isFirst"
-              [entityId]="mercenary.id"
-              [card]="mercenary"
-            ></app-card>
-          </ng-container>
-          <div>Remaining: {{ gameview.mercenaryDeck.length }}</div>
-        </div>
-      </div>
+  </div>
+  <div class="section forge">
+    <div class="mat-title">
+      Forge
+      <span *ngIf="numThrone == 0" class="throne-active">
+        Throne active
+      </span>
     </div>
-    <div class="area">
-      <div class="mat-title">Forge row</div>
-      <div class="entity-container">
-        <app-card
-          appTargetable
-          *ngFor="let card of gameview.forgeRow"
-          [entityId]="card.id"
-          [card]="card"
-        ></app-card>
-      </div>
+    <div class="forge-count">
+      <span *ngIf="numThrone > 0">
+        Seek Power: {{ numThrone }}
+      </span>
+      <span *ngIf="numMercenary > 0">
+        Mercenary: {{ numMercenary }}
+      </span>
+    </div>
+    <div class="entity-container">
+      <app-card
+        appTargetable
+        *ngFor="let card of forge"
+        [entityId]="card.id"
+        [card]="card"
+      ></app-card>
     </div>
   </div>
   <div class="section right">
