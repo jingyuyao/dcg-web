@@ -2,7 +2,7 @@ import { Component, Input, OnInit, HostBinding } from '@angular/core';
 import { GameView } from '../api/game-view';
 import { Observable, combineLatest } from 'rxjs';
 import { AttachmentView } from '../api/attachment-view';
-import { CardView, CardKind, CardLocation } from '../api/card-view';
+import { CardView, CardLocation } from '../api/card-view';
 
 @Component({
   selector: 'app-game',
