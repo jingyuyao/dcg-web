@@ -1,9 +1,9 @@
 <ng-container *ngIf="!targeting; else renderTargeting">
   <button
+    *ngIf="action.canTrigger"
     mat-stroked-button
     [matTooltip]="action.description"
     (click)="beginAction($event)"
-    [disabled]="!action.canTrigger"
   >
     {{ action.name }}
   </button>
