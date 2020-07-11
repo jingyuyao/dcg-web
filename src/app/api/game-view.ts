@@ -3,8 +3,9 @@ import { CardView } from './card-view';
 import { UnitView } from './unit-view';
 
 export interface GameView {
-  currentPlayerName: string;
-  previousPlayerName: string;
+  playerId: number;
+  currentPlayerId: number;
+  previousPlayerId: number;
   players: PlayerView[];
   cards: CardView[];
   units: UnitView[];

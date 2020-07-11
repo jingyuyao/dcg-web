@@ -6,7 +6,6 @@
     </mat-toolbar>
     <app-game
       *ngIf="roomView.isGameInProgress; else prep"
-      [attachmentView$]="attachmentView$"
       [gameview$]="gameView$"
     ></app-game>
     <ng-template #prep>

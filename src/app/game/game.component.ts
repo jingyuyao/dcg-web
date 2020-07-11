@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, HostBinding } from '@angular/core';
 import { GameView } from '../api/game-view';
-import { Observable, combineLatest } from 'rxjs';
-import { AttachmentView } from '../api/attachment-view';
+import { Observable } from 'rxjs';
 import { CardView, CardLocation, CardKind } from '../api/card-view';
 import { UnitView, UnitState } from '../api/unit-view';
 import { PlayerView } from '../api/player-view';
@@ -12,7 +11,6 @@ import { PlayerView } from '../api/player-view';
   styleUrls: ['./game.component.sass'],
 })
 export class GameComponent implements OnInit {
-  @Input() attachmentView$: Observable<AttachmentView>;
   @Input() gameview$: Observable<GameView>;
   @HostBinding('class.canAct') canAct: boolean;
   previousPlayerName: string;
@@ -28,26 +26,23 @@ export class GameComponent implements OnInit {
   defendingUnits: UnitView[];
 
   ngOnInit(): void {
-    combineLatest([this.attachmentView$, this.gameview$]).subscribe(
-      ([attachment, game]) => {
-        this.canAct = attachment.playerName === game.currentPlayerName;
-        this.previousPlayerName = game.previousPlayerName
-          ? game.previousPlayerName === attachment.playerName
-            ? 'Your'
-            : game.previousPlayerName + `'s`
-          : '';
-        this.currentPlayerName =
-          game.currentPlayerName === attachment.playerName
-            ? 'Your'
-            : game.currentPlayerName + `'s`;
-      }
-    );
     this.gameview$.subscribe((game) => {
+      this.updateMetadata(game);
       this.updatePlayers(game);
       this.updateForge(game);
       this.updateCards(game);
       this.updateUnits(game);
     });
+  }
+
+  private updateMetadata(game: GameView) {
+    this.canAct = game.playerId === game.currentPlayerId;
+    this.previousPlayerName = game.players.find(
+      (p) => p.id === game.previousPlayerId
+    )?.name;
+    this.currentPlayerName = game.players.find(
+      (p) => p.id === game.currentPlayerId
+    )?.name;
   }
 
   private updatePlayers(game: GameView) {

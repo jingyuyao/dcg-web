@@ -31,7 +31,7 @@
 </div>
 <div class="section main">
   <div class="area" *ngIf="previousPlayerName">
-    <div class="mat-title">{{ previousPlayerName }} Attacking Units</div>
+    <div class="mat-title">Attacking Units - {{ previousPlayerName }}</div>
     <div class="entity-container">
       <app-unit
         class="attacking"
@@ -46,7 +46,7 @@
     </div>
   </div>
   <div class="area play-area">
-    <div class="mat-title">{{ currentPlayerName }} Play Area</div>
+    <div class="mat-title">Play Area - {{ currentPlayerName }}</div>
     <div class="entity-container">
       <app-unit
         class="defending"
