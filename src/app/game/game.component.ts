@@ -2,7 +2,7 @@ import { Component, Input, OnInit, HostBinding } from '@angular/core';
 import { GameView } from '../api/game-view';
 import { Observable, combineLatest } from 'rxjs';
 import { AttachmentView } from '../api/attachment-view';
-import { CardView, CardLocation } from '../api/card-view';
+import { CardView, CardLocation, CardKind } from '../api/card-view';
 
 @Component({
   selector: 'app-game',
@@ -15,9 +15,12 @@ export class GameComponent implements OnInit {
   @HostBinding('class.canAct') canAct: boolean;
   previousPlayerName: string;
   currentPlayerName: string;
-  forge: CardView[];
   numThrone: number;
   numMercenary: number;
+  forge: CardView[];
+  playArea: CardView[];
+  hand: CardView[];
+  discardPile: CardView[];
 
   ngOnInit(): void {
     combineLatest([this.attachmentView$, this.gameview$]).subscribe(
@@ -35,6 +38,7 @@ export class GameComponent implements OnInit {
     );
     this.gameview$.subscribe((game) => {
       this.updateForge(game);
+      this.updateCards(game);
     });
   }
 
@@ -62,6 +66,27 @@ export class GameComponent implements OnInit {
     this.forge.sort((c1, c2) => (
       FORGE_ORDER.indexOf(c1.location) - FORGE_ORDER.indexOf(c2.location)
     ));
+  }
+
+  private updateCards(game: GameView) {
+    this.playArea = [];
+    this.hand = [];
+    this.discardPile = [];
+    for (const card of game.cards) {
+      switch (card.location) {
+        case CardLocation.HAND:
+          this.hand.push(card);
+          break;
+        case CardLocation.DISCARD_PILE:
+          this.discardPile.push(card);
+          break;
+        case CardLocation.PLAY_AREA:
+          if (card.kind !== CardKind.UNIT) {
+            this.playArea.push(card);
+          }
+          break;
+      }
+    }
   }
 }
 

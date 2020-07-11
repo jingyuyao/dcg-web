@@ -34,7 +34,7 @@
       ></app-card>
     </div>
   </div>
-  <div class="section right">
+  <div class="section main">
     <div class="area" *ngIf="gameview.previousPlayerName">
       <div class="mat-title">{{ previousPlayerName }} Attacking Units</div>
       <div class="entity-container">
@@ -70,7 +70,7 @@
       <div class="entity-container">
         <app-card
           appTargetable
-          *ngFor="let card of gameview.playArea"
+          *ngFor="let card of playArea"
           [entityId]="card.id"
           [card]="card"
         ></app-card>
@@ -83,7 +83,7 @@
             <app-card
               class="hand"
               appTargetable
-              *ngFor="let card of gameview.hand"
+              *ngFor="let card of hand"
               [entityId]="card.id"
               [card]="card"
             ></app-card>
@@ -96,7 +96,7 @@
             <app-card
               class="discard-pile"
               appTargetable
-              *ngFor="let card of gameview.discardPile"
+              *ngFor="let card of discardPile"
               [entityId]="card.id"
               [card]="card"
             ></app-card>
