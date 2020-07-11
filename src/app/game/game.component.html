@@ -1,108 +1,106 @@
-<ng-container *ngIf="gameview$ | async as gameview">
-  <div class="section players">
-    <div class="mat-title">Players</div>
+<div class="section players">
+  <div class="mat-title">Players</div>
+  <div class="entity-container">
+    <app-player
+      appTargetable
+      *ngFor="let player of players"
+      [entityId]="player.id"
+      [player]="player"
+    ></app-player>
+  </div>
+</div>
+<div class="section forge">
+  <div class="mat-title">
+    Forge
+    <span *ngIf="numThrone == 0" class="throne-active">
+      Throne active
+    </span>
+  </div>
+  <div class="forge-count">
+    <span *ngIf="numThrone > 0"> Seek Power: {{ numThrone }} </span>
+    <span *ngIf="numMercenary > 0"> Mercenary: {{ numMercenary }} </span>
+  </div>
+  <div class="entity-container">
+    <app-card
+      appTargetable
+      *ngFor="let card of forge"
+      [entityId]="card.id"
+      [card]="card"
+    ></app-card>
+  </div>
+</div>
+<div class="section main">
+  <div class="area" *ngIf="previousPlayerName">
+    <div class="mat-title">{{ previousPlayerName }} Attacking Units</div>
     <div class="entity-container">
-      <app-player
+      <app-unit
+        class="attacking"
         appTargetable
-        *ngFor="let player of gameview.players"
-        [entityId]="player.id"
-        [player]="player"
-      ></app-player>
+        *ngFor="let unit of attackingUnits"
+        [entityId]="unit.id"
+        [unit]="unit"
+      ></app-unit>
+      <div *ngIf="attackingUnits.length == 0" class="mat-subheading-2">
+        No attacking units
+      </div>
     </div>
   </div>
-  <div class="section forge">
-    <div class="mat-title">
-      Forge
-      <span *ngIf="numThrone == 0" class="throne-active">
-        Throne active
-      </span>
-    </div>
-    <div class="forge-count">
-      <span *ngIf="numThrone > 0">
-        Seek Power: {{ numThrone }}
-      </span>
-      <span *ngIf="numMercenary > 0">
-        Mercenary: {{ numMercenary }}
-      </span>
-    </div>
+  <div class="area play-area">
+    <div class="mat-title">{{ currentPlayerName }} Play Area</div>
     <div class="entity-container">
+      <app-unit
+        class="defending"
+        appTargetable
+        *ngFor="let unit of defendingUnits"
+        [entityId]="unit.id"
+        [unit]="unit"
+      ></app-unit>
       <app-card
         appTargetable
-        *ngFor="let card of forge"
+        *ngFor="let card of playArea"
         [entityId]="card.id"
         [card]="card"
       ></app-card>
+      <div
+        *ngIf="defendingUnits.length == 0 && playArea.length == 0"
+        class="mat-subheading-2"
+      >
+        Nothing played yet
+      </div>
     </div>
   </div>
-  <div class="section main">
-    <div class="area" *ngIf="gameview.previousPlayerName">
-      <div class="mat-title">{{ previousPlayerName }} Attacking Units</div>
-      <div class="entity-container">
-        <app-unit
-          class="attacking"
-          appTargetable
-          *ngFor="let unit of gameview.attackingUnits"
-          [entityId]="unit.id"
-          [unit]="unit"
-        ></app-unit>
-        <div *ngIf="gameview.attackingUnits.length == 0">
-          No attacking units
+  <mat-tab-group class="tabs" mat-align-tabs="center">
+    <mat-tab label="Your Hand">
+      <div class="area">
+        <div class="entity-container">
+          <app-card
+            class="hand"
+            appTargetable
+            *ngFor="let card of hand"
+            [entityId]="card.id"
+            [card]="card"
+          ></app-card>
+        </div>
+        <div *ngIf="hand.length == 0" class="mat-subheading-2">
+          Empty
         </div>
       </div>
-    </div>
-    <div class="area">
-      <div class="mat-title">{{ currentPlayerName }} Defending Units</div>
-      <div class="entity-container">
-        <app-unit
-          class="defending"
-          appTargetable
-          *ngFor="let unit of gameview.defendingUnits"
-          [entityId]="unit.id"
-          [unit]="unit"
-        ></app-unit>
-        <div *ngIf="gameview.defendingUnits.length == 0">
-          No defending units
+    </mat-tab>
+    <mat-tab label="Your Discard Pile">
+      <div class="area">
+        <div class="entity-container">
+          <app-card
+            class="discard-pile"
+            appTargetable
+            *ngFor="let card of discardPile"
+            [entityId]="card.id"
+            [card]="card"
+          ></app-card>
+        </div>
+        <div *ngIf="discardPile.length == 0" class="mat-subheading-2">
+          Empty
         </div>
       </div>
-    </div>
-    <div class="area">
-      <div class="mat-title">{{ currentPlayerName }} Play Area</div>
-      <div class="entity-container">
-        <app-card
-          appTargetable
-          *ngFor="let card of playArea"
-          [entityId]="card.id"
-          [card]="card"
-        ></app-card>
-      </div>
-    </div>
-    <mat-tab-group mat-align-tabs="center">
-      <mat-tab label="Your Hand">
-        <div class="area">
-          <div class="entity-container">
-            <app-card
-              class="hand"
-              appTargetable
-              *ngFor="let card of hand"
-              [entityId]="card.id"
-              [card]="card"
-            ></app-card>
-          </div>
-        </div>
-      </mat-tab>
-      <mat-tab label="Your Discard Pile">
-        <div class="area">
-          <div class="entity-container">
-            <app-card
-              class="discard-pile"
-              appTargetable
-              *ngFor="let card of discardPile"
-              [entityId]="card.id"
-              [card]="card"
-            ></app-card>
-          </div>
-        </div>
-      </mat-tab>
-    </mat-tab-group>
-  </div>
-</ng-container>
+    </mat-tab>
+  </mat-tab-group>
+</div>
