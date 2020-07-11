@@ -8,6 +8,7 @@ import { CardView } from '../api/card-view';
 })
 export class CardComponent {
   @Input() card: CardView;
+  @Input() hideCost = false;
 
   @HostListener('click') onClick() {
     console.dir(this.card);
