@@ -26,6 +26,7 @@
       *ngFor="let card of forge"
       [entityId]="card.id"
       [card]="card"
+      [showCost]="true"
     ></app-card>
   </div>
 </div>
@@ -79,7 +80,6 @@
             *ngFor="let card of hand"
             [entityId]="card.id"
             [card]="card"
-            [hideCost]="true"
           ></app-card>
         </div>
         <div *ngIf="hand.length == 0" class="mat-subheading-2">
@@ -96,7 +96,6 @@
             *ngFor="let card of discardPile"
             [entityId]="card.id"
             [card]="card"
-            [hideCost]="true"
           ></app-card>
         </div>
         <div *ngIf="discardPile.length == 0" class="mat-subheading-2">
