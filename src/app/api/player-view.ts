@@ -6,5 +6,7 @@ export interface PlayerView extends EntityView {
   warpTokens: number;
   isCurrent: boolean;
   powerPool: number;
+  totalDeckSize: number;
+  currentDeckSize: number;
   actions: ActionView[];
 }

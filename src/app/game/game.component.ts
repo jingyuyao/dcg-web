@@ -22,6 +22,7 @@ export class GameComponent implements OnInit {
   canAct: boolean;
   previousPlayerName: string;
   currentPlayerName: string;
+  deckSize: number;
   players: PlayerView[];
   forge: CardView[];
   forgeGroups: ForgeGroup[];
@@ -50,6 +51,8 @@ export class GameComponent implements OnInit {
     this.currentPlayerName = game.players.find(
       (p) => p.id === game.currentPlayerId
     )?.name;
+    const player = game.players.find((p) => p.id === game.playerId);
+    this.deckSize = player.currentDeckSize;
   }
 
   private updatePlayers(game: GameView) {
