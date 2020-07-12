@@ -1,41 +1,47 @@
 <div class="section players">
-  <div class="mat-title">Players</div>
-  <div class="entity-container">
-    <app-player
-      appTargetable
-      *ngFor="let player of players"
-      [entityId]="player.id"
-      [player]="player"
-      [canAct]="canAct"
-    ></app-player>
+  <div class="area">
+    <div class="mat-subheading-1 header">Players</div>
+    <div class="entity-container">
+      <app-player
+        appTargetable
+        *ngFor="let player of players"
+        [entityId]="player.id"
+        [player]="player"
+        [canAct]="canAct"
+      ></app-player>
+    </div>
   </div>
 </div>
 <mat-divider [vertical]="true"></mat-divider>
 <div class="section forge">
-  <div class="mat-title">
-    Forge
-    <span *ngIf="numThrone == 0" class="throne-active">
-      Throne active
-    </span>
-  </div>
-  <div class="forge-count">
-    <span *ngIf="numThrone > 0"> Seek Power: {{ numThrone }} </span>
-    <span *ngIf="numMercenary > 0"> Mercenary: {{ numMercenary }} </span>
-  </div>
-  <div class="entity-container">
-    <app-card
-      appTargetable
-      *ngFor="let card of forge"
-      [entityId]="card.id"
-      [card]="card"
-      [canAct]="canAct"
-    ></app-card>
+  <div class="area">
+    <div class="mat-subheading-1 header">
+      Forge
+      <span *ngIf="numThrone == 0" class="throne-active">
+        Throne active
+      </span>
+    </div>
+    <div class="forge-count">
+      <span *ngIf="numThrone > 0"> Seek Power: {{ numThrone }} </span>
+      <span *ngIf="numMercenary > 0"> Mercenary: {{ numMercenary }} </span>
+    </div>
+    <div class="entity-container">
+      <app-card
+        appTargetable
+        *ngFor="let card of forge"
+        [entityId]="card.id"
+        [card]="card"
+        [canAct]="canAct"
+      ></app-card>
+    </div>
   </div>
 </div>
 <mat-divider [vertical]="true"></mat-divider>
 <div class="section main">
   <div class="area" *ngIf="previousPlayerName">
-    <div class="mat-title">Attacking Units - {{ previousPlayerName }}</div>
+    <div class="mat-subheading-1 header">
+      Attacking Units - {{ previousPlayerName }}
+    </div>
     <div class="entity-container">
       <app-unit
         class="attacking"
@@ -52,7 +58,9 @@
   </div>
   <mat-divider></mat-divider>
   <div class="area play-area">
-    <div class="mat-title">Play Area - {{ currentPlayerName }}</div>
+    <div class="mat-subheading-1 header">
+      Play Area - {{ currentPlayerName }}
+    </div>
     <div class="entity-container">
       <app-unit
         class="defending"
@@ -79,7 +87,7 @@
   </div>
   <mat-divider></mat-divider>
   <div class="area">
-    <div class="mat-title">Current Hand</div>
+    <div class="mat-subheading-1 header">Current Hand</div>
     <div class="entity-container">
       <app-card
         class="hand"
@@ -89,9 +97,9 @@
         [card]="card"
         [canAct]="canAct"
       ></app-card>
-    </div>
-    <div *ngIf="hand.length == 0" class="mat-subheading-2">
-      Empty
+      <div *ngIf="hand.length == 0" class="mat-subheading-2">
+        Empty
+      </div>
     </div>
   </div>
   <mat-divider></mat-divider>
