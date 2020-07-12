@@ -1,1 +1,6 @@
-<app-action *ngFor="let action of sortedActions" [action]="action"></app-action>
+<ng-container *ngIf="canAct">
+  <app-action
+    *ngFor="let action of sortedActions"
+    [action]="action"
+  ></app-action>
+</ng-container>

@@ -8,6 +8,7 @@ import { CardView } from '../api/card-view';
 })
 export class CardComponent {
   @Input() card: CardView;
+  @Input() canAct: boolean;
   @Input() showCost = false;
 
   @HostListener('click') onClick() {

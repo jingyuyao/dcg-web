@@ -8,6 +8,7 @@ import { PlayerView } from '../api/player-view';
 })
 export class PlayerComponent {
   @Input() player: PlayerView;
+  @Input() canAct: boolean;
   @HostBinding('class.isCurrent') get isCurrent() {
     return this.player.isCurrent;
   }

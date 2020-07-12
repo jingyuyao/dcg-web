@@ -8,6 +8,7 @@ import { UnitView } from '../api/unit-view';
 })
 export class UnitComponent {
   @Input() unit: UnitView;
+  @Input() canAct: boolean;
 
   @HostListener('click') onClick() {
     console.dir(this.unit);

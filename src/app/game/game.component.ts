@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, HostBinding } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { GameView } from '../api/game-view';
 import { Observable } from 'rxjs';
 import { CardView, CardLocation, CardKind } from '../api/card-view';
@@ -12,7 +12,7 @@ import { PlayerView } from '../api/player-view';
 })
 export class GameComponent implements OnInit {
   @Input() gameview$: Observable<GameView>;
-  @HostBinding('class.canAct') canAct: boolean;
+  canAct: boolean;
   previousPlayerName: string;
   currentPlayerName: string;
   numThrone: number;

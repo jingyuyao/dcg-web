@@ -8,4 +8,4 @@
     <span *ngFor="let attribute of unit.attributes" class="attribute">{{ attribute }}</span>
   </div>
 </div>
-<app-actions [actions]="unit.actions"></app-actions>
+<app-actions [actions]="unit.actions" [canAct]="canAct"></app-actions>

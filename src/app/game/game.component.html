@@ -6,6 +6,7 @@
       *ngFor="let player of players"
       [entityId]="player.id"
       [player]="player"
+      [canAct]="canAct"
     ></app-player>
   </div>
 </div>
@@ -26,6 +27,7 @@
       *ngFor="let card of forge"
       [entityId]="card.id"
       [card]="card"
+      [canAct]="canAct"
       [showCost]="true"
     ></app-card>
   </div>
@@ -40,6 +42,7 @@
         *ngFor="let unit of attackingUnits"
         [entityId]="unit.id"
         [unit]="unit"
+        [canAct]="canAct"
       ></app-unit>
       <div *ngIf="attackingUnits.length == 0" class="mat-subheading-2">
         No attacking units
@@ -55,12 +58,14 @@
         *ngFor="let unit of defendingUnits"
         [entityId]="unit.id"
         [unit]="unit"
+        [canAct]="canAct"
       ></app-unit>
       <app-card
         appTargetable
         *ngFor="let card of playArea"
         [entityId]="card.id"
         [card]="card"
+        [canAct]="canAct"
       ></app-card>
       <div
         *ngIf="defendingUnits.length == 0 && playArea.length == 0"
@@ -80,6 +85,7 @@
             *ngFor="let card of hand"
             [entityId]="card.id"
             [card]="card"
+            [canAct]="canAct"
           ></app-card>
         </div>
         <div *ngIf="hand.length == 0" class="mat-subheading-2">
@@ -96,6 +102,7 @@
             *ngFor="let card of discardPile"
             [entityId]="card.id"
             [card]="card"
+            [canAct]="canAct"
           ></app-card>
         </div>
         <div *ngIf="discardPile.length == 0" class="mat-subheading-2">

@@ -8,6 +8,7 @@ import { ActionView } from '../api/action-view';
 })
 export class ActionsComponent implements OnInit {
   @Input() actions: ActionView[];
+  @Input() canAct: boolean;
   sortedActions: ActionView[];
 
   constructor() {}

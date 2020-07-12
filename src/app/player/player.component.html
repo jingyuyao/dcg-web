@@ -8,4 +8,4 @@
   </span>
   <span *ngIf="player.powerPool > 0" class="powerPool">⚡ {{ player.powerPool }}</span>
 </div>
-<app-actions [actions]="player.actions"></app-actions>
+<app-actions [actions]="player.actions" [canAct]="canAct"></app-actions>
