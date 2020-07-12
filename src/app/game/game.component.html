@@ -17,14 +17,22 @@
   <div class="area">
     <div class="mat-subheading-1 header">
       Forge
-      <span *ngIf="numThrone == 0" class="throne-active">
+      <span *ngIf="throneActive" class="throne-active">
         Throne active
       </span>
     </div>
-    <div class="forge-count">
-      <span *ngIf="numThrone > 0"> Seek Power: {{ numThrone }} </span>
-      <span *ngIf="numMercenary > 0"> Mercenary: {{ numMercenary }} </span>
+    <div class="entity-container">
+      <div *ngFor="let group of forgeGroups" class="forge-group">
+        <app-card
+          appTargetable
+          [entityId]="group.card.id"
+          [card]="group.card"
+          [canAct]="canAct"
+        ></app-card>
+        <div>{{ group.count }} remaining</div>
+      </div>
     </div>
+    <mat-divider class="forge-separator"></mat-divider>
     <div class="entity-container">
       <app-card
         appTargetable

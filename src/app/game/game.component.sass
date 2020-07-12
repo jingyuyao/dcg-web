@@ -5,7 +5,8 @@
 
 .section
   min-height: 0
-  overflow: auto
+  overflow-x: hidden
+  overflow-y: auto
 
 .header
   margin: 8px 0
@@ -22,10 +23,13 @@
   flex: 2
   flex-direction: column
 
-.forge-count
-  align-self: stretch
+.forge-group
+  align-items: center
   display: flex
-  justify-content: space-around
+  flex-direction: column
+
+.forge-separator
+  margin: 8px 0
 
 .throne-active
   color: purple

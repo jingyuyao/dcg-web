@@ -5,6 +5,13 @@ import { CardView, CardLocation, CardKind } from '../api/card-view';
 import { UnitView, UnitState } from '../api/unit-view';
 import { PlayerView } from '../api/player-view';
 
+// NOTE: somehow angular doesn't update when we change individual references to
+// a property.
+interface ForgeGroup {
+  card: CardView;
+  count: number;
+}
+
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
@@ -15,10 +22,10 @@ export class GameComponent implements OnInit {
   canAct: boolean;
   previousPlayerName: string;
   currentPlayerName: string;
-  numThrone: number;
-  numMercenary: number;
   players: PlayerView[];
   forge: CardView[];
+  forgeGroups: ForgeGroup[];
+  throneActive: boolean;
   playArea: CardView[];
   hand: CardView[];
   discardPile: CardView[];
@@ -51,26 +58,38 @@ export class GameComponent implements OnInit {
 
   private updateForge(game: GameView) {
     this.forge = [];
-    this.numThrone = 0;
-    this.numMercenary = 0;
+    this.forgeGroups = [];
+    let throne = null;
+    let numThrone = 0;
+    let mercenary = null;
+    let numMercenary = 0;
     for (const card of game.cards) {
       switch (card.location) {
         case CardLocation.FORGE_ROW:
           this.forge.push(card);
           break;
         case CardLocation.THRONE_DECK:
-          if (this.numThrone === 0) {
-            this.forge.push(card);
+          if (throne == null) {
+            throne = card;
           }
-          this.numThrone++;
+          numThrone++;
           break;
         case CardLocation.MERCENARY_DECK:
-          if (this.numMercenary === 0) {
-            this.forge.push(card);
+          if (mercenary == null) {
+            mercenary = card;
           }
-          this.numMercenary++;
+          numMercenary++;
           break;
       }
+    }
+    if (throne) {
+      this.forgeGroups.push({card: throne, count: numThrone});
+      this.throneActive = false;
+    } else {
+      this.throneActive = true;
+    }
+    if (mercenary) {
+      this.forgeGroups.push({card: mercenary, count: numMercenary});
     }
     this.forge.sort(
       (c1, c2) =>
