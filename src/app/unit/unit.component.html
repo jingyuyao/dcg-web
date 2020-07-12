@@ -1,11 +1,14 @@
 <div class="header mat-body-2">
   <span class="name">{{ unit.name }}</span>
+  <span class="kind">UNIT</span>
 </div>
 <div class="stats mat-body-1">
   <span class="strength">🗡️ {{ unit.strength }}</span>
   <span class="defense">🛡️ {{ unit.defense }}</span>
-  <div>
-    <span *ngFor="let attribute of unit.attributes" class="attribute">{{ attribute }}</span>
-  </div>
+</div>
+<div class="attributes mat-body-1">
+  <span *ngFor="let attribute of unit.attributes" class="attribute">{{
+    attribute
+  }}</span>
 </div>
 <app-actions [actions]="unit.actions" [canAct]="canAct"></app-actions>
