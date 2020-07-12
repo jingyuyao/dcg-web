@@ -77,40 +77,39 @@
       </div>
     </div>
   </div>
-  <mat-tab-group class="tabs" mat-align-tabs="center">
-    <mat-tab label="Your Hand">
-      <div class="area">
-        <div class="entity-container">
-          <app-card
-            class="hand"
-            appTargetable
-            *ngFor="let card of hand"
-            [entityId]="card.id"
-            [card]="card"
-            [canAct]="canAct"
-          ></app-card>
-        </div>
-        <div *ngIf="hand.length == 0" class="mat-subheading-2">
-          Empty
-        </div>
-      </div>
-    </mat-tab>
-    <mat-tab label="Your Discard Pile">
-      <div class="area">
-        <div class="entity-container">
-          <app-card
-            class="discard-pile"
-            appTargetable
-            *ngFor="let card of discardPile"
-            [entityId]="card.id"
-            [card]="card"
-            [canAct]="canAct"
-          ></app-card>
-        </div>
-        <div *ngIf="discardPile.length == 0" class="mat-subheading-2">
-          Empty
-        </div>
-      </div>
-    </mat-tab>
-  </mat-tab-group>
+  <mat-divider></mat-divider>
+  <div class="area">
+    <div class="mat-title">Current Hand</div>
+    <div class="entity-container">
+      <app-card
+        class="hand"
+        appTargetable
+        *ngFor="let card of hand"
+        [entityId]="card.id"
+        [card]="card"
+        [canAct]="canAct"
+      ></app-card>
+    </div>
+    <div *ngIf="hand.length == 0" class="mat-subheading-2">
+      Empty
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Discard Pile ({{ discardPile.length }})
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="entity-container discard-container">
+      <app-card
+        class="discard-pile"
+        appTargetable
+        *ngFor="let card of discardPile"
+        [entityId]="card.id"
+        [card]="card"
+        [canAct]="canAct"
+      ></app-card>
+    </div>
+  </mat-expansion-panel>
 </div>

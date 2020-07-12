@@ -36,11 +36,13 @@
 .area
   align-items: center
   display: flex
+  flex: 1
   flex-direction: column
 
-.area,
-.tabs
-  flex: 1
+.discard-container
+  max-height: 25vh
+  min-height: 0
+  overflow: auto
 
 .entity-container
   align-items: flex-start
