@@ -12,6 +12,10 @@
   <button
     mat-stroked-button
     color="primary"
+    *ngIf="showExecute"
+    matTooltip="Select {{ action.minInputCount }} to {{
+      action.maxInputCount
+    }} targets"
     (click)="executeAction($event)"
     [disabled]="!canExecute"
   >
@@ -21,11 +25,3 @@
     Cancel
   </button>
 </ng-template>
-<ng-container *ngIf="action.minInputCount > 1">
-  <div *ngIf="action.minInputCount == action.maxInputCount; else renderMinMax">
-    Required: {{ action.minInputCount }}
-  </div>
-  <ng-template #renderMinMax>
-    Min: {{ action.minInputCount }} Max: {{ action.maxInputCount }}
-  </ng-template>
-</ng-container>

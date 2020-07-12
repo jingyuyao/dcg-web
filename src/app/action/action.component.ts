@@ -8,7 +8,7 @@ import { ActionView } from '../api/action-view';
 @Component({
   selector: 'app-action',
   templateUrl: './action.component.html',
-  styleUrls: ['./action.component.sass']
+  styleUrls: ['./action.component.sass'],
 })
 export class ActionComponent implements OnDestroy {
   private clearTargetsSource = new Subject<void>();
@@ -16,11 +16,20 @@ export class ActionComponent implements OnDestroy {
   @Input() action: ActionView;
   targets: number[] = [];
   targeting = false;
+  get showExecute() {
+    return (
+      this.action.minInputCount > 0 &&
+      this.action.minInputCount !== this.action.maxInputCount
+    );
+  }
   get canExecute() {
     return this.targets.length >= this.action.minInputCount;
   }
 
-  constructor(private selection: SelectionService, private gameClient: GameClientService) {
+  constructor(
+    private selection: SelectionService,
+    private gameClient: GameClientService
+  ) {
     this.selectionSubscription = this.selection.action$.subscribe((action) => {
       this.targets = [];
       if (action === this.action) {
@@ -39,18 +48,22 @@ export class ActionComponent implements OnDestroy {
       this.selection.clearAction();
     } else {
       this.selection.selectAction(this.action);
-      this.selection.target$.pipe(takeUntil(this.clearTargetsSource)).subscribe((entityId) => {
-        if (this.action.allowedTargets.includes(entityId)) {
-          console.log(`adding ${entityId} for ${this.action.name}`);
-          this.targets.push(entityId);
-          if (this.targets.length === this.action.maxInputCount) {
-            this.gameClient.execute(this.action.id, this.targets);
-            this.selection.clearAction();
+      this.selection.target$
+        .pipe(takeUntil(this.clearTargetsSource))
+        .subscribe((entityId) => {
+          if (this.action.allowedTargets.includes(entityId)) {
+            console.log(`adding ${entityId} for ${this.action.name}`);
+            this.targets.push(entityId);
+            if (this.targets.length === this.action.maxInputCount) {
+              this.gameClient.execute(this.action.id, this.targets);
+              this.selection.clearAction();
+            }
+          } else {
+            console.log(
+              `${entityId} is not a valid input for ${this.action.name}`
+            );
           }
-        } else {
-          console.log(`${entityId} is not a valid input for ${this.action.name}`);
-        }
-      });
+        });
     }
   }
 
