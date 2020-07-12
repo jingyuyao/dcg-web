@@ -9,13 +9,15 @@ import { ActionView } from '../api/action-view';
 export class ActionsComponent implements OnInit {
   @Input() actions: ActionView[];
   @Input() canAct: boolean;
-  sortedActions: ActionView[];
+  sortedTriggerableActions: ActionView[];
 
   constructor() {}
 
   ngOnInit(): void {
-    this.sortedActions = this.actions.sort((a, b) => {
-      return a.name < b.name ? -1 : 1;
-    });
+    this.sortedTriggerableActions = this.actions
+      .filter((a) => a.canTrigger)
+      .sort((a, b) => {
+        return a.name < b.name ? -1 : 1;
+      });
   }
 }
