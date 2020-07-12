@@ -8,11 +8,11 @@
   <span *ngIf="showPrepurchase && card.canWrap" class="warp">🌟</span>
   <span class="expand"></span>
   <ng-container *ngFor="let color of card.colors" [ngSwitch]="color">
-    <span class="circle red" *ngSwitchCase="'Red'"></span>
-    <span class="circle green" *ngSwitchCase="'Green'"></span>
-    <span class="circle blue" *ngSwitchCase="'Blue'"></span>
-    <span class="circle yellow" *ngSwitchCase="'Yellow'"></span>
-    <span class="circle black" *ngSwitchCase="'Black'"></span>
+    <span class="circle red" *ngSwitchCase="'RED'"></span>
+    <span class="circle green" *ngSwitchCase="'GREEN'"></span>
+    <span class="circle blue" *ngSwitchCase="'BLUE'"></span>
+    <span class="circle yellow" *ngSwitchCase="'YELLOW'"></span>
+    <span class="circle black" *ngSwitchCase="'BLACK'"></span>
   </ng-container>
 </div>
 <div class="description mat-body-1">

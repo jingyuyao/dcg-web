@@ -13,14 +13,12 @@ export interface CardView extends EntityView {
 }
 
 export enum CardKind {
-  UNKNOWN = 'UNKNOWN',
   BASIC = 'BASIC',
   SPELL = 'SPELL',
   UNIT = 'UNIT',
 }
 
 export enum CardLocation {
-  UNKNOWN = 'UNKNOWN',
   FORGE_DECK = 'FORGE_DECK',
   FORGE_ROW = 'FORGE_ROW',
   THRONE_DECK = 'THRONE_DECK',
@@ -29,4 +27,12 @@ export enum CardLocation {
   DISCARD_PILE = 'DISCARD_PILE',
   HAND = 'HAND',
   PLAY_AREA = 'PLAY_AREA',
+}
+
+export enum CardColor {
+  RED = 'RED',
+  GREEN = 'GREEN',
+  BLUE = 'BLUE',
+  YELLOW = 'YELLOW',
+  BLACK = 'BLACK',
 }

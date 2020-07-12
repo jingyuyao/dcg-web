@@ -1,5 +1,6 @@
 import { EntityView } from './entity-view';
 import { ActionView } from './action-view';
+import { CardColor } from './card-view';
 
 export interface UnitView extends EntityView {
   ownerEntity: number;
@@ -7,12 +8,12 @@ export interface UnitView extends EntityView {
   state: UnitState;
   strength: number;
   defense: number;
+  colors: CardColor[];
   attributes: UnitAttribute[];
   actions: ActionView[];
 }
 
 export enum UnitState {
-  UNKNOWN = 'UNKNOWN',
   ATTACKING = 'ATTACKING',
   DEFENDING = 'DEFENDING',
 }
