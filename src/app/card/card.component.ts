@@ -9,7 +9,9 @@ import { CardView } from '../api/card-view';
 export class CardComponent {
   @Input() card: CardView;
   @Input() canAct: boolean;
-  @Input() showCost = false;
+  get showPrepurchase() {
+    return this.card.ownerEntity === -1;
+  }
 
   @HostListener('click') onClick() {
     console.dir(this.card);

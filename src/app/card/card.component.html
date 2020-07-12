@@ -4,7 +4,8 @@
 </div>
 <div class="stats mat-body-1">
   <span *ngIf="card.strength > 0" class="strength">🗡️{{ card.strength }}</span>
-  <span *ngIf="showCost" class="cost">⚡{{ card.cost }}</span>
+  <span *ngIf="showPrepurchase" class="cost">⚡{{ card.cost }}</span>
+  <span *ngIf="showPrepurchase && card.canWrap" class="warp">🌟</span>
   <span class="expand"></span>
   <ng-container *ngFor="let color of card.colors" [ngSwitch]="color">
     <span class="circle red" *ngSwitchCase="'Red'"></span>
