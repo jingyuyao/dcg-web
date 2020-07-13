@@ -5,10 +5,14 @@ import { CardView, CardLocation, CardKind } from '../api/card-view';
 import { UnitView, UnitState } from '../api/unit-view';
 import { PlayerView } from '../api/player-view';
 
+export interface CardViewUI extends CardView {
+  fadeIn: boolean;
+}
+
 // NOTE: somehow angular doesn't update when we change individual references to
 // a property.
 interface ForgeGroup {
-  card: CardView;
+  card: CardViewUI;
   count: number;
 }
 
@@ -23,13 +27,14 @@ export class GameComponent implements OnInit {
   previousPlayerName = '';
   currentPlayerName = '';
   deckSize = 0;
-  players: PlayerView[] = [];
-  forge: CardView[] = [];
-  forgeGroups: ForgeGroup[] = [];
   throneActive = false;
-  playArea: CardView[] = [];
-  hand: CardView[] = [];
-  discardPile: CardView[] = [];
+  players: PlayerView[] = [];
+  forgeGroups: ForgeGroup[] = [];
+  previousCards: CardView[] = [];
+  forge: CardViewUI[] = [];
+  playArea: CardViewUI[] = [];
+  hand: CardViewUI[] = [];
+  discardPile: CardViewUI[] = [];
   attackingUnits: UnitView[] = [];
   defendingUnits: UnitView[] = [];
 
@@ -60,6 +65,7 @@ export class GameComponent implements OnInit {
   }
 
   private updateForge(game: GameView) {
+    const previousForgeGroups = this.forgeGroups;
     this.forge = [];
     this.forgeGroups = [];
     let throne = null;
@@ -69,30 +75,47 @@ export class GameComponent implements OnInit {
     for (const card of game.cards) {
       switch (card.location) {
         case CardLocation.FORGE_ROW:
-          this.forge.push(card);
+          const previousCard = this.previousCards.find((c) => c.id === card.id);
+          const locationChanged = previousCard?.location !== card.location;
+          this.forge.push({
+            ...card,
+            fadeIn: locationChanged,
+          });
           break;
         case CardLocation.THRONE_DECK:
+          const previousThrone = previousForgeGroups.find(
+            (g) => g.card.id === card.id
+          );
           if (throne == null) {
-            throne = card;
+            throne = {
+              ...card,
+              fadeIn: !previousThrone,
+            };
           }
           numThrone++;
           break;
         case CardLocation.MERCENARY_DECK:
+          const previousMercenary = previousForgeGroups.find(
+            (g) => g.card.id === card.id
+          );
           if (mercenary == null) {
-            mercenary = card;
+            mercenary = {
+              ...card,
+              fadeIn: !previousMercenary,
+            };
           }
           numMercenary++;
           break;
       }
     }
     if (throne) {
-      this.forgeGroups.push({card: throne, count: numThrone});
+      this.forgeGroups.push({ card: throne, count: numThrone });
       this.throneActive = false;
     } else {
       this.throneActive = true;
     }
     if (mercenary) {
-      this.forgeGroups.push({card: mercenary, count: numMercenary});
+      this.forgeGroups.push({ card: mercenary, count: numMercenary });
     }
     this.forge.sort(
       (c1, c2) =>
@@ -105,20 +128,27 @@ export class GameComponent implements OnInit {
     this.hand = [];
     this.discardPile = [];
     for (const card of game.cards) {
+      const previousCard = this.previousCards.find((c) => c.id === card.id);
+      const locationChanged = previousCard?.location !== card.location;
+      const cardViewUI = {
+        ...card,
+        fadeIn: locationChanged,
+      };
       switch (card.location) {
         case CardLocation.HAND:
-          this.hand.push(card);
+          this.hand.push(cardViewUI);
           break;
         case CardLocation.DISCARD_PILE:
-          this.discardPile.push(card);
+          this.discardPile.push(cardViewUI);
           break;
         case CardLocation.PLAY_AREA:
           if (card.kind !== CardKind.UNIT) {
-            this.playArea.push(card);
+            this.playArea.push(cardViewUI);
           }
           break;
       }
     }
+    this.previousCards = game.cards;
   }
 
   private updateUnits(game: GameView) {
