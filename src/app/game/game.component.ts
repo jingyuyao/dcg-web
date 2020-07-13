@@ -19,19 +19,19 @@ interface ForgeGroup {
 })
 export class GameComponent implements OnInit {
   @Input() gameview$: Observable<GameView>;
-  canAct: boolean;
-  previousPlayerName: string;
-  currentPlayerName: string;
-  deckSize: number;
-  players: PlayerView[];
-  forge: CardView[];
-  forgeGroups: ForgeGroup[];
-  throneActive: boolean;
-  playArea: CardView[];
-  hand: CardView[];
-  discardPile: CardView[];
-  attackingUnits: UnitView[];
-  defendingUnits: UnitView[];
+  canAct = false;
+  previousPlayerName = '';
+  currentPlayerName = '';
+  deckSize = 0;
+  players: PlayerView[] = [];
+  forge: CardView[] = [];
+  forgeGroups: ForgeGroup[] = [];
+  throneActive = false;
+  playArea: CardView[] = [];
+  hand: CardView[] = [];
+  discardPile: CardView[] = [];
+  attackingUnits: UnitView[] = [];
+  defendingUnits: UnitView[] = [];
 
   ngOnInit(): void {
     this.gameview$.subscribe((game) => {
