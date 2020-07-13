@@ -9,6 +9,10 @@ export interface CardViewUI extends CardView {
   fadeIn: boolean;
 }
 
+export interface UnitViewUI extends UnitView {
+  fadeIn: boolean;
+}
+
 // NOTE: somehow angular doesn't update when we change individual references to
 // a property.
 interface ForgeGroup {
@@ -35,8 +39,9 @@ export class GameComponent implements OnInit {
   playArea: CardViewUI[] = [];
   hand: CardViewUI[] = [];
   discardPile: CardViewUI[] = [];
-  attackingUnits: UnitView[] = [];
-  defendingUnits: UnitView[] = [];
+  previousUnits: UnitView[] = [];
+  attackingUnits: UnitViewUI[] = [];
+  defendingUnits: UnitViewUI[] = [];
 
   ngOnInit(): void {
     this.gameview$.subscribe((game) => {
@@ -155,15 +160,22 @@ export class GameComponent implements OnInit {
     this.attackingUnits = [];
     this.defendingUnits = [];
     for (const unit of game.units) {
+      const previousUnit = this.previousUnits.find((u) => u.id === unit.id);
+      const stateChanged = previousUnit?.state !== unit.state;
+      const unitViewUI = {
+        ...unit,
+        fadeIn: stateChanged,
+      };
       switch (unit.state) {
         case UnitState.ATTACKING:
-          this.attackingUnits.push(unit);
+          this.attackingUnits.push(unitViewUI);
           break;
         case UnitState.DEFENDING:
-          this.defendingUnits.push(unit);
+          this.defendingUnits.push(unitViewUI);
           break;
       }
     }
+    this.previousUnits = game.units;
   }
 }
 
