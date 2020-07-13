@@ -48,7 +48,7 @@
 <div class="section main">
   <div class="area" *ngIf="previousPlayerName">
     <div class="mat-subheading-1 header">
-      Attacking Units - {{ previousPlayerName }}
+      Attacked by: {{ previousPlayerName }}
     </div>
     <div class="entity-container">
       <app-unit
@@ -67,7 +67,7 @@
   <mat-divider></mat-divider>
   <div class="area play-area">
     <div class="mat-subheading-1 header">
-      Play Area - {{ currentPlayerName }}
+      Current Player: {{ currentPlayerName }}
     </div>
     <div class="entity-container">
       <app-unit
@@ -96,7 +96,7 @@
   <mat-divider></mat-divider>
   <div class="area">
     <div class="mat-subheading-1 header">
-      Current Hand - {{ deckSize }} cards in Draw Pile
+      Your Hand - {{ deckSize }} cards in Draw Pile
     </div>
     <div class="entity-container">
       <app-card
