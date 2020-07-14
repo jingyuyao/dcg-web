@@ -6,6 +6,7 @@ export interface UnitView extends EntityView {
   ownerEntity: number;
   cardEntity: number;
   state: UnitState;
+  isToken: boolean;
   strength: number;
   defense: number;
   colors: CardColor[];
