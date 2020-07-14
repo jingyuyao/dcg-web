@@ -4,12 +4,12 @@ import { CardView } from '../api/card-view';
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
-  styleUrls: ['./card.component.sass']
+  styleUrls: ['./card.component.sass'],
 })
 export class CardComponent {
   @Input() card: CardView;
   @Input() canAct: boolean;
-  @Input() @HostBinding('class.fade-in') fadeIn: boolean;
+  @Input() @HostBinding('class.slide-in') enter: boolean;
   get showPrepurchase() {
     return this.card.ownerEntity === -1;
   }

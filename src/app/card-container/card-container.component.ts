@@ -10,7 +10,7 @@ import { PlayerView } from '../api/player-view';
 
 export interface State {
   card: CardView;
-  fadeIn: boolean;
+  enter: boolean;
   count?: number;
 }
 
@@ -45,7 +45,7 @@ export class CardContainerComponent implements OnInit, OnChanges {
         continue;
       }
 
-      const fadeIn = !currentStates.find((s) => s.card.id === card.id);
+      const enter = !currentStates.find((s) => s.card.id === card.id);
       if (this.dedupe) {
         const existingState = states.find((s) => s.card.name === card.name);
         if (existingState) {
@@ -53,14 +53,14 @@ export class CardContainerComponent implements OnInit, OnChanges {
         } else {
           states.push({
             card,
-            fadeIn,
+            enter,
             count: 1,
           });
         }
       } else {
         states.push({
           card,
-          fadeIn,
+          enter,
         });
       }
     }
