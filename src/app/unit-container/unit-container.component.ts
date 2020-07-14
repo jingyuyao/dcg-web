@@ -33,7 +33,7 @@ export class UnitContainerComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const previousUnits: UnitView[] = changes.units.previousValue;
+    const previousUnits: UnitView[] = changes.units.previousValue || [];
     const currentUnits: UnitView[] = changes.units.currentValue;
     this.unitStates = currentUnits.map((unit) => {
       const previousUnit = previousUnits.find((u) => u.id === unit.id);
