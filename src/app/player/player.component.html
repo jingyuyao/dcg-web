@@ -1,11 +1,16 @@
 <div class="header mat-body-2">
   <span class="name">{{ player.name }}</span>
-  <span class="hp">❤️ {{ player.hp }}</span>
+  <span class="hp" [class.changed]="hpChanged">❤️ {{ player.hp }}</span>
 </div>
 <div class="stats mat-body-1">
-  <span class="wrap-tokens">
+  <span class="wrap-tokens" [class.changed]="warpChanged">
     Warp tokens: {{ player.warpTokens }}
   </span>
-  <span *ngIf="player.powerPool > 0" class="powerPool">⚡ {{ player.powerPool }}</span>
+  <span
+    *ngIf="player.powerPool > 0"
+    class="powerPool"
+    [class.changed]="powerChanged"
+    >⚡ {{ player.powerPool }}</span
+  >
 </div>
 <app-actions [actions]="player.actions" [canAct]="canAct"></app-actions>

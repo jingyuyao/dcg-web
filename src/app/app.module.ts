@@ -26,6 +26,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CardContainerComponent } from './card-container/card-container.component';
 import { UnitContainerComponent } from './unit-container/unit-container.component';
+import { PlayerContainerComponent } from './player-container/player-container.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { UnitContainerComponent } from './unit-container/unit-container.componen
     TargetableDirective,
     CardContainerComponent,
     UnitContainerComponent,
+    PlayerContainerComponent,
   ],
   imports: [
     BrowserModule,

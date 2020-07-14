@@ -1,13 +1,10 @@
 <div class="section players">
   <div class="area">
     <div class="mat-subheading-1 header">Players</div>
-    <app-player
-      appTargetable
-      *ngFor="let player of players"
-      [entityId]="player.id"
-      [player]="player"
+    <app-player-container
+      [players]="players"
       [canAct]="canAct"
-    ></app-player>
+    ></app-player-container>
   </div>
 </div>
 <mat-divider [vertical]="true"></mat-divider>
