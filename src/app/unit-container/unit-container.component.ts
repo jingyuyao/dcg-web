@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { UnitView } from '../api/unit-view';
 import { CardView } from '../api/card-view';
+import { PlayerView } from '../api/player-view';
 
 export interface State {
   unit: UnitView;
@@ -21,6 +22,7 @@ export interface State {
   styleUrls: ['./unit-container.component.sass'],
 })
 export class UnitContainerComponent implements OnInit, OnChanges {
+  @Input() players: PlayerView[];
   @Input() units: UnitView[];
   @Input() cards?: CardView[];
   @Input() canAct: boolean;

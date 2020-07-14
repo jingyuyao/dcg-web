@@ -1,7 +1,10 @@
 <div class="group" *ngFor="let state of cardStates">
   <app-card
+    appEntity
     appTargetable
     [entityId]="state.card.id"
+    [ownerId]="state.card.ownerEntity"
+    [players]="players"
     [card]="state.card"
     [canAct]="canAct"
     [fadeIn]="state.fadeIn"

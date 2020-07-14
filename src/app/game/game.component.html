@@ -17,12 +17,17 @@
       </span>
     </div>
     <app-card-container
+      [players]="players"
       [cards]="forgeDedupe"
       [canAct]="canAct"
       [dedupe]="true"
     ></app-card-container>
     <mat-divider class="forge-separator"></mat-divider>
-    <app-card-container [cards]="forge" [canAct]="canAct"></app-card-container>
+    <app-card-container
+      [players]="players"
+      [cards]="forge"
+      [canAct]="canAct"
+    ></app-card-container>
   </div>
 </div>
 <mat-divider [vertical]="true"></mat-divider>
@@ -32,6 +37,7 @@
       Attacked by: {{ previousPlayerName }}
     </div>
     <app-unit-container
+      [players]="players"
       [units]="attackingUnits"
       [canAct]="canAct"
     ></app-unit-container>
@@ -42,11 +48,13 @@
       Current Player: {{ currentPlayerName }}
     </div>
     <app-unit-container
+      [players]="players"
       [units]="defendingUnits"
       [cards]="playArea"
       [canAct]="canAct"
     ></app-unit-container>
     <app-card-container
+      [players]="players"
       [cards]="playArea"
       [canAct]="canAct"
       [hideUnits]="true"
@@ -57,7 +65,11 @@
     <div class="mat-subheading-1 header">
       Your Hand - {{ deckSize }} cards in Draw Pile
     </div>
-    <app-card-container [cards]="hand" [canAct]="canAct"></app-card-container>
+    <app-card-container
+      [players]="players"
+      [cards]="hand"
+      [canAct]="canAct"
+    ></app-card-container>
   </div>
   <mat-divider></mat-divider>
   <mat-expansion-panel class="discard-area">
@@ -67,6 +79,7 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <app-card-container
+      [players]="players"
       [cards]="discardPile"
       [canAct]="canAct"
       [dedupe]="true"

@@ -6,6 +6,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { CardView, CardKind } from '../api/card-view';
+import { PlayerView } from '../api/player-view';
 
 export interface State {
   card: CardView;
@@ -19,6 +20,7 @@ export interface State {
   styleUrls: ['./card-container.component.sass'],
 })
 export class CardContainerComponent implements OnInit, OnChanges {
+  @Input() players: PlayerView[];
   @Input() cards: CardView[];
   @Input() canAct: boolean;
   @Input() dedupe?: boolean;

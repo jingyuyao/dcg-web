@@ -1,7 +1,10 @@
 <app-unit
+  appEntity
   appTargetable
   *ngFor="let state of unitStates"
   [entityId]="state.unit.id"
+  [ownerId]="state.unit.ownerEntity"
+  [players]="players"
   [unit]="state.unit"
   [card]="state.card"
   [previousUnit]="state.previousUnit"
