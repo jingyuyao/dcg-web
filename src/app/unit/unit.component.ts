@@ -7,18 +7,44 @@ import {
 } from '@angular/core';
 import { UnitView } from '../api/unit-view';
 import { CardView } from '../api/card-view';
+import {
+  state,
+  style,
+  trigger,
+  transition,
+  animate,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-unit',
   templateUrl: './unit.component.html',
   styleUrls: ['./unit.component.sass'],
+  animations: [
+    trigger('slideIn', [
+      state(
+        'void',
+        style({
+          opacity: 0,
+          transform: 'translateY(75%)',
+        })
+      ),
+      state(
+        'true',
+        style({
+          opacity: 1,
+          transform: 'translateY(0%)',
+        })
+      ),
+      transition('void => true', [animate('0.5s ease-out')]),
+    ]),
+  ],
 })
 export class UnitComponent implements OnInit {
   @Input() unit: UnitView;
   @Input() card?: CardView;
   @Input() previousUnit?: UnitView;
   @Input() canAct: boolean;
-  @Input() @HostBinding('class.slide-in') enter: boolean;
+  @Input() @HostBinding('@slideIn') enter: boolean;
   strengthChanged: boolean;
   defenseChanged: boolean;
   colorChanged: boolean;
