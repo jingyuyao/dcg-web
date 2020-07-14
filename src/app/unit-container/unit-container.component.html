@@ -1,0 +1,9 @@
+<app-unit
+  appTargetable
+  *ngFor="let state of unitStates"
+  [entityId]="state.unit.id"
+  [unit]="state.unit"
+  [canAct]="canAct"
+  [fadeIn]="state.fadeIn"
+></app-unit>
+

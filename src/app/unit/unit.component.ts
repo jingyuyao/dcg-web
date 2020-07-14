@@ -1,5 +1,5 @@
 import { Component, Input, HostListener, HostBinding } from '@angular/core';
-import { UnitViewUI } from '../game/game.component';
+import { UnitView } from '../api/unit-view';
 
 @Component({
   selector: 'app-unit',
@@ -7,11 +7,9 @@ import { UnitViewUI } from '../game/game.component';
   styleUrls: ['./unit.component.sass']
 })
 export class UnitComponent {
-  @Input() unit: UnitViewUI;
+  @Input() unit: UnitView;
   @Input() canAct: boolean;
-  @HostBinding('class.fade-in') get fadeIn() {
-    return this.unit.fadeIn;
-  }
+  @Input() @HostBinding('class.fade-in') fadeIn: boolean;
 
   @HostListener('click') onClick() {
     console.dir(this.unit);

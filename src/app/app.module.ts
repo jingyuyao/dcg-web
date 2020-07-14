@@ -25,6 +25,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CardContainerComponent } from './card-container/card-container.component';
+import { UnitContainerComponent } from './unit-container/unit-container.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { CardContainerComponent } from './card-container/card-container.componen
     ActionsComponent,
     TargetableDirective,
     CardContainerComponent,
+    UnitContainerComponent,
   ],
   imports: [
     BrowserModule,

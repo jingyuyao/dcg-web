@@ -42,35 +42,20 @@
     <div class="mat-subheading-1 header">
       Attacked by: {{ previousPlayerName }}
     </div>
-    <div class="entity-container">
-      <app-unit
-        class="attacking"
-        appTargetable
-        *ngFor="let unit of attackingUnits"
-        [entityId]="unit.id"
-        [unit]="unit"
-        [canAct]="canAct"
-      ></app-unit>
-      <div *ngIf="attackingUnits.length == 0" class="mat-subheading-2">
-        No attacking units
-      </div>
-    </div>
+    <app-unit-container
+      [units]="attackingUnits"
+      [canAct]="canAct"
+    ></app-unit-container>
   </div>
   <mat-divider></mat-divider>
   <div class="area play-area">
     <div class="mat-subheading-1 header">
       Current Player: {{ currentPlayerName }}
     </div>
-    <div class="entity-container">
-      <app-unit
-        class="defending"
-        appTargetable
-        *ngFor="let unit of defendingUnits"
-        [entityId]="unit.id"
-        [unit]="unit"
-        [canAct]="canAct"
-      ></app-unit>
-    </div>
+    <app-unit-container
+      [units]="defendingUnits"
+      [canAct]="canAct"
+    ></app-unit-container>
     <app-card-container
       [cards]="playArea"
       [canAct]="canAct"

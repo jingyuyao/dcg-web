@@ -5,11 +5,7 @@ import { CardView, CardLocation, CardKind } from '../api/card-view';
 import { UnitView, UnitState } from '../api/unit-view';
 import { PlayerView } from '../api/player-view';
 
-export interface CardViewUI extends CardView {
-  fadeIn: boolean;
-}
-
-export interface UnitViewUI extends UnitView {
+interface CardViewUI extends CardView {
   fadeIn: boolean;
 }
 
@@ -34,14 +30,12 @@ export class GameComponent implements OnInit {
   throneActive = false;
   players: PlayerView[] = [];
   forgeGroups: ForgeGroup[] = [];
-  previousCards: CardView[] = [];
   forge: CardView[] = [];
   playArea: CardView[] = [];
   hand: CardView[] = [];
   discardPile: CardView[] = [];
-  previousUnits: UnitView[] = [];
-  attackingUnits: UnitViewUI[] = [];
-  defendingUnits: UnitViewUI[] = [];
+  attackingUnits: UnitView[] = [];
+  defendingUnits: UnitView[] = [];
 
   ngOnInit(): void {
     this.gameview$.subscribe((game) => {
@@ -142,29 +136,21 @@ export class GameComponent implements OnInit {
           break;
       }
     }
-    this.previousCards = game.cards;
   }
 
   private updateUnits(game: GameView) {
     this.attackingUnits = [];
     this.defendingUnits = [];
     for (const unit of game.units) {
-      const previousUnit = this.previousUnits.find((u) => u.id === unit.id);
-      const stateChanged = previousUnit?.state !== unit.state;
-      const unitViewUI = {
-        ...unit,
-        fadeIn: stateChanged,
-      };
       switch (unit.state) {
         case UnitState.ATTACKING:
-          this.attackingUnits.push(unitViewUI);
+          this.attackingUnits.push(unit);
           break;
         case UnitState.DEFENDING:
-          this.defendingUnits.push(unitViewUI);
+          this.defendingUnits.push(unit);
           break;
       }
     }
-    this.previousUnits = game.units;
   }
 }
 
