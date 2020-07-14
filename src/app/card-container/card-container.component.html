@@ -1,8 +1,12 @@
-<app-card
-  appTargetable
-  *ngFor="let state of cardStates"
-  [entityId]="state.card.id"
-  [card]="state.card"
-  [canAct]="canAct"
-  [fadeIn]="state.fadeIn"
-></app-card>
+<div class="group" *ngFor="let state of cardStates">
+  <app-card
+    appTargetable
+    [entityId]="state.card.id"
+    [card]="state.card"
+    [canAct]="canAct"
+    [fadeIn]="state.fadeIn"
+  ></app-card>
+  <div *ngIf="dedupe && state.count && state.count > 1">
+    {{ state.count }} copies
+  </div>
+</div>

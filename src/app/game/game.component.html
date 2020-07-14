@@ -1,15 +1,13 @@
 <div class="section players">
   <div class="area">
     <div class="mat-subheading-1 header">Players</div>
-    <div class="entity-container">
-      <app-player
-        appTargetable
-        *ngFor="let player of players"
-        [entityId]="player.id"
-        [player]="player"
-        [canAct]="canAct"
-      ></app-player>
-    </div>
+    <app-player
+      appTargetable
+      *ngFor="let player of players"
+      [entityId]="player.id"
+      [player]="player"
+      [canAct]="canAct"
+    ></app-player>
   </div>
 </div>
 <mat-divider [vertical]="true"></mat-divider>
@@ -21,17 +19,11 @@
         Throne active
       </span>
     </div>
-    <div class="entity-container">
-      <div *ngFor="let group of forgeGroups" class="forge-group">
-        <app-card
-          appTargetable
-          [entityId]="group.card.id"
-          [card]="group.card"
-          [canAct]="canAct"
-        ></app-card>
-        <div>{{ group.count }} remaining</div>
-      </div>
-    </div>
+    <app-card-container
+      [cards]="forgeDedupe"
+      [canAct]="canAct"
+      [dedupe]="true"
+    ></app-card-container>
     <mat-divider class="forge-separator"></mat-divider>
     <app-card-container [cards]="forge" [canAct]="canAct"></app-card-container>
   </div>
@@ -79,6 +71,7 @@
       class="discard-container"
       [cards]="discardPile"
       [canAct]="canAct"
+      [dedupe]="true"
     ></app-card-container>
   </mat-expansion-panel>
 </div>
