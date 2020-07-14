@@ -72,7 +72,11 @@
     ></app-card-container>
   </div>
   <mat-divider></mat-divider>
-  <mat-expansion-panel class="discard-area">
+  <mat-expansion-panel
+    [class.overflow]="discardPileOpen"
+    (opened)="discardPileOpen = true"
+    (closed)="discardPileOpen = false"
+  >
     <mat-expansion-panel-header>
       <mat-panel-title>
         Discard Pile ({{ discardPile.length }})

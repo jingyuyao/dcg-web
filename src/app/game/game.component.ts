@@ -12,6 +12,7 @@ import { PlayerView } from '../api/player-view';
 })
 export class GameComponent implements OnInit {
   @Input() gameview$: Observable<GameView>;
+  discardPileOpen = false;
   canAct = false;
   previousPlayerName = '';
   currentPlayerName = '';
