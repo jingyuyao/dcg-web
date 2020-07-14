@@ -60,14 +60,13 @@
     <app-card-container [cards]="hand" [canAct]="canAct"></app-card-container>
   </div>
   <mat-divider></mat-divider>
-  <mat-expansion-panel>
+  <mat-expansion-panel class="discard-area">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Discard Pile ({{ discardPile.length }})
       </mat-panel-title>
     </mat-expansion-panel-header>
     <app-card-container
-      class="discard-container"
       [cards]="discardPile"
       [canAct]="canAct"
       [dedupe]="true"
