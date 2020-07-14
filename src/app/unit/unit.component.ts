@@ -18,7 +18,7 @@ export class UnitComponent implements OnInit {
   @Input() card?: CardView;
   @Input() previousUnit?: UnitView;
   @Input() canAct: boolean;
-  @Input() @HostBinding('class.fade-in') fadeIn: boolean;
+  @Input() @HostBinding('class.slide-in') enter: boolean;
   strengthChanged: boolean;
   defenseChanged: boolean;
   colorChanged: boolean;

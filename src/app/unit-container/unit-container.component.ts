@@ -13,7 +13,7 @@ export interface State {
   unit: UnitView;
   card?: CardView;
   previousUnit?: UnitView;
-  fadeIn: boolean;
+  enter: boolean;
 }
 
 @Component({
@@ -34,7 +34,7 @@ export class UnitContainerComponent implements OnInit, OnChanges {
     this.unitStates = this.units.map((unit) => ({
       unit,
       card: this.cards?.find((c) => c.id === unit.cardEntity),
-      fadeIn: true,
+      enter: true,
     }));
   }
 
@@ -48,7 +48,7 @@ export class UnitContainerComponent implements OnInit, OnChanges {
         unit,
         card: currentCards?.find((c) => c.id === unit.cardEntity),
         previousUnit,
-        fadeIn: !previousUnit,
+        enter: !previousUnit,
       };
     });
   }
