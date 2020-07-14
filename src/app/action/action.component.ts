@@ -14,6 +14,7 @@ export class ActionComponent implements OnDestroy {
   private clearTargetsSource = new Subject<void>();
   private selectionSubscription: Subscription;
   @Input() action: ActionView;
+  @Input() canAct: boolean;
   targets: number[] = [];
   targeting = false;
   get showExecute() {

@@ -2,6 +2,7 @@
   <button
     mat-stroked-button
     [matTooltip]="action.description"
+    [disabled]="!canAct"
     (click)="beginAction($event)"
   >
     {{ action.name }}
