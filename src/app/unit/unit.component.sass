@@ -30,6 +30,15 @@
   display: flex
   margin-bottom: 5px
 
+.changed
+  animation: highlight 1s
+
+@keyframes highlight
+  0%
+    background-color: yellow
+  100%
+    background-color: transparent
+
 .strength
   color: red
   flex: 0 0 auto
@@ -39,9 +48,6 @@
   margin-right: 5px
   flex: 0 0 auto
 
-.expand
-  flex: 1
-
 .attributes
   color: red
   display: flex
@@ -49,6 +55,12 @@
 
 .attribute
   margin-right: 5px
+
+.colors
+  align-items: center
+  display: flex
+  flex: 1
+  justify-content: flex-end
 
 .description
   margin-bottom: 5px

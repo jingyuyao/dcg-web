@@ -3,18 +3,24 @@
   <span class="kind">UNIT</span>
 </div>
 <div class="stats mat-body-1">
-  <span class="strength">🗡️ {{ unit.strength }}</span>
-  <span class="defense">🛡️ {{ unit.defense }}</span>
+  <span class="strength" [class.changed]="strengthChanged"
+    >🗡️ {{ unit.strength }}</span
+  >
+  <span class="defense" [class.changed]="defenseChanged"
+    >🛡️ {{ unit.defense }}</span
+  >
   <span class="expand"></span>
-  <ng-container *ngFor="let color of unit.colors" [ngSwitch]="color">
-    <span class="circle red" *ngSwitchCase="'RED'"></span>
-    <span class="circle green" *ngSwitchCase="'GREEN'"></span>
-    <span class="circle blue" *ngSwitchCase="'BLUE'"></span>
-    <span class="circle yellow" *ngSwitchCase="'YELLOW'"></span>
-    <span class="circle black" *ngSwitchCase="'BLACK'"></span>
-  </ng-container>
+  <div class="colors" [class.changed]="colorChanged">
+    <ng-container *ngFor="let color of unit.colors" [ngSwitch]="color">
+      <span class="circle red" *ngSwitchCase="'RED'"></span>
+      <span class="circle green" *ngSwitchCase="'GREEN'"></span>
+      <span class="circle blue" *ngSwitchCase="'BLUE'"></span>
+      <span class="circle yellow" *ngSwitchCase="'YELLOW'"></span>
+      <span class="circle black" *ngSwitchCase="'BLACK'"></span>
+    </ng-container>
+  </div>
 </div>
-<div class="attributes mat-body-1">
+<div class="attributes mat-body-1" [class.changed]="attributesChanged">
   <span *ngFor="let attribute of unit.attributes" class="attribute">{{
     attribute
   }}</span>
