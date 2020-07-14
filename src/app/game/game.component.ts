@@ -35,10 +35,10 @@ export class GameComponent implements OnInit {
   players: PlayerView[] = [];
   forgeGroups: ForgeGroup[] = [];
   previousCards: CardView[] = [];
-  forge: CardViewUI[] = [];
-  playArea: CardViewUI[] = [];
-  hand: CardViewUI[] = [];
-  discardPile: CardViewUI[] = [];
+  forge: CardView[] = [];
+  playArea: CardView[] = [];
+  hand: CardView[] = [];
+  discardPile: CardView[] = [];
   previousUnits: UnitView[] = [];
   attackingUnits: UnitViewUI[] = [];
   defendingUnits: UnitViewUI[] = [];
@@ -80,12 +80,7 @@ export class GameComponent implements OnInit {
     for (const card of game.cards) {
       switch (card.location) {
         case CardLocation.FORGE_ROW:
-          const previousCard = this.previousCards.find((c) => c.id === card.id);
-          const locationChanged = previousCard?.location !== card.location;
-          this.forge.push({
-            ...card,
-            fadeIn: locationChanged,
-          });
+          this.forge.push(card);
           break;
         case CardLocation.THRONE_DECK:
           const previousThrone = previousForgeGroups.find(
@@ -133,22 +128,16 @@ export class GameComponent implements OnInit {
     this.hand = [];
     this.discardPile = [];
     for (const card of game.cards) {
-      const previousCard = this.previousCards.find((c) => c.id === card.id);
-      const locationChanged = previousCard?.location !== card.location;
-      const cardViewUI = {
-        ...card,
-        fadeIn: locationChanged,
-      };
       switch (card.location) {
         case CardLocation.HAND:
-          this.hand.push(cardViewUI);
+          this.hand.push(card);
           break;
         case CardLocation.DISCARD_PILE:
-          this.discardPile.push(cardViewUI);
+          this.discardPile.push(card);
           break;
         case CardLocation.PLAY_AREA:
           if (card.kind !== CardKind.UNIT) {
-            this.playArea.push(cardViewUI);
+            this.playArea.push(card);
           }
           break;
       }

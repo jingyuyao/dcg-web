@@ -1,5 +1,5 @@
 import { Component, Input, HostListener, HostBinding } from '@angular/core';
-import { CardViewUI } from '../game/game.component';
+import { CardView } from '../api/card-view';
 
 @Component({
   selector: 'app-card',
@@ -7,11 +7,9 @@ import { CardViewUI } from '../game/game.component';
   styleUrls: ['./card.component.sass']
 })
 export class CardComponent {
-  @Input() card: CardViewUI;
+  @Input() card: CardView;
   @Input() canAct: boolean;
-  @HostBinding('class.fade-in') get fadeIn() {
-    return this.card.fadeIn;
-  }
+  @Input() @HostBinding('class.fade-in') fadeIn: boolean;
   get showPrepurchase() {
     return this.card.ownerEntity === -1;
   }

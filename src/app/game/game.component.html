@@ -33,15 +33,7 @@
       </div>
     </div>
     <mat-divider class="forge-separator"></mat-divider>
-    <div class="entity-container">
-      <app-card
-        appTargetable
-        *ngFor="let card of forge"
-        [entityId]="card.id"
-        [card]="card"
-        [canAct]="canAct"
-      ></app-card>
-    </div>
+    <app-card-container [cards]="forge" [canAct]="canAct"></app-card-container>
   </div>
 </div>
 <mat-divider [vertical]="true"></mat-divider>
@@ -78,39 +70,18 @@
         [unit]="unit"
         [canAct]="canAct"
       ></app-unit>
-      <app-card
-        appTargetable
-        *ngFor="let card of playArea"
-        [entityId]="card.id"
-        [card]="card"
-        [canAct]="canAct"
-      ></app-card>
-      <div
-        *ngIf="defendingUnits.length == 0 && playArea.length == 0"
-        class="mat-subheading-2"
-      >
-        Nothing played yet
-      </div>
     </div>
+    <app-card-container
+      [cards]="playArea"
+      [canAct]="canAct"
+    ></app-card-container>
   </div>
   <mat-divider></mat-divider>
   <div class="area">
     <div class="mat-subheading-1 header">
       Your Hand - {{ deckSize }} cards in Draw Pile
     </div>
-    <div class="entity-container">
-      <app-card
-        class="hand"
-        appTargetable
-        *ngFor="let card of hand"
-        [entityId]="card.id"
-        [card]="card"
-        [canAct]="canAct"
-      ></app-card>
-      <div *ngIf="hand.length == 0" class="mat-subheading-2">
-        Empty
-      </div>
-    </div>
+    <app-card-container [cards]="hand" [canAct]="canAct"></app-card-container>
   </div>
   <mat-divider></mat-divider>
   <mat-expansion-panel>
@@ -119,15 +90,10 @@
         Discard Pile ({{ discardPile.length }})
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <div class="entity-container discard-container">
-      <app-card
-        class="discard-pile"
-        appTargetable
-        *ngFor="let card of discardPile"
-        [entityId]="card.id"
-        [card]="card"
-        [canAct]="canAct"
-      ></app-card>
-    </div>
+    <app-card-container
+      class="discard-container"
+      [cards]="discardPile"
+      [canAct]="canAct"
+    ></app-card-container>
   </mat-expansion-panel>
 </div>
