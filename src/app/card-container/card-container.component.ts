@@ -5,7 +5,7 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { CardView } from '../api/card-view';
+import { CardView, CardKind } from '../api/card-view';
 
 export interface State {
   card: CardView;
@@ -21,7 +21,8 @@ export interface State {
 export class CardContainerComponent implements OnInit, OnChanges {
   @Input() cards: CardView[];
   @Input() canAct: boolean;
-  @Input() dedupe = false;
+  @Input() dedupe?: boolean;
+  @Input() hideUnits?: boolean;
   cardStates: State[] = [];
 
   constructor() {}
@@ -38,6 +39,10 @@ export class CardContainerComponent implements OnInit, OnChanges {
   private computeStates(cards: CardView[], currentStates: State[]): State[] {
     const states: State[] = [];
     for (const card of cards) {
+      if (this.hideUnits && card.kind === CardKind.UNIT) {
+        continue;
+      }
+
       const fadeIn = !currentStates.find((s) => s.card.id === card.id);
       if (this.dedupe) {
         const existingState = states.find((s) => s.card.name === card.name);

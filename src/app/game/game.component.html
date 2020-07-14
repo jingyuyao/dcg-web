@@ -43,11 +43,13 @@
     </div>
     <app-unit-container
       [units]="defendingUnits"
+      [cards]="playArea"
       [canAct]="canAct"
     ></app-unit-container>
     <app-card-container
       [cards]="playArea"
       [canAct]="canAct"
+      [hideUnits]="true"
     ></app-card-container>
   </div>
   <mat-divider></mat-divider>

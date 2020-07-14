@@ -3,8 +3,8 @@
   *ngFor="let state of unitStates"
   [entityId]="state.unit.id"
   [unit]="state.unit"
+  [card]="state.card"
   [previousUnit]="state.previousUnit"
   [canAct]="canAct"
   [fadeIn]="state.fadeIn"
 ></app-unit>
-

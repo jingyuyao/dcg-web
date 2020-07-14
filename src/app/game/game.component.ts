@@ -84,9 +84,7 @@ export class GameComponent implements OnInit {
           this.discardPile.push(card);
           break;
         case CardLocation.PLAY_AREA:
-          if (card.kind !== CardKind.UNIT) {
-            this.playArea.push(card);
-          }
+          this.playArea.push(card);
           break;
       }
     }

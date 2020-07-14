@@ -3,13 +3,15 @@
 :host
   @include mat-elevation(4)
 
-:host(.targetable)
+:host(.targetable),
+.targetable
   @include mat-elevation(12)
   background-color: #FFFDE7 !important
   border: solid 2px #FFEB3B
   cursor: pointer
 
-:host(.targetted)
+:host(.targetted),
+.targetted
   @include mat-elevation(12)
   background-color: #FFEBEE !important
   border: solid 2px #F44336

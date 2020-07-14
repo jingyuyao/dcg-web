@@ -6,9 +6,11 @@ import {
   Input,
 } from '@angular/core';
 import { UnitView } from '../api/unit-view';
+import { CardView } from '../api/card-view';
 
 export interface State {
   unit: UnitView;
+  card?: CardView;
   previousUnit?: UnitView;
   fadeIn: boolean;
 }
@@ -20,6 +22,7 @@ export interface State {
 })
 export class UnitContainerComponent implements OnInit, OnChanges {
   @Input() units: UnitView[];
+  @Input() cards?: CardView[];
   @Input() canAct: boolean;
   unitStates: State[];
 
@@ -28,6 +31,7 @@ export class UnitContainerComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.unitStates = this.units.map((unit) => ({
       unit,
+      card: this.cards?.find((c) => c.id === unit.cardEntity),
       fadeIn: true,
     }));
   }
@@ -35,10 +39,12 @@ export class UnitContainerComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     const previousUnits: UnitView[] = changes.units.previousValue || [];
     const currentUnits: UnitView[] = changes.units.currentValue;
+    const currentCards: CardView[]|undefined = changes.cards?.currentValue;
     this.unitStates = currentUnits.map((unit) => {
       const previousUnit = previousUnits.find((u) => u.id === unit.id);
       return {
         unit,
+        card: currentCards?.find((c) => c.id === unit.cardEntity),
         previousUnit,
         fadeIn: !previousUnit,
       };

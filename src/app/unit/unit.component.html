@@ -1,7 +1,15 @@
-<div class="header mat-body-2">
-  <span class="name">{{ unit.name }}</span>
-  <span class="kind">UNIT</span>
-</div>
+<ng-container *ngIf="!unit.isToken && card; else noCardHeader">
+  <div class="header mat-body-2" appTargetable [entityId]="card.id">
+    <span class="name">{{ unit.name }}</span>
+    <span class="kind">{{ unit.isToken ? "TOKEN" : "UNIT" }}</span>
+  </div>
+</ng-container>
+<ng-template #noCardHeader>
+  <div class="header mat-body-2">
+    <span class="name">{{ unit.name }}</span>
+    <span class="kind">{{ unit.isToken ? "TOKEN" : "UNIT" }}</span>
+  </div>
+</ng-template>
 <div class="stats mat-body-1">
   <span class="strength" [class.changed]="strengthChanged"
     >🗡️ {{ unit.strength }}</span

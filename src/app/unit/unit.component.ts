@@ -6,6 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { UnitView } from '../api/unit-view';
+import { CardView } from '../api/card-view';
 
 @Component({
   selector: 'app-unit',
@@ -14,6 +15,7 @@ import { UnitView } from '../api/unit-view';
 })
 export class UnitComponent implements OnInit {
   @Input() unit: UnitView;
+  @Input() card?: CardView;
   @Input() previousUnit?: UnitView;
   @Input() canAct: boolean;
   @Input() @HostBinding('class.fade-in') fadeIn: boolean;
