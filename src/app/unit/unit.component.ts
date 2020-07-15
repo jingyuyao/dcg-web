@@ -7,20 +7,32 @@ import {
 } from '@angular/core';
 import { UnitView } from '../api/unit-view';
 import { CardView } from '../api/card-view';
+import {
+  positiveHighlight,
+  negativeHighlight,
+  highlightDiffer,
+} from '../animations';
+import { trigger, transition, useAnimation } from '@angular/animations';
 
 @Component({
   selector: 'app-unit',
   templateUrl: './unit.component.html',
   styleUrls: ['./unit.component.sass'],
+  animations: [
+    trigger('highlight', [
+      transition('* => 1', [useAnimation(positiveHighlight)]),
+      transition('* => -1', [useAnimation(negativeHighlight)]),
+    ]),
+  ],
 })
 export class UnitComponent implements OnChanges {
   @Input() unit: UnitView;
   @Input() card?: CardView;
   @Input() canAct: boolean;
-  strengthChanged = false;
-  defenseChanged = false;
-  colorChanged = false;
-  attributesChanged = false;
+  strengthChange = 0;
+  defenseChange = 0;
+  colorChange = 0;
+  attributesChange = 0;
 
   @HostListener('click') onClick() {
     console.dir(this.unit);
@@ -33,13 +45,21 @@ export class UnitComponent implements OnChanges {
       return;
     }
 
-    this.strengthChanged = previousUnit.strength !== currentUnit.strength;
-    this.defenseChanged = previousUnit.defense !== currentUnit.defense;
-    this.colorChanged =
-      previousUnit.colors.length !== currentUnit.colors.length ||
-      previousUnit.colors.some((c) => !currentUnit.colors.includes(c));
-    this.attributesChanged =
-      previousUnit.attributes.length !== currentUnit.attributes.length ||
-      previousUnit.attributes.some((a) => !currentUnit.attributes.includes(a));
+    this.strengthChange = highlightDiffer(
+      currentUnit.strength,
+      previousUnit.strength
+    );
+    this.defenseChange = highlightDiffer(
+      currentUnit.defense,
+      previousUnit.defense
+    );
+    this.colorChange = highlightDiffer(
+      currentUnit.colors.length,
+      previousUnit.colors.length
+    );
+    this.attributesChange = highlightDiffer(
+      currentUnit.attributes.length,
+      previousUnit.attributes.length
+    );
   }
 }
