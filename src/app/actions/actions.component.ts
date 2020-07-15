@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActionView } from '../api/action-view';
 
 @Component({
@@ -6,18 +6,16 @@ import { ActionView } from '../api/action-view';
   templateUrl: './actions.component.html',
   styleUrls: ['./actions.component.sass'],
 })
-export class ActionsComponent implements OnInit {
+export class ActionsComponent {
   @Input() actions: ActionView[];
   @Input() canAct: boolean;
-  sortedTriggerableActions: ActionView[];
-
-  constructor() {}
-
-  ngOnInit(): void {
-    this.sortedTriggerableActions = this.actions
+  get sortedTriggerableActions(): ActionView[] {
+    return this.actions
       .filter((a) => a.canTrigger)
       .sort((a, b) => {
         return a.name < b.name ? -1 : 1;
       });
   }
+
+  constructor() {}
 }
