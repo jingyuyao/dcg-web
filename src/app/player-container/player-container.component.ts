@@ -33,12 +33,12 @@ export class PlayerContainerComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     const previousPlayers: PlayerView[] = changes.players.previousValue || [];
     const currentPlayers: PlayerView[] = changes.players.currentValue;
-    // Don't expect the players to change after starting a game.
-    for (const state of this.playerStates) {
-      state.player = currentPlayers.find((p) => p.id === state.player.id);
-      state.previousPlayer = previousPlayers.find(
-        (p) => p.id === state.player.id
-      );
-    }
+    this.playerStates = currentPlayers.map((player) => {
+      const previousPlayer = previousPlayers.find((p) => p.id === player.id);
+      return {
+        player,
+        previousPlayer,
+      };
+    });
   }
 }
