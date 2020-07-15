@@ -2,7 +2,8 @@ import { Component, OnChanges, SimpleChanges, Input } from '@angular/core';
 import { UnitView } from '../api/unit-view';
 import { CardView } from '../api/card-view';
 import { PlayerView } from '../api/player-view';
-import { trigger, style, transition, animate } from '@angular/animations';
+import { trigger, transition, useAnimation } from '@angular/animations';
+import { slideIn } from '../animations';
 
 export interface State {
   unit: UnitView;
@@ -14,21 +15,7 @@ export interface State {
   templateUrl: './unit-container.component.html',
   styleUrls: ['./unit-container.component.sass'],
   animations: [
-    trigger('slideIn', [
-      transition(':enter', [
-        style({
-          opacity: 0,
-          transform: 'translateY(75%)',
-        }),
-        animate(
-          '0.5s ease',
-          style({
-            opacity: 1,
-            transform: 'translateY(0%)',
-          })
-        ),
-      ]),
-    ]),
+    trigger('slideIn', [transition(':enter', [useAnimation(slideIn)])]),
   ],
 })
 export class UnitContainerComponent implements OnChanges {
