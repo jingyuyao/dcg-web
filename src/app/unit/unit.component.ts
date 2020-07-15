@@ -2,49 +2,21 @@ import {
   Component,
   Input,
   HostListener,
-  HostBinding,
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
 import { UnitView } from '../api/unit-view';
 import { CardView } from '../api/card-view';
-import {
-  state,
-  style,
-  trigger,
-  transition,
-  animate,
-} from '@angular/animations';
 
 @Component({
   selector: 'app-unit',
   templateUrl: './unit.component.html',
   styleUrls: ['./unit.component.sass'],
-  animations: [
-    trigger('slideIn', [
-      state(
-        'void',
-        style({
-          opacity: 0,
-          transform: 'translateY(75%)',
-        })
-      ),
-      state(
-        'true',
-        style({
-          opacity: 1,
-          transform: 'translateY(0%)',
-        })
-      ),
-      transition('void => true', [animate('0.5s ease-out')]),
-    ]),
-  ],
 })
 export class UnitComponent implements OnChanges {
   @Input() unit: UnitView;
   @Input() card?: CardView;
   @Input() canAct: boolean;
-  @Input() @HostBinding('@slideIn') enter: boolean;
   strengthChanged = false;
   defenseChanged = false;
   colorChanged = false;

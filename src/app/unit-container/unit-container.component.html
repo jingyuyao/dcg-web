@@ -1,6 +1,7 @@
 <app-unit
   appEntity
   appTargetable
+  @slideIn
   *ngFor="let state of unitStates"
   [entityId]="state.unit.id"
   [ownerId]="state.unit.ownerEntity"
@@ -8,5 +9,4 @@
   [unit]="state.unit"
   [card]="state.card"
   [canAct]="canAct"
-  [enter]="state.enter"
 ></app-unit>
