@@ -1,25 +1,23 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CardView, CardKind } from '../api/card-view';
 import { PlayerView } from '../api/player-view';
+import { trigger, transition, useAnimation } from '@angular/animations';
+import { slideIn } from '../animations';
 
 export interface State {
   card: CardView;
-  enter: boolean;
-  count?: number;
+  count: number;
 }
 
 @Component({
   selector: 'app-card-container',
   templateUrl: './card-container.component.html',
   styleUrls: ['./card-container.component.sass'],
+  animations: [
+    trigger('slideIn', [transition(':enter', [useAnimation(slideIn)])]),
+  ],
 })
-export class CardContainerComponent implements OnInit, OnChanges {
+export class CardContainerComponent implements OnChanges {
   @Input() players: PlayerView[];
   @Input() cards: CardView[];
   @Input() canAct: boolean;
@@ -29,41 +27,32 @@ export class CardContainerComponent implements OnInit, OnChanges {
 
   constructor() {}
 
-  ngOnInit(): void {
-    this.cardStates = this.computeStates(this.cards, this.cardStates);
-  }
-
   ngOnChanges(changes: SimpleChanges): void {
     const currentCards: CardView[] = changes.cards.currentValue;
-    this.cardStates = this.computeStates(currentCards, this.cardStates);
-  }
-
-  private computeStates(cards: CardView[], currentStates: State[]): State[] {
-    const states: State[] = [];
-    for (const card of cards) {
+    this.cardStates = this.cardStates.filter((s) =>
+      currentCards.some((c) => c.id === s.card.id)
+    );
+    for (const state of this.cardStates) {
+      state.count = 0;
+    }
+    for (const card of currentCards) {
       if (this.hideUnits && card.kind === CardKind.UNIT) {
         continue;
       }
 
-      const enter = !currentStates.find((s) => s.card.id === card.id);
-      if (this.dedupe) {
-        const existingState = states.find((s) => s.card.name === card.name);
-        if (existingState) {
-          existingState.count++;
-        } else {
-          states.push({
-            card,
-            enter,
-            count: 1,
-          });
-        }
+      const currentState = this.cardStates.find((s) =>
+        this.dedupe ? s.card.name === card.name : s.card.id === card.id
+      );
+
+      if (currentState) {
+        currentState.card = card;
+        currentState.count++;
       } else {
-        states.push({
+        this.cardStates.push({
           card,
-          enter,
+          count: 1,
         });
       }
     }
-    return states;
   }
 }

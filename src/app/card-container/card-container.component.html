@@ -2,12 +2,12 @@
   <app-card
     appEntity
     appTargetable
+    @slideIn
     [entityId]="state.card.id"
     [ownerId]="state.card.ownerEntity"
     [players]="players"
     [card]="state.card"
     [canAct]="canAct"
-    [enter]="state.enter"
   ></app-card>
   <div *ngIf="dedupe && state.count && state.count > 1">
     {{ state.count }} copies
