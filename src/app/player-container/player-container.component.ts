@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { PlayerView } from '../api/player-view';
 
 interface State {
@@ -17,18 +11,12 @@ interface State {
   templateUrl: './player-container.component.html',
   styleUrls: ['./player-container.component.sass'],
 })
-export class PlayerContainerComponent implements OnInit, OnChanges {
+export class PlayerContainerComponent implements OnChanges {
   @Input() players: PlayerView[];
   @Input() canAct: boolean;
-  playerStates: State[];
+  playerStates: State[] = [];
 
   constructor() {}
-
-  ngOnInit(): void {
-    this.playerStates = this.players.map((player) => ({
-      player,
-    }));
-  }
 
   ngOnChanges(changes: SimpleChanges): void {
     const previousPlayers: PlayerView[] = changes.players.previousValue || [];

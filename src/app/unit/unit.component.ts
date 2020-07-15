@@ -45,10 +45,10 @@ export class UnitComponent implements OnInit {
   @Input() previousUnit?: UnitView;
   @Input() canAct: boolean;
   @Input() @HostBinding('@slideIn') enter: boolean;
-  strengthChanged: boolean;
-  defenseChanged: boolean;
-  colorChanged: boolean;
-  attributesChanged: boolean;
+  strengthChanged = false;
+  defenseChanged = false;
+  colorChanged = false;
+  attributesChanged = false;
 
   @HostListener('click') onClick() {
     console.dir(this.unit);
