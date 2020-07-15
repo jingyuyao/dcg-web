@@ -11,14 +11,14 @@
   </div>
 </ng-template>
 <div class="stats mat-body-1">
-  <span class="strength" [@highlight]="strengthChange"
+  <span class="strength" [@highlight]="unit.strength"
     >🗡️ {{ unit.strength }}</span
   >
-  <span class="defense" [@highlight]="defenseChange"
+  <span class="defense" [@highlight]="unit.defense"
     >🛡️ {{ unit.defense }}</span
   >
   <span class="expand"></span>
-  <div class="colors" [@highlight]="colorChange">
+  <div class="colors" [@highlight]="unit.colors.length">
     <ng-container *ngFor="let color of unit.colors" [ngSwitch]="color">
       <span class="circle red" *ngSwitchCase="'RED'"></span>
       <span class="circle green" *ngSwitchCase="'GREEN'"></span>
@@ -28,7 +28,7 @@
     </ng-container>
   </div>
 </div>
-<div class="attributes mat-body-1" [@highlight]="attributesChange">
+<div class="attributes mat-body-1" [@highlight]="unit.attributes.length">
   <span *ngFor="let attribute of unit.attributes" class="attribute">{{
     attribute
   }}</span>

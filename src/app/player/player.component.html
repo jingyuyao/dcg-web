@@ -1,14 +1,14 @@
 <div class="header mat-body-2">
   <span class="name">{{ player.name }}</span>
-  <span class="hp" [@highlight]="hpChange">❤️ {{ player.hp }}</span>
+  <span class="hp" [@highlight]="player.hp">❤️ {{ player.hp }}</span>
 </div>
 <div class="stats mat-body-1">
-  <span class="wrap-tokens" [@highlight]="warpChange">
+  <span class="wrap-tokens" [@highlight]="player.warpTokens">
     Warp tokens: {{ player.warpTokens }}
   </span>
   <span
     *ngIf="player.powerPool > 0"
-    [@highlight]="powerChange"
+    [@highlight]="player.powerPool"
     class="powerPool"
     >⚡ {{ player.powerPool }}</span
   >

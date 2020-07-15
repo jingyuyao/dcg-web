@@ -3,7 +3,6 @@ import { PlayerView } from '../api/player-view';
 
 interface State {
   player: PlayerView;
-  previousPlayer?: PlayerView;
 }
 
 @Component({
@@ -19,14 +18,16 @@ export class PlayerContainerComponent implements OnChanges {
   constructor() {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    const previousPlayers: PlayerView[] = changes.players.previousValue || [];
     const currentPlayers: PlayerView[] = changes.players.currentValue;
-    this.playerStates = currentPlayers.map((player) => {
-      const previousPlayer = previousPlayers.find((p) => p.id === player.id);
-      return {
-        player,
-        previousPlayer,
-      };
-    });
+    for (const player of currentPlayers) {
+      const state = this.playerStates.find((s) => s.player.id === player.id);
+      if (state) {
+        state.player = player;
+      } else {
+        this.playerStates.push({
+          player,
+        });
+      }
+    }
   }
 }

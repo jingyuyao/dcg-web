@@ -14,27 +14,12 @@ export const slideIn = animation([
   ),
 ]);
 
-export const highlightDiffer = (v1: number, v2: number): number =>
-  v1 > v2 ? 1 : v2 > v1 ? -1 : 0;
-
-export const highlight = animation([
-  style({
-    backgroundColor: '#FFEB3B',
-  }),
-  animate(
-    '1.5s ease',
-    style({
-      backgroundColor: 'transparent',
-    })
-  ),
-]);
-
 export const positiveHighlight = animation([
   style({
     backgroundColor: '#4CAF50',
   }),
   animate(
-    '1.5s ease',
+    '2s ease',
     style({
       backgroundColor: 'transparent',
     })
@@ -46,7 +31,7 @@ export const negativeHighlight = animation([
     backgroundColor: '#F44336',
   }),
   animate(
-    '1.5s ease',
+    '2s ease',
     style({
       backgroundColor: 'transparent',
     })
