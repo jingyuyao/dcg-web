@@ -6,7 +6,6 @@ import { PlayerView } from '../api/player-view';
 export interface State {
   unit: UnitView;
   card?: CardView;
-  previousUnit?: UnitView;
   enter: boolean;
 }
 
@@ -25,17 +24,23 @@ export class UnitContainerComponent implements OnChanges {
   constructor() {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    const previousUnits: UnitView[] = changes.units.previousValue || [];
     const currentUnits: UnitView[] = changes.units.currentValue;
     const currentCards: CardView[] | undefined = changes.cards?.currentValue;
-    this.unitStates = currentUnits.map((unit) => {
-      const previousUnit = previousUnits.find((u) => u.id === unit.id);
-      return {
-        unit,
-        card: currentCards?.find((c) => c.id === unit.cardEntity),
-        previousUnit,
-        enter: !previousUnit,
-      };
-    });
+    this.unitStates = this.unitStates.filter((s) =>
+      currentUnits.some((u) => u.id === s.unit.id)
+    );
+    for (const unit of currentUnits) {
+      const currentState = this.unitStates.find((s) => s.unit.id === unit.id);
+      if (currentState) {
+        currentState.unit = unit;
+        currentState.card = currentCards?.find((c) => c.id === unit.cardEntity);
+      } else {
+        this.unitStates.push({
+          unit,
+          card: currentCards?.find((c) => c.id === unit.cardEntity),
+          enter: true,
+        });
+      }
+    }
   }
 }
