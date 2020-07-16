@@ -62,8 +62,9 @@
   </div>
   <mat-divider></mat-divider>
   <div class="area">
-    <div class="mat-subheading-1 header">
-      Your Hand - {{ deckSize }} cards in Draw Pile
+    <div class="mat-subheading-1 header hand-header">
+      <span>Your Hand</span>
+      <span>Deck Size: {{ deckSize }}</span>
     </div>
     <app-card-container
       [players]="players"
@@ -79,7 +80,7 @@
   >
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Discard Pile ({{ discardPile.length }})
+        Discard Pile: {{ discardPile.length }}
       </mat-panel-title>
     </mat-expansion-panel-header>
     <app-card-container
