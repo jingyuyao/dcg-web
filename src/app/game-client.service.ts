@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { ClientMessage, ClientMessageKind } from './api/client-message';
 import { RoomList } from './api/room-list';
 import { environment } from '../environments/environment';
+import { LogsView } from './api/logs-view';
 
 @Injectable({
   providedIn: 'root',
@@ -63,6 +64,13 @@ export class GameClientService implements OnDestroy {
       kind: ClientMessageKind.EXECUTE_ACTION,
       intArgs: [actionId, ...args],
     });
+  }
+
+  getGameLogs(startIndex: number): Observable<LogsView> {
+    return this.request(
+      { kind: ClientMessageKind.GET_GAME_LOGS, intArgs: [startIndex] },
+      ServerMessageKind.GAME_LOGS
+    );
   }
 
   /**

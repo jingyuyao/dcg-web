@@ -28,6 +28,7 @@ import { CardContainerComponent } from './card-container/card-container.componen
 import { UnitContainerComponent } from './unit-container/unit-container.component';
 import { PlayerContainerComponent } from './player-container/player-container.component';
 import { EntityDirective } from './entity.directive';
+import { LogsContainerComponent } from './logs-container/logs-container.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { EntityDirective } from './entity.directive';
     UnitContainerComponent,
     PlayerContainerComponent,
     EntityDirective,
+    LogsContainerComponent,
   ],
   imports: [
     BrowserModule,

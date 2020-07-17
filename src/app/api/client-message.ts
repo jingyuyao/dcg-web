@@ -11,4 +11,5 @@ export enum ClientMessageKind {
   LEAVE_ROOM = 'LEAVE_ROOM',
   START_GAME = 'START_GAME',
   EXECUTE_ACTION = 'EXECUTE_ACTION',
+  GET_GAME_LOGS = 'GET_GAME_LOGS',
 }

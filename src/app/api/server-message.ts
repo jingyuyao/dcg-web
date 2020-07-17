@@ -8,4 +8,5 @@ export enum ServerMessageKind {
   ROOM_LIST = 'ROOM_LIST',
   GAME_ROOM_VIEW = 'GAME_ROOM_VIEW',
   GAME_VIEW = 'GAME_VIEW',
+  GAME_LOGS = 'GAME_LOGS',
 }

@@ -1,0 +1,14 @@
+<mat-list dense>
+  <mat-list-item *ngFor="let log of filteredLogs">
+    {{ log.ownerName }}: {{ log.commandName }}
+    <ng-container *ngIf="log.intValue != null">
+      {{ log.intValue }}</ng-container
+    >
+    <ng-container *ngIf="log.boolValue != null">
+      {{ log.boolValue }}</ng-container
+    >
+    <ng-container *ngIf="log.ownerName != log.originName">
+      from {{ log.originName }}
+    </ng-container>
+  </mat-list-item>
+</mat-list>
