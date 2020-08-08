@@ -14,6 +14,20 @@ export const slideIn = animation([
   ),
 ]);
 
+export const slideOut = animation([
+  style({
+    opacity: 1,
+    transform: 'translateY(0%)',
+  }),
+  animate(
+    '0.5s ease',
+    style({
+      opacity: 0,
+      transform: 'translateY(-75%)',
+    })
+  ),
+]);
+
 export const positiveHighlight = animation([
   style({
     backgroundColor: '#4CAF50',

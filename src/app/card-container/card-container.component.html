@@ -1,8 +1,8 @@
-<div class="group" *ngFor="let state of cardStates">
+<!-- NOTE: This wrapper div is necessary for the :leave animation. -->
+<div class="group" *ngFor="let state of cardStates" @slideInOut>
   <app-card
     appEntity
     appTargetable
-    @slideIn
     [entityId]="state.card.id"
     [ownerId]="state.card.ownerEntity"
     [players]="players"

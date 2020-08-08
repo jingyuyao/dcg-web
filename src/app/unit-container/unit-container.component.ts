@@ -3,7 +3,7 @@ import { UnitView } from '../api/unit-view';
 import { CardView } from '../api/card-view';
 import { PlayerView } from '../api/player-view';
 import { trigger, transition, useAnimation } from '@angular/animations';
-import { slideIn } from '../animations';
+import { slideIn, slideOut } from '../animations';
 
 export interface State {
   unit: UnitView;
@@ -15,7 +15,10 @@ export interface State {
   templateUrl: './unit-container.component.html',
   styleUrls: ['./unit-container.component.sass'],
   animations: [
-    trigger('slideIn', [transition(':enter', [useAnimation(slideIn)])]),
+    trigger('slideInOut', [
+      transition(':enter', [useAnimation(slideIn)]),
+      transition(':leave', [useAnimation(slideOut)])
+    ]),
   ],
 })
 export class UnitContainerComponent implements OnChanges {

@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CardView, CardKind } from '../api/card-view';
 import { PlayerView } from '../api/player-view';
 import { trigger, transition, useAnimation } from '@angular/animations';
-import { slideIn } from '../animations';
+import { slideIn, slideOut } from '../animations';
 
 export interface State {
   card: CardView;
@@ -14,7 +14,10 @@ export interface State {
   templateUrl: './card-container.component.html',
   styleUrls: ['./card-container.component.sass'],
   animations: [
-    trigger('slideIn', [transition(':enter', [useAnimation(slideIn)])]),
+    trigger('slideInOut', [
+      transition(':enter', [useAnimation(slideIn)]),
+      transition(':leave', [useAnimation(slideOut)])
+    ]),
   ],
 })
 export class CardContainerComponent implements OnChanges {
