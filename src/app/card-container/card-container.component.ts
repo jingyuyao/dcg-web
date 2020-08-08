@@ -29,8 +29,8 @@ export class CardContainerComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     const currentCards: CardView[] = changes.cards.currentValue;
-    this.cardStates = this.cardStates.filter((s) =>
-      currentCards.some((c) => c.id === s.card.id)
+    this.cardStates = this.cardStates.filter((state) =>
+      currentCards.some((card) => this.isCardEqual(card, state.card))
     );
     for (const state of this.cardStates) {
       state.count = 0;
@@ -40,8 +40,8 @@ export class CardContainerComponent implements OnChanges {
         continue;
       }
 
-      const currentState = this.cardStates.find((s) =>
-        this.dedupe ? s.card.name === card.name : s.card.id === card.id
+      const currentState = this.cardStates.find((state) =>
+        this.isCardEqual(state.card, card)
       );
 
       if (currentState) {
@@ -54,5 +54,10 @@ export class CardContainerComponent implements OnChanges {
         });
       }
     }
+  }
+
+  /** Compare cards by name if we are deduping else compare by id. */
+  private isCardEqual(c1: CardView, c2: CardView): boolean {
+    return this.dedupe ? c1.name === c2.name : c1.id === c2.id;
   }
 }
