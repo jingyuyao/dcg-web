@@ -65,6 +65,7 @@
   <div class="area">
     <div class="mat-subheading-1 header hand-header">
       <span>Your Hand</span>
+      <mat-slide-toggle [formControl]="autoPlay">Auto play</mat-slide-toggle>
       <span>Deck Size: {{ deckSize }}</span>
     </div>
     <app-card-container

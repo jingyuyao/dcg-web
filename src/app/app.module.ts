@@ -24,6 +24,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CardContainerComponent } from './card-container/card-container.component';
 import { UnitContainerComponent } from './unit-container/unit-container.component';
 import { PlayerContainerComponent } from './player-container/player-container.component';
@@ -63,6 +64,7 @@ import { LogsContainerComponent } from './logs-container/logs-container.componen
     MatTableModule,
     MatTabsModule,
     MatTooltipModule,
+    MatSlideToggleModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

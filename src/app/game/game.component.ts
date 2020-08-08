@@ -1,9 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { GameView } from '../api/game-view';
 import { Observable } from 'rxjs';
-import { CardView, CardLocation, CardKind } from '../api/card-view';
+import { CardView, CardLocation } from '../api/card-view';
 import { UnitView, UnitState } from '../api/unit-view';
 import { PlayerView } from '../api/player-view';
+import { GameClientService } from '../game-client.service';
+import { FormControl } from '@angular/forms';
+
+const AUTO_PLAY_DELAY = 1000; // ms
 
 @Component({
   selector: 'app-game',
@@ -12,6 +16,8 @@ import { PlayerView } from '../api/player-view';
 })
 export class GameComponent implements OnInit {
   @Input() gameview$: Observable<GameView>;
+  autoPlay = new FormControl(false);
+  autoPlayPromise = Promise.resolve();
   discardPileOpen = false;
   canAct = false;
   previousPlayerName = '';
@@ -27,13 +33,17 @@ export class GameComponent implements OnInit {
   attackingUnits: UnitView[] = [];
   defendingUnits: UnitView[] = [];
 
+  constructor(private gameClient: GameClientService) {}
+
   ngOnInit(): void {
+    this.autoPlay.valueChanges.subscribe(() => this.maybeAutoPlay());
     this.gameview$.subscribe((game) => {
       this.updateMetadata(game);
       this.updatePlayers(game);
       this.updateForge(game);
       this.updateCards(game);
       this.updateUnits(game);
+      this.maybeAutoPlay();
     });
   }
 
@@ -103,6 +113,33 @@ export class GameComponent implements OnInit {
           this.defendingUnits.push(unit);
           break;
       }
+    }
+  }
+
+  /**
+   * Play the first card in hand if possible. This should be called after an
+   * world update.
+   */
+  private maybeAutoPlay() {
+    if (!this.autoPlay.value || !this.canAct || this.hand.length === 0) {
+      return;
+    }
+
+    // Schedules a play after the previous delay ends.
+    this.autoPlayPromise = this.autoPlayPromise.then(
+      () =>
+        new Promise((resolve) => {
+          this.maybePlayFirstCardInHand();
+          setTimeout(resolve, AUTO_PLAY_DELAY);
+        })
+    );
+  }
+
+  private maybePlayFirstCardInHand() {
+    // Assumes the only action a card in hand has is play.
+    const playAction = this.hand[0]?.actions[0];
+    if (this.autoPlay.value && this.canAct && playAction) {
+      this.gameClient.execute(playAction.id);
     }
   }
 }
