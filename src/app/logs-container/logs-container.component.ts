@@ -12,10 +12,8 @@ import { LogView } from '../api/log-view';
 export class LogsContainerComponent implements OnInit {
   @Input() gameview$: Observable<GameView>;
   logs: LogView[] = [];
-  get filteredLogs() {
-    return this.logs.filter(
-      (l) => !!l.ownerName && (l.boolValue != null || l.intValue != null)
-    );
+  get groupedLogs() {
+    return null;
   }
 
   constructor(private readonly gameClient: GameClientService) {}
