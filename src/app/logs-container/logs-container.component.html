@@ -1,8 +1,11 @@
 <ng-container *ngFor="let log of logs; let i = index">
-  <div>
-    {{ log.originName }}: {{ log.description }}
+  <div class="log">
+    <span class="origin">{{ log.originName }}:</span> {{ log.description }}
   </div>
-  <div *ngIf="logs[i + 1]?.ownerName != log.ownerName">
-    --- {{ log.ownerName }} ---
-  </div>
+  <ng-container *ngIf="logs[i + 1]?.ownerName != log.ownerName">
+    <mat-divider></mat-divider>
+    <div class="header">
+      {{ log.ownerName }}
+    </div>
+  </ng-container>
 </ng-container>
