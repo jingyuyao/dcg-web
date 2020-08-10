@@ -1,10 +1,12 @@
-<div class="section players">
-  <div class="area">
+<div class="section playersAndLogs">
+  <div class="area players">
     <div class="mat-subheading-1 header">Players</div>
     <app-player-container
       [players]="players"
       [canAct]="canAct"
     ></app-player-container>
+  </div>
+  <div class="area">
     <app-logs-container [gameview$]="gameview$"></app-logs-container>
   </div>
 </div>

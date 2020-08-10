@@ -1,7 +1,6 @@
 <ng-container *ngFor="let log of logs; let i = index">
   <div>
-    <span *ngIf="log.ownerName != log.originName">{{ log.originName }}: </span>
-    {{ log.description }}
+    {{ log.originName }}: {{ log.description }}
   </div>
   <div *ngIf="logs[i + 1]?.ownerName != log.ownerName">
     --- {{ log.ownerName }} ---
