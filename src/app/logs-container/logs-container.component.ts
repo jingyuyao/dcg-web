@@ -12,9 +12,6 @@ import { LogView } from '../api/log-view';
 export class LogsContainerComponent implements OnInit {
   @Input() gameview$: Observable<GameView>;
   logs: LogView[] = [];
-  get groupedLogs() {
-    return null;
-  }
 
   constructor(private readonly gameClient: GameClientService) {}
 

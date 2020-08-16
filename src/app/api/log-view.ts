@@ -1,5 +1,5 @@
 export interface LogView {
-  ownerName: string;
-  originName: string;
+  currentPlayerName: string;
+  originCardName: string;
   description: string;
 }

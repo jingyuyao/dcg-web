@@ -27,6 +27,7 @@ export enum CardLocation {
   DISCARD_PILE = 'DISCARD_PILE',
   HAND = 'HAND',
   PLAY_AREA = 'PLAY_AREA',
+  BANISHED_PILE = 'BANISHED_PILE',
 }
 
 export enum CardColor {
