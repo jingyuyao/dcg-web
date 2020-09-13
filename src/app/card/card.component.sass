@@ -2,13 +2,19 @@
 @use '~src/app/targetable'
 
 :host
+  margin: 5px
+  word-break: break-word
+
+:host(:hover)
+  .hover-content
+    display: flex
+
+.static-container
   display: flex
   flex-direction: column
-  margin: 5px
-  min-width: 120px
+  height: 9vw
   padding: 10px
   width: 9vw
-  word-break: break-word
 
 .header
   display: flex
@@ -31,6 +37,30 @@
 
 .expand
   flex: 1
+
+.image-container
+  align-items: center
+  display: flex
+  flex: 1
+  justify-content: center
+  overflow: hidden
+
+  img
+    max-height: 100%
+    max-width: 100%
+
+.hover-container
+  position: relative
+
+.hover-content
+  background-color: #FFFDE7
+  bottom: 0
+  display: none
+  flex-direction: column
+  left: 0
+  min-width: calc(100% - 20px)
+  padding: 10px
+  position: absolute
 
 .description
   margin-bottom: 5px

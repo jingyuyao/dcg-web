@@ -1,21 +1,33 @@
-<div class="header mat-body-2">
-  <span class="name">{{ card.name }}</span>
-  <span class="kind">{{ card.kind }}</span>
+<div class="static-container">
+  <div class="header mat-body-2">
+    <span class="name">{{ card.name }}</span>
+    <span class="kind">{{ card.kind }}</span>
+  </div>
+  <div class="stats mat-body-1">
+    <span *ngIf="card.strength > 0" class="strength">🗡️{{ card.strength }}</span>
+    <span *ngIf="showPrepurchase" class="cost">⚡{{ card.cost }}</span>
+    <span *ngIf="showPrepurchase && card.canWrap" class="warp">🌟</span>
+    <span class="expand"></span>
+    <ng-container *ngFor="let color of card.colors" [ngSwitch]="color">
+      <span class="circle red" *ngSwitchCase="'RED'"></span>
+      <span class="circle green" *ngSwitchCase="'GREEN'"></span>
+      <span class="circle blue" *ngSwitchCase="'BLUE'"></span>
+      <span class="circle yellow" *ngSwitchCase="'YELLOW'"></span>
+      <span class="circle black" *ngSwitchCase="'BLACK'"></span>
+    </ng-container>
+  </div>
+  <div class="image-container">
+    <img *ngIf="card.kind == 'UNIT'; else spells" src="assets/lyn.png">
+    <ng-template #spells>
+      <img src="assets/spells.png">
+    </ng-template>
+  </div>
 </div>
-<div class="stats mat-body-1">
-  <span *ngIf="card.strength > 0" class="strength">🗡️{{ card.strength }}</span>
-  <span *ngIf="showPrepurchase" class="cost">⚡{{ card.cost }}</span>
-  <span *ngIf="showPrepurchase && card.canWrap" class="warp">🌟</span>
-  <span class="expand"></span>
-  <ng-container *ngFor="let color of card.colors" [ngSwitch]="color">
-    <span class="circle red" *ngSwitchCase="'RED'"></span>
-    <span class="circle green" *ngSwitchCase="'GREEN'"></span>
-    <span class="circle blue" *ngSwitchCase="'BLUE'"></span>
-    <span class="circle yellow" *ngSwitchCase="'YELLOW'"></span>
-    <span class="circle black" *ngSwitchCase="'BLACK'"></span>
-  </ng-container>
+<div class="hover-container">
+  <div class="hover-content">
+    <div class="description mat-body-1">
+      {{ card.description }}
+    </div>
+    <app-actions [actions]="card.actions" [canAct]="canAct"></app-actions>
+  </div>
 </div>
-<div class="description mat-body-1">
-  {{ card.description }}
-</div>
-<app-actions [actions]="card.actions" [canAct]="canAct"></app-actions>
