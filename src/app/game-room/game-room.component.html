@@ -1,32 +1,34 @@
-<ng-container *ngIf="attachmentView$ | async as attachmentView">
-  <ng-container *ngIf="roomView$ | async as roomView; else notJoined">
-    <mat-toolbar class="header" color="primary">
+<ng-container *ngIf="roomView$ | async as roomView; else notJoined">
+  <app-game
+    *ngIf="roomView.isGameInProgress; else prep"
+    [gameview$]="gameView$"
+  ></app-game>
+  <ng-template #prep>
+    <mat-toolbar
+      *ngIf="attachmentView$ | async as attachmentView"
+      class="header"
+      color="primary"
+    >
       <span> Room: {{ attachmentView.roomName }} </span>
       <span> Joined As: {{ attachmentView.playerName }} </span>
     </mat-toolbar>
-    <app-game
-      *ngIf="roomView.isGameInProgress; else prep"
-      [gameview$]="gameView$"
-    ></app-game>
-    <ng-template #prep>
-      <div class="prep">
-        <div class="mat-title">Joined players</div>
-        <mat-list>
-          <mat-list-item *ngFor="let name of roomView.joinedPlayerNames">{{
-            name
-          }}</mat-list-item>
-        </mat-list>
-        <button
-          mat-raised-button
-          [disabled]="roomView.joinedPlayerNames.length < 2"
-          (click)="start()"
-        >
-          Start game
-        </button>
-      </div>
-    </ng-template>
-  </ng-container>
-  <ng-template #notJoined>
-    Not joined.
+    <div class="prep">
+      <div class="mat-title">Joined players</div>
+      <mat-list>
+        <mat-list-item *ngFor="let name of roomView.joinedPlayerNames">{{
+          name
+        }}</mat-list-item>
+      </mat-list>
+      <button
+        mat-raised-button
+        [disabled]="roomView.joinedPlayerNames.length < 2"
+        (click)="start()"
+      >
+        Start game
+      </button>
+    </div>
   </ng-template>
 </ng-container>
+<ng-template #notJoined>
+  Not joined.
+</ng-template>
