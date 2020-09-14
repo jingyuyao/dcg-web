@@ -39,28 +39,22 @@
     <div class="mat-subheading-1 header">
       Attacked by: {{ previousPlayerName }}
     </div>
-    <app-unit-container
+    <app-card-container
       [players]="players"
       [units]="attackingUnits"
       [canAct]="canAct"
-    ></app-unit-container>
+    ></app-card-container>
   </div>
   <mat-divider></mat-divider>
   <div class="area play-area">
     <div class="mat-subheading-1 header">
       Current Player: {{ currentPlayerName }}
     </div>
-    <app-unit-container
-      [players]="players"
-      [units]="defendingUnits"
-      [cards]="playArea"
-      [canAct]="canAct"
-    ></app-unit-container>
     <app-card-container
       [players]="players"
       [cards]="playArea"
+      [units]="defendingUnits"
       [canAct]="canAct"
-      [hideUnits]="true"
     ></app-card-container>
   </div>
   <mat-divider></mat-divider>

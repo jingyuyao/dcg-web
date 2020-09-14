@@ -3,10 +3,12 @@
   <app-card
     appEntity
     appTargetable
-    [entityId]="state.card.id"
-    [ownerId]="state.card.ownerEntity"
+    [entityId]="state.entity.id"
+    [ownerId]="state.entity.ownerEntity"
     [players]="players"
+    [entity]="state.entity"
     [card]="state.card"
+    [unit]="state.unit"
     [canAct]="canAct"
   ></app-card>
   <div *ngIf="dedupe && state.count && state.count > 1">

@@ -7,7 +7,7 @@ export interface CardView extends EntityView {
   canWrap: boolean;
   kind: CardKind;
   location: CardLocation;
-  colors: string[];
+  colors: CardColor[];
   strength: number;
   actions: ActionView[];
 }

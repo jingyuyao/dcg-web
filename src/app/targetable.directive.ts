@@ -8,7 +8,7 @@ import { SelectionService } from './selection.service';
 export class TargetableDirective implements OnDestroy {
   private actionSubsciption: Subscription;
   private targetSubscription: Subscription;
-  @Input() entityId: number;
+  @Input() entityId?: number;
   @HostBinding('class.targetable') targetable = false;
   @HostBinding('class.targetted') targetted = false;
 

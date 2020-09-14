@@ -1,33 +1,55 @@
-<div class="static-container">
+<div
+  class="static-container"
+  appTargetable
+  [entityId]="isPrimaryUnit ? card.id : undefined"
+>
   <div class="header mat-body-2">
-    <span class="name">{{ card.name }}</span>
-    <span class="kind">{{ card.kind }}</span>
+    <span class="name">{{ entity.name }}</span>
+    <span class="kind">{{ isUnitToken ? "TOKEN" : card.kind }}</span>
   </div>
   <div class="stats mat-body-1">
-    <span *ngIf="card.strength > 0" class="strength">🗡️{{ card.strength }}</span>
-    <span *ngIf="showPrepurchase" class="cost">⚡{{ card.cost }}</span>
-    <span *ngIf="showPrepurchase && card.canWrap" class="warp">🌟</span>
+    <span
+      *ngIf="entity.strength > 0"
+      class="strength"
+      [@highlight]="entity.strength"
+      >🗡️{{ entity.strength }}</span
+    >
+    <span *ngIf="defense > 0" class="defense" [@highlight]="defense"
+      >🛡️ {{ defense }}</span
+    >
+    <span *ngIf="!isOwned && card?.cost" class="cost">⚡{{ card.cost }}</span>
+    <span *ngIf="!isOwned && card?.canWrap" class="warp">🌟</span>
     <span class="expand"></span>
-    <ng-container *ngFor="let color of card.colors" [ngSwitch]="color">
-      <span class="circle red" *ngSwitchCase="'RED'"></span>
-      <span class="circle green" *ngSwitchCase="'GREEN'"></span>
-      <span class="circle blue" *ngSwitchCase="'BLUE'"></span>
-      <span class="circle yellow" *ngSwitchCase="'YELLOW'"></span>
-      <span class="circle black" *ngSwitchCase="'BLACK'"></span>
-    </ng-container>
+    <div class="colors" [@highlight]="entity.colors.length">
+      <ng-container *ngFor="let color of entity.colors" [ngSwitch]="color">
+        <span class="circle red" *ngSwitchCase="'RED'"></span>
+        <span class="circle green" *ngSwitchCase="'GREEN'"></span>
+        <span class="circle blue" *ngSwitchCase="'BLUE'"></span>
+        <span class="circle yellow" *ngSwitchCase="'YELLOW'"></span>
+        <span class="circle black" *ngSwitchCase="'BLACK'"></span>
+      </ng-container>
+    </div>
   </div>
   <div class="image-container">
-    <img *ngIf="card.kind == 'UNIT'; else spells" src="assets/lyn.png">
+    <img
+      *ngIf="isPrimaryUnit || isUnitToken || card.kind == 'UNIT'; else spells"
+      src="assets/lyn.png"
+    />
     <ng-template #spells>
-      <img src="assets/spells.png">
+      <img src="assets/spells.png" />
     </ng-template>
   </div>
 </div>
 <div class="hover-container">
   <div class="hover-content">
-    <div class="description mat-body-1">
-      {{ card.description }}
+    <div class="attributes mat-body-1" [@highlight]="unit?.attributes.length">
+      <span *ngFor="let attribute of unit?.attributes" class="attribute">{{
+        attribute
+      }}</span>
     </div>
-    <app-actions [actions]="card.actions" [canAct]="canAct"></app-actions>
+    <div class="description mat-body-1">
+      {{ entity.description }}
+    </div>
+    <app-actions [actions]="entity.actions" [canAct]="canAct"></app-actions>
   </div>
 </div>
