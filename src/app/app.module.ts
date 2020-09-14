@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CardComponent } from './card/card.component';
 import { PlayerComponent } from './player/player.component';
-import { UnitComponent } from './unit/unit.component';
 import { ActionComponent } from './action/action.component';
 import { TargetableDirective } from './targetable.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -26,7 +25,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CardContainerComponent } from './card-container/card-container.component';
-import { UnitContainerComponent } from './unit-container/unit-container.component';
 import { PlayerContainerComponent } from './player-container/player-container.component';
 import { EntityDirective } from './entity.directive';
 import { LogsContainerComponent } from './logs-container/logs-container.component';
@@ -39,12 +37,10 @@ import { LogsContainerComponent } from './logs-container/logs-container.componen
     GameComponent,
     CardComponent,
     PlayerComponent,
-    UnitComponent,
     ActionComponent,
     ActionsComponent,
     TargetableDirective,
     CardContainerComponent,
-    UnitContainerComponent,
     PlayerContainerComponent,
     EntityDirective,
     LogsContainerComponent,
