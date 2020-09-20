@@ -1,24 +1,24 @@
 <div class="section playersAndLogs">
+  <div class="mat-subheading-1 header">Players</div>
   <div class="area players">
-    <div class="mat-subheading-1 header">Players</div>
+    <mat-slide-toggle [formControl]="autoPlay">Auto play</mat-slide-toggle>
     <app-player-container
       [players]="players"
       [canAct]="canAct"
     ></app-player-container>
   </div>
+  <div class="mat-subheading-1 header">Play Log</div>
   <div class="area">
     <app-logs-container [gameview$]="gameview$"></app-logs-container>
   </div>
 </div>
 <mat-divider [vertical]="true"></mat-divider>
 <div class="section forge">
+  <div class="mat-subheading-1 header">
+    Forge
+    <span *ngIf="throneActive" class="throne-active"> Throne active </span>
+  </div>
   <div class="area">
-    <div class="mat-subheading-1 header">
-      Forge
-      <span *ngIf="throneActive" class="throne-active">
-        Throne active
-      </span>
-    </div>
     <app-card-container
       [players]="players"
       [cards]="forgeDedupe"
@@ -35,21 +35,17 @@
 </div>
 <mat-divider [vertical]="true"></mat-divider>
 <div class="section main">
-  <div class="area" *ngIf="previousPlayerName">
-    <div class="mat-subheading-1 header">
-      Attacked by: {{ previousPlayerName }}
-    </div>
+  <div class="area previous-play">
     <app-card-container
       [players]="players"
       [units]="attackingUnits"
       [canAct]="canAct"
     ></app-card-container>
   </div>
-  <mat-divider></mat-divider>
+  <div class="mat-subheading-1 header">
+    🗡️ {{ previousPlayerName || "N/A" }} vs {{ currentPlayerName }} 🛡️
+  </div>
   <div class="area play-area">
-    <div class="mat-subheading-1 header">
-      Current Player: {{ currentPlayerName }}
-    </div>
     <app-card-container
       [players]="players"
       [cards]="playArea"
@@ -57,14 +53,9 @@
       [canAct]="canAct"
     ></app-card-container>
   </div>
-  <mat-divider></mat-divider>
-  <div class="area">
-    <div class="mat-subheading-1 header hand-header">
-      <span>Your Hand</span>
-      <mat-slide-toggle [formControl]="autoPlay">Auto play</mat-slide-toggle>
-      <span>Deck Size: {{ deckSize }}</span>
-    </div>
+  <div class="area hand">
     <app-card-container
+      class="hand-card-container"
       [players]="players"
       [cards]="hand"
       [canAct]="canAct"
@@ -77,8 +68,13 @@
     (closed)="discardPileOpen = false"
   >
     <mat-expansion-panel-header>
-      <mat-panel-title>
-        Discard Pile: {{ discardPile.length }}
+      <mat-panel-title class="discard-title">
+        <span>
+          Deck Size: {{ deckSize }}
+        </span>
+        <span>
+          Discard Pile: {{ discardPile.length }}
+        </span>
       </mat-panel-title>
     </mat-expansion-panel-header>
     <app-card-container

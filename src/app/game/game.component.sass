@@ -8,20 +8,29 @@
   overflow-x: hidden
   overflow-y: auto
 
+.header
+  display: flex
+  justify-content: center
+
+.area
+  display: flex
+  flex-direction: column
+  overflow: auto
+
 .playersAndLogs
   align-items: center
   display: flex
-  flex: 1
   flex-direction: column
+  width: 200px
 
-  .players
-    flex: 0 0 auto
+.players
+  flex: 0 0 auto
 
 .forge
   align-items: center
   display: flex
-  flex: 2
   flex-direction: column
+  width: 400px
 
 .forge-separator
   margin: 8px 0
@@ -32,19 +41,29 @@
 
 .main
   display: flex
-  flex: 5
+  flex: 1
   flex-direction: column
 
-.area
-  display: flex
+.previous-play,
+.play-area
   flex: 1 1 auto
-  flex-direction: column
-  overflow: auto
-  padding: 8px
+  justify-content: center
 
-.hand-header
-  display: flex
-  justify-content: space-between
+.hand
+  align-items: center
+  height: 80px
+  overflow-y: hidden
+
+.hand:hover
+  height: auto
+
+.hand-card-container
+  flex-wrap: nowrap
+  justify-content: start
 
 .overflow
   overflow: auto
+
+.discard-title
+  display: flex
+  justify-content: space-between
