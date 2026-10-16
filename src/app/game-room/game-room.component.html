@@ -1,4 +1,16 @@
 <ng-container *ngIf="roomView$ | async as roomView; else notJoined">
+  <mat-toolbar *ngIf="roomView.isGameOver" class="header" color="primary">
+    <span *ngIf="gameView$ | async as gameView">
+      Game over. Winner: {{ winnerName(gameView) }}
+    </span>
+    <button
+      mat-raised-button
+      [disabled]="roomView.joinedPlayerNames.length < 2"
+      (click)="start()"
+    >
+      New game
+    </button>
+  </mat-toolbar>
   <app-game
     *ngIf="roomView.isGameInProgress; else prep"
     [gameview$]="gameView$"

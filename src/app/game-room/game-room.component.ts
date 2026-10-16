@@ -51,4 +51,8 @@ export class GameRoomComponent implements OnInit, OnDestroy {
   start() {
     this.gameClient.startGame();
   }
+
+  winnerName(gameView: GameView): string {
+    return gameView.players.find((player) => player.hp > 0)?.name ?? '';
+  }
 }
