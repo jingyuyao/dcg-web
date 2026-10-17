@@ -26,6 +26,16 @@ export class GameRoomComponent implements OnInit, OnDestroy {
     this.gameClient
       .listen(ServerMessageKind.ATTACHMENT_VIEW)
       .subscribe(this.attachmentView$);
+    // Remember the rejoin token so a reload can take back our seat in a game in
+    // progress.
+    this.attachmentView$.subscribe((view) => {
+      if (view.roomName && view.playerName && view.rejoinToken) {
+        localStorage.setItem(
+          rejoinTokenKey(view.roomName, view.playerName),
+          view.rejoinToken
+        );
+      }
+    });
     this.gameClient
       .listen(ServerMessageKind.GAME_ROOM_VIEW)
       .subscribe(this.roomView$);
@@ -36,7 +46,14 @@ export class GameRoomComponent implements OnInit, OnDestroy {
     // Only triggers join after we set up all the required subscriptions.
     combineLatest([this.route.params, this.route.queryParams]).subscribe(
       ([param, query]) => {
-        this.gameClient.joinRoom(param.roomName, query.playerName);
+        const rejoinToken = localStorage.getItem(
+          rejoinTokenKey(param.roomName, query.playerName)
+        );
+        this.gameClient.joinRoom(
+          param.roomName,
+          query.playerName,
+          rejoinToken || undefined
+        );
       }
     );
   }
@@ -55,4 +72,8 @@ export class GameRoomComponent implements OnInit, OnDestroy {
   winnerName(gameView: GameView): string {
     return gameView.players.find((player) => player.hp > 0)?.name ?? '';
   }
+}
+
+function rejoinTokenKey(roomName: string, playerName: string): string {
+  return `rejoinToken:${roomName}:${playerName}`;
 }

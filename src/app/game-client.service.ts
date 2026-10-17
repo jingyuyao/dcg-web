@@ -44,10 +44,12 @@ export class GameClientService implements OnDestroy {
     );
   }
 
-  joinRoom(roomName: string, playerName: string) {
+  joinRoom(roomName: string, playerName: string, rejoinToken?: string) {
     this.sendMessage({
       kind: ClientMessageKind.JOIN_ROOM,
-      strArgs: [roomName, playerName],
+      strArgs: rejoinToken
+        ? [roomName, playerName, rejoinToken]
+        : [roomName, playerName],
     });
   }
 
